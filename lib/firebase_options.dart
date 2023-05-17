@@ -44,40 +44,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAdvH_IJBeCd_YWj8MToXtNW5fKQ3ptLlg',
-    appId: '1:17138422201:web:339f8f3ec05d5561fb6668',
-    messagingSenderId: '17138422201',
-    projectId: 'news-app-v2-e2716',
-    authDomain: 'news-app-v2-e2716.firebaseapp.com',
-    storageBucket: 'news-app-v2-e2716.appspot.com',
-    measurementId: 'G-E8VCNPHBXS',
+    apiKey: 'AIzaSyCRNQ9WX1M9VSdv8Yz5-hiio-3dCCCLWsE',
+    appId: '1:883633075447:web:ee407a17526c94671d8ff2',
+    messagingSenderId: '883633075447',
+    projectId: 'triviazilla-97a8f',
+    authDomain: 'triviazilla-97a8f.firebaseapp.com',
+    storageBucket: 'triviazilla-97a8f.appspot.com',
+    measurementId: 'G-25YB3Y29WF',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBTYaY3TNVgbhroODrhE72u3UhQYmV-aCk',
-    appId: '1:17138422201:android:4df07c5d141a44f7fb6668',
-    messagingSenderId: '17138422201',
-    projectId: 'news-app-v2-e2716',
-    storageBucket: 'news-app-v2-e2716.appspot.com',
+    apiKey: 'AIzaSyD2pVN2EafIBTeI_3X3209QizCFZ4amuQY',
+    appId: '1:883633075447:android:3f1009bbb6e1e5681d8ff2',
+    messagingSenderId: '883633075447',
+    projectId: 'triviazilla-97a8f',
+    storageBucket: 'triviazilla-97a8f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCVfi6Z3Ixuvsdf4eBDNk09uIxZCdS4mAE',
-    appId: '1:17138422201:ios:8f4e7a6069bbe40efb6668',
-    messagingSenderId: '17138422201',
-    projectId: 'news-app-v2-e2716',
-    storageBucket: 'news-app-v2-e2716.appspot.com',
-    iosClientId: '17138422201-aq0130n1jqpj2rmt02bqiu8se5cq5fcf.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAGdmU61KgdOWSvETl4bm9z-OKXWIqx2zc',
+    appId: '1:883633075447:ios:89f8a4e4d042cdd51d8ff2',
+    messagingSenderId: '883633075447',
+    projectId: 'triviazilla-97a8f',
+    storageBucket: 'triviazilla-97a8f.appspot.com',
+    iosClientId: '883633075447-h376sckpphe7aofvrc37qhsqq3c1nunj.apps.googleusercontent.com',
     iosBundleId: 'com.example.flutterBase',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCVfi6Z3Ixuvsdf4eBDNk09uIxZCdS4mAE',
-    appId: '1:17138422201:ios:8f4e7a6069bbe40efb6668',
-    messagingSenderId: '17138422201',
-    projectId: 'news-app-v2-e2716',
-    storageBucket: 'news-app-v2-e2716.appspot.com',
-    iosClientId: '17138422201-aq0130n1jqpj2rmt02bqiu8se5cq5fcf.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAGdmU61KgdOWSvETl4bm9z-OKXWIqx2zc',
+    appId: '1:883633075447:ios:89f8a4e4d042cdd51d8ff2',
+    messagingSenderId: '883633075447',
+    projectId: 'triviazilla-97a8f',
+    storageBucket: 'triviazilla-97a8f.appspot.com',
+    iosClientId: '883633075447-h376sckpphe7aofvrc37qhsqq3c1nunj.apps.googleusercontent.com',
     iosBundleId: 'com.example.flutterBase',
   );
 }

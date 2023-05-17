@@ -1,49 +1,34 @@
 {
   "project_info": {
-    "project_number": "17138422201",
-    "project_id": "news-app-v2-e2716",
-    "storage_bucket": "news-app-v2-e2716.appspot.com"
+    "project_number": "883633075447",
+    "project_id": "triviazilla-97a8f",
+    "storage_bucket": "triviazilla-97a8f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:17138422201:android:4df07c5d141a44f7fb6668",
+        "mobilesdk_app_id": "1:883633075447:android:3f1009bbb6e1e5681d8ff2",
         "android_client_info": {
           "package_name": "com.example.triviazilla"
         }
       },
       "oauth_client": [
         {
-          "client_id": "17138422201-f7lhr6lle708s7o3pgj3d8bldib5vcao.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.triviazilla",
-            "certificate_hash": "b7dae533bc817991e5dad1e54d594562dbf63880"
-          }
-        },
-        {
-          "client_id": "17138422201-hph5a6iq3fbi0dm94efq47hpnm0q1ao6.apps.googleusercontent.com",
+          "client_id": "883633075447-kjiucjoid9bhvo6hublq0bqg9jh7347f.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBTYaY3TNVgbhroODrhE72u3UhQYmV-aCk"
+          "current_key": "AIzaSyD2pVN2EafIBTeI_3X3209QizCFZ4amuQY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "17138422201-86fbsa23uoum37qcub6bestugv1c7fth.apps.googleusercontent.com",
+              "client_id": "883633075447-kjiucjoid9bhvo6hublq0bqg9jh7347f.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "17138422201-aq0130n1jqpj2rmt02bqiu8se5cq5fcf.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.flutterBase"
-              }
             }
           ]
         }
