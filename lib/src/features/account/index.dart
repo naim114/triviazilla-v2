@@ -5,17 +5,15 @@ import 'package:triviazilla/src/features/account/profile/index.dart';
 import 'package:triviazilla/src/features/account/security/index.dart';
 import 'package:triviazilla/src/features/admin/index.dart';
 import 'package:triviazilla/src/features/admin/settings/index.dart';
-import 'package:triviazilla/src/features/news/liked.dart';
+import 'package:triviazilla/src/features/news/menu.dart';
 import 'package:triviazilla/src/services/helpers.dart';
 import 'package:triviazilla/src/services/user_services.dart';
 import 'package:triviazilla/src/widgets/builder/user_builder.dart';
 import 'package:triviazilla/src/widgets/typography/page_title_icon.dart';
-
 import '../../model/user_model.dart';
 import '../../services/auth_services.dart';
 import '../../widgets/list_tile/list_tile_icon.dart';
 import '../../widgets/list_tile/list_tile_profile.dart';
-import '../news/bookmarked.dart';
 
 class Account extends StatefulWidget {
   const Account({
@@ -141,26 +139,14 @@ class _AccountState extends State<Account> {
                               ),
                             ),
                           ),
-                          // Liked News
+                          // News
                           listTileIcon(
                             context: context,
-                            icon: CupertinoIcons.heart_fill,
-                            title: "Liked News",
+                            icon: Icons.newspaper,
+                            title: "News",
                             onTap: () => Navigator.of(widget.mainContext).push(
                               MaterialPageRoute(
-                                builder: (context) => LikedNews(user: user),
-                              ),
-                            ),
-                          ),
-                          // Liked News
-                          listTileIcon(
-                            context: context,
-                            icon: CupertinoIcons.bookmark_fill,
-                            title: "Bookmarked News",
-                            onTap: () => Navigator.of(widget.mainContext).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    BookmarkedNews(user: user),
+                                builder: (context) => NewsMenu(user: user),
                               ),
                             ),
                           ),
