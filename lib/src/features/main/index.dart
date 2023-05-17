@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:triviazilla/src/features/account/index.dart';
+import 'package:triviazilla/src/features/home/index.dart';
 import 'package:triviazilla/src/features/notification/index.dart';
+import 'package:triviazilla/src/features/quiz/index.dart';
 import 'package:triviazilla/src/services/helpers.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:provider/provider.dart';
 import '../../model/user_model.dart';
-// import '../explore/index.dart';
-// import '../news/index.dart';
 
 class FrontFrame extends StatefulWidget {
   const FrontFrame({super.key});
@@ -28,20 +28,20 @@ class _FrontFrameState extends State<FrontFrame> {
   // Screen
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-      // PersistentBottomNavBarItem(
-      //   icon: const Icon(Icons.home),
-      //   title: ("Home"),
-      //   activeColorPrimary:
-      //       isDarkTheme(context) ? Colors.white : CustomColor.primary,
-      //   inactiveColorPrimary: CupertinoColors.systemGrey,
-      // ),
-      // PersistentBottomNavBarItem(
-      //   icon: const Icon(Icons.search_rounded),
-      //   title: ("Discover"),
-      //   activeColorPrimary:
-      //       isDarkTheme(context) ? Colors.white : CustomColor.primary,
-      //   inactiveColorPrimary: CupertinoColors.systemGrey,
-      // ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.home),
+        title: ("Home"),
+        activeColorPrimary:
+            isDarkTheme(context) ? Colors.white : CustomColor.primary,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.extension),
+        title: ("Quiz"),
+        activeColorPrimary:
+            isDarkTheme(context) ? Colors.white : CustomColor.primary,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+      ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.bell_fill),
         title: ("Notification"),
@@ -67,9 +67,8 @@ class _FrontFrameState extends State<FrontFrame> {
       context,
       controller: _controller,
       screens: [
-        // Home
-        // Discover
-        // Quiz (my quiz, history)
+        Home(),
+        Quiz(),
         Notifications(mainContext: context, user: user),
         Account(mainContext: context, user: user),
       ],
