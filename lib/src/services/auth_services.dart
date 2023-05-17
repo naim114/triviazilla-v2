@@ -194,6 +194,14 @@ class AuthService {
           final addedUser = await UserServices().get(user.uid);
 
           if (addedUser != null) {
+            UserActivityServices().add(
+              user: addedUser,
+              description: "Sign In",
+              activityType: "sign_in",
+              networkInfo: _networkInfo,
+              deviceInfoPlugin: _deviceInfoPlugin,
+            );
+
             return addedUser;
           } else {
             // New user, add to Firestore

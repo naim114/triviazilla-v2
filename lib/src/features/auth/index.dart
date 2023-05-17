@@ -207,7 +207,7 @@ Widget registerButton({
                           final result =
                               await AuthService().continueWithGoogle();
 
-                          print("Sign Up With Google: ${result.toString()}");
+                          print("Continue With Google: ${result.toString()}");
                         } catch (e) {
                           print(e.toString());
                           Fluttertoast.showToast(msg: e.toString());
@@ -228,7 +228,6 @@ Widget registerButton({
                               color: isDarkTheme(context)
                                   ? Colors.white
                                   : CustomColor.neutral1, // Text color
-                              fontSize: 18,
                             ),
                           ),
                         ],
@@ -261,7 +260,6 @@ Widget registerButton({
                               color: isDarkTheme(context)
                                   ? Colors.white
                                   : CustomColor.neutral1, // Text color
-                              fontSize: 18,
                             ),
                           ),
                         ],
@@ -277,7 +275,6 @@ Widget registerButton({
           'Create an account',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 18,
           ),
         ),
       ),
@@ -356,7 +353,7 @@ Widget loginButton({
                           final result =
                               await AuthService().continueWithGoogle();
 
-                          print("Sign Up With Google: ${result.toString()}");
+                          print("Continue With Google: ${result.toString()}");
                         } catch (e) {
                           print(e.toString());
                           Fluttertoast.showToast(msg: e.toString());
@@ -377,7 +374,6 @@ Widget loginButton({
                               color: isDarkTheme(context)
                                   ? Colors.white
                                   : CustomColor.neutral1, // Text color
-                              fontSize: 18,
                             ),
                           ),
                         ],
@@ -410,7 +406,6 @@ Widget loginButton({
                               color: isDarkTheme(context)
                                   ? Colors.white
                                   : CustomColor.neutral1, // Text color
-                              fontSize: 18,
                             ),
                           ),
                         ],
@@ -428,7 +423,6 @@ Widget loginButton({
             color: isDarkTheme(context)
                 ? Colors.white
                 : CustomColor.primary, // Text color
-            fontSize: 18,
           ),
         ),
       ),

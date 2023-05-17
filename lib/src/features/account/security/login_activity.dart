@@ -44,11 +44,11 @@ class LoginActivity extends StatelessWidget {
             return const Center(child: Text("No data to display"));
           }
 
-          List<UserActivityModel?>? dataList = snapshot.data;
+          List<UserActivityModel?>? dataList = snapshot.data ?? [];
 
           return ListView(
             children: List.generate(
-              dataList!.length,
+              dataList.length,
               (index) {
                 UserActivityModel? activity = dataList.elementAt(index);
 
