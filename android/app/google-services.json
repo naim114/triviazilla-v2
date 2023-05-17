@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "883633075447-kjiucjoid9bhvo6hublq0bqg9jh7347f.apps.googleusercontent.com",
+          "client_id": "883633075447-b9bj6495qfari3cn54pfq0sqogije0pq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.triviazilla",
+            "certificate_hash": "b7dae533bc817991e5dad1e54d594562dbf63880"
+          }
+        },
+        {
+          "client_id": "883633075447-rcr23hea8mhnb70fvkj3p1sj9p4h6b1j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +37,13 @@
             {
               "client_id": "883633075447-kjiucjoid9bhvo6hublq0bqg9jh7347f.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "883633075447-h376sckpphe7aofvrc37qhsqq3c1nunj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterBase"
+              }
             }
           ]
         }

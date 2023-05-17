@@ -1,7 +1,7 @@
-# News App
+# Triviazilla
 <img src="https://github.com/naim114/triviazilla/blob/master/demo/logo_main.png" href="https://github.com/naim114/triviazilla" width="400" >
 
-News App is a simple application that allows users to read, and post news. The app is built using Flutter and Firebase.
+Triviazilla is a simple application that allows users to read, and post news. The app is built using Flutter and Firebase.
 
 ### Features
 - Log in/Sign up with Google (NEW)
