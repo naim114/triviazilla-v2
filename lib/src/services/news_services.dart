@@ -130,6 +130,17 @@ class NewsService {
     }
   }
 
+  Future<List<NewsModel>> getPopularNews({int limit = 5}) async {
+    final List<NewsModel> fetchedAllNews =
+        (await NewsService().getAll()).whereType<NewsModel>().toList();
+
+    var res = fetchedAllNews.toList()
+      ..sort((a, b) => b.likedBy!.length.compareTo(a.likedBy!.length))
+      ..take(limit).toList();
+
+    return res;
+  }
+
   // get by id
   Future<NewsModel?> get(String id) {
     return _collectionRef.doc(id).get().then((DocumentSnapshot doc) {

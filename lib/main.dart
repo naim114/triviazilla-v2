@@ -98,7 +98,7 @@ class _MyAppState extends State<MyApp> {
           // DARK THEME
           darkTheme: ThemeData(
             brightness: Brightness.dark,
-            fontFamily: GoogleFonts.questrial().fontFamily,
+            fontFamily: GoogleFonts.poppins().fontFamily,
             primarySwatch: primaryColorShades,
             primaryColor: CustomColor.primary,
             textTheme: Theme.of(context).textTheme.apply(
@@ -120,7 +120,7 @@ class _MyAppState extends State<MyApp> {
           // LIGHT THEME
           theme: ThemeData(
             brightness: Brightness.light,
-            fontFamily: 'Questrial',
+            fontFamily: GoogleFonts.poppins().fontFamily,
             primarySwatch: primaryColorShades,
             primaryColor: CustomColor.primary,
             textTheme: Theme.of(context).textTheme.apply(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:triviazilla/src/features/account/index.dart';
 import 'package:triviazilla/src/features/home/index.dart';
 import 'package:triviazilla/src/features/notification/index.dart';
-import 'package:triviazilla/src/features/quiz/index.dart';
+import 'package:triviazilla/src/features/trivia/index.dart';
 import 'package:triviazilla/src/services/helpers.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:provider/provider.dart';
@@ -67,7 +67,11 @@ class _FrontFrameState extends State<FrontFrame> {
       context,
       controller: _controller,
       screens: [
-        Home(),
+        Home(
+          mainContext: context,
+          user: user,
+          onAvatarTap: () => _controller.jumpToTab(3),
+        ),
         Quiz(),
         Notifications(mainContext: context, user: user),
         Account(mainContext: context, user: user),

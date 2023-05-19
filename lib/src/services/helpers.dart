@@ -7,8 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
 class CustomColor {
-  static const primary = Color(0xFFc32148);
-  static const secondary = Color(0xFF21C39C);
+  static const primary = Color(0xFFF28500);
+  static const secondary = Color(0xFF00F285);
   static const neutral1 = Color(0xFF1C1243);
   static const neutral2 = Color(0xFFA29EB6);
   static const neutral3 = Color(0xFFEFF1F3);

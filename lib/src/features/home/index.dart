@@ -1,12 +1,160 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:triviazilla/src/features/home/whats_new.dart';
+import 'package:triviazilla/src/model/news_model.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+import '../../model/user_model.dart';
+import '../../services/news_services.dart';
+import '../../widgets/image/avatar.dart';
+import '../../widgets/image/logo_favicon.dart';
+import '../trivia/my_trivia.dart';
+import 'categories.dart';
+import 'popular.dart';
+
+class Home extends StatefulWidget {
+  final UserModel? user;
+  final BuildContext mainContext;
+  final void Function()? onAvatarTap;
+
+  const Home({
+    super.key,
+    required this.user,
+    required this.mainContext,
+    this.onAvatarTap,
+  });
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
+  List<List<Object>> allList = [
+    [], // categories
+    [], // my trivia
+    [], // popular
+    [], // news
+  ];
+
+  bool loading = true;
+
+  Future<void> _refreshData() async {
+    try {
+      List<NewsModel> newsList = await NewsService().getPopularNews();
+
+      setState(() {
+        loading = false;
+        allList = [
+          [], // categories
+          [], // my trivia
+          [], // popular
+          newsList,
+        ];
+      });
+
+      // Trigger a refresh of the RefreshIndicator widget
+      _refreshIndicatorKey.currentState?.show();
+    } catch (e) {
+      print("Error Get All Type of News:  ${e.toString()}");
+    }
+
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Home')),
+      appBar: AppBar(
+        centerTitle: true,
+        title: logoFavicon(context: context),
+        leading: GestureDetector(
+          onTap: widget.onAvatarTap,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 20.0,
+              top: 10,
+              bottom: 10,
+            ),
+            child: avatar(
+              user: widget.user!,
+              width: MediaQuery.of(context).size.height * 0.05,
+              height: MediaQuery.of(context).size.height * 0.05,
+            ),
+          ),
+        ),
+      ),
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: _refreshData,
+        child: Builder(builder: (context) {
+          final List<NewsModel> latestNewsList =
+              List<NewsModel>.from(allList[3]);
+
+          return ListView(
+            children: [
+              // Search box
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                  top: 20,
+                ),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.045,
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: TextField(
+                      readOnly: false,
+                      autofocus: false,
+                      enabled: false,
+                      decoration: InputDecoration(
+                        fillColor:
+                            Theme.of(context).brightness == Brightness.dark
+                                ? CupertinoColors.darkBackgroundGray
+                                : Colors.white,
+                        disabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: CupertinoColors.systemGrey,
+                            width: 1,
+                          ),
+                        ),
+                        contentPadding: const EdgeInsets.all(0),
+                        prefixIcon: const Icon(Icons.search),
+                        hintText: 'Search news',
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // Categories
+              categoriesHome(context: context),
+              // My Trivia
+              myTrivia(context: context),
+              // Popular Trivia
+              popularTrivia(context: context),
+              // Whats New
+              latestNewsList.isEmpty
+                  ? const SizedBox()
+                  : whatsNew(
+                      mainContext: widget.mainContext,
+                      user: widget.user,
+                      context: context,
+                      newsList: latestNewsList,
+                    ),
+              // End
+              const SizedBox(height: 50),
+            ],
+          );
+        }),
+      ),
     );
   }
 }

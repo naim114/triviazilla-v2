@@ -6,7 +6,7 @@ import '../../model/app_settings_model.dart';
 
 Widget logoFavicon({
   required BuildContext context,
-  double height = 30,
+  double height = 40,
 }) {
   final appSettings = Provider.of<AppSettingsModel?>(context);
 

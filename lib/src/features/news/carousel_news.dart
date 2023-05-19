@@ -13,7 +13,7 @@ class CarouselNews extends StatefulWidget {
     required this.user,
   });
   final BuildContext mainContext;
-  final List<NewsModel?> newsList;
+  final List<NewsModel> newsList;
   final UserModel user;
 
   @override
