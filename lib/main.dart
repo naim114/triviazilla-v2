@@ -32,18 +32,18 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   MaterialColor primaryColorShades = const MaterialColor(
-    0xFF643FDB,
+    0xFFF28500,
     <int, Color>{
-      50: Color.fromRGBO(100, 63, 219, .1),
-      100: Color.fromRGBO(100, 63, 219, .2),
-      200: Color.fromRGBO(100, 63, 219, .3),
-      300: Color.fromRGBO(100, 63, 219, .4),
-      400: Color.fromRGBO(100, 63, 219, .5),
-      500: Color.fromRGBO(100, 63, 219, .6),
-      600: Color.fromRGBO(100, 63, 219, .7),
-      700: Color.fromRGBO(100, 63, 219, .8),
-      800: Color.fromRGBO(100, 63, 219, .9),
-      900: Color.fromRGBO(100, 63, 219, 1),
+      50: Color(0xffda7800),
+      100: Color(0xffc26a00),
+      200: Color(0xffa95d00),
+      300: Color(0xff915000),
+      400: Color(0xff794300),
+      500: Color(0xff613500),
+      600: Color(0xff492800),
+      700: Color(0xff301b00),
+      800: Color(0xff180d00),
+      900: Color(0xff000000),
     },
   );
 
