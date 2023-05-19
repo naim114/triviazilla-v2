@@ -7,8 +7,8 @@ Widget pageTitleIcon({
   required Icon icon,
   double fontSize = 20,
 }) =>
-    RichText(
-      text: TextSpan(
+    Text.rich(
+      TextSpan(
         children: [
           TextSpan(
             text: title,

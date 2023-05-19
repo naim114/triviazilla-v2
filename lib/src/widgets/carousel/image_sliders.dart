@@ -85,8 +85,8 @@ List<Widget> imageSliders({
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        subtitle: RichText(
-                          text: TextSpan(
+                        subtitle: Text.rich(
+                          TextSpan(
                             children: [
                               const WidgetSpan(
                                 child: Icon(

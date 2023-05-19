@@ -77,9 +77,9 @@ class AuthIndex extends StatelessWidget {
                                 Container(
                                   width:
                                       MediaQuery.of(context).size.width * 0.7,
-                                  child: RichText(
+                                  child: Text.rich(
                                     textAlign: TextAlign.center,
-                                    text: TextSpan(
+                                    TextSpan(
                                       style: const TextStyle(height: 1.5),
                                       children: [
                                         TextSpan(

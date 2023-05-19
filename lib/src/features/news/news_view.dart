@@ -389,8 +389,8 @@ class _NewsViewState extends State<NewsView> {
                                     ),
                                   ),
                                 ),
-                                child: RichText(
-                                  text: TextSpan(
+                                child: Text.rich(
+                                  TextSpan(
                                     children: [
                                       const WidgetSpan(
                                         child: Icon(
@@ -431,8 +431,8 @@ class _NewsViewState extends State<NewsView> {
                                     ),
                                   ),
                                 ),
-                                child: RichText(
-                                  text: TextSpan(
+                                child: Text.rich(
+                                  TextSpan(
                                     children: [
                                       WidgetSpan(
                                         child: Icon(

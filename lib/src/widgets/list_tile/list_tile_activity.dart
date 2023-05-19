@@ -20,8 +20,8 @@ Widget listTileActivity({
       children: <Widget>[
         !signInFormat
             ? ListTile(
-                title: RichText(
-                  text: TextSpan(
+                title: Text.rich(
+                  TextSpan(
                     style: TextStyle(color: getColorByBackground(context)),
                     children: <TextSpan>[
                       const TextSpan(
@@ -34,8 +34,8 @@ Widget listTileActivity({
               )
             : const SizedBox(),
         ListTile(
-          title: RichText(
-            text: TextSpan(
+          title: Text.rich(
+            TextSpan(
               style: TextStyle(color: getColorByBackground(context)),
               children: <TextSpan>[
                 const TextSpan(
@@ -49,8 +49,8 @@ Widget listTileActivity({
           ),
         ),
         ListTile(
-          title: RichText(
-            text: TextSpan(
+          title: Text.rich(
+            TextSpan(
               style: TextStyle(color: getColorByBackground(context)),
               children: <TextSpan>[
                 const TextSpan(
@@ -66,8 +66,8 @@ Widget listTileActivity({
             : Column(
                 children: [
                   ListTile(
-                    title: RichText(
-                      text: TextSpan(
+                    title: Text.rich(
+                      TextSpan(
                         style: TextStyle(color: getColorByBackground(context)),
                         children: <TextSpan>[
                           const TextSpan(
@@ -79,8 +79,8 @@ Widget listTileActivity({
                     ),
                   ),
                   ListTile(
-                    title: RichText(
-                      text: TextSpan(
+                    title: Text.rich(
+                      TextSpan(
                         style: TextStyle(color: getColorByBackground(context)),
                         children: <TextSpan>[
                           const TextSpan(
@@ -92,8 +92,8 @@ Widget listTileActivity({
                     ),
                   ),
                   ListTile(
-                    title: RichText(
-                      text: TextSpan(
+                    title: Text.rich(
+                      TextSpan(
                         style: TextStyle(color: getColorByBackground(context)),
                         children: <TextSpan>[
                           const TextSpan(
@@ -105,8 +105,8 @@ Widget listTileActivity({
                     ),
                   ),
                   ListTile(
-                    title: RichText(
-                      text: TextSpan(
+                    title: Text.rich(
+                      TextSpan(
                         style: TextStyle(color: getColorByBackground(context)),
                         children: <TextSpan>[
                           const TextSpan(
@@ -118,8 +118,8 @@ Widget listTileActivity({
                     ),
                   ),
                   ListTile(
-                    title: RichText(
-                      text: TextSpan(
+                    title: Text.rich(
+                      TextSpan(
                         style: TextStyle(color: getColorByBackground(context)),
                         children: <TextSpan>[
                           const TextSpan(
@@ -131,8 +131,8 @@ Widget listTileActivity({
                     ),
                   ),
                   ListTile(
-                    title: RichText(
-                      text: TextSpan(
+                    title: Text.rich(
+                      TextSpan(
                         style: TextStyle(color: getColorByBackground(context)),
                         children: <TextSpan>[
                           const TextSpan(
@@ -144,8 +144,8 @@ Widget listTileActivity({
                     ),
                   ),
                   ListTile(
-                    title: RichText(
-                      text: TextSpan(
+                    title: Text.rich(
+                      TextSpan(
                         style: TextStyle(color: getColorByBackground(context)),
                         children: <TextSpan>[
                           const TextSpan(

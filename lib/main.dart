@@ -101,10 +101,12 @@ class _MyAppState extends State<MyApp> {
             fontFamily: GoogleFonts.poppins().fontFamily,
             primarySwatch: primaryColorShades,
             primaryColor: CustomColor.primary,
-            textTheme: Theme.of(context).textTheme.apply(
-                  bodyColor: Colors.white,
-                  displayColor: Colors.white,
-                ),
+            textTheme: GoogleFonts.poppinsTextTheme(
+              Theme.of(context).textTheme.apply(
+                    bodyColor: Colors.white,
+                    displayColor: Colors.white,
+                  ),
+            ),
             scaffoldBackgroundColor: CustomColor.neutral1,
             appBarTheme: const AppBarTheme(
                 backgroundColor: CustomColor.neutral1,
@@ -123,10 +125,12 @@ class _MyAppState extends State<MyApp> {
             fontFamily: GoogleFonts.poppins().fontFamily,
             primarySwatch: primaryColorShades,
             primaryColor: CustomColor.primary,
-            textTheme: Theme.of(context).textTheme.apply(
-                  bodyColor: CustomColor.neutral1,
-                  displayColor: CustomColor.neutral1,
-                ),
+            textTheme: GoogleFonts.poppinsTextTheme(
+              Theme.of(context).textTheme.apply(
+                    bodyColor: CustomColor.neutral1,
+                    displayColor: CustomColor.neutral1,
+                  ),
+            ),
             scaffoldBackgroundColor: Colors.white,
             appBarTheme: const AppBarTheme(
                 backgroundColor: Colors.white,

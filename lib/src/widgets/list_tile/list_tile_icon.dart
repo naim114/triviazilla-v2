@@ -10,8 +10,8 @@ Widget listTileIcon({
   double? fontSize = 16,
 }) =>
     ListTile(
-      title: RichText(
-        text: TextSpan(
+      title: Text.rich(
+        TextSpan(
           children: [
             WidgetSpan(
               child: Icon(

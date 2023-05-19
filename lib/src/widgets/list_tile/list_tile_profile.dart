@@ -45,8 +45,8 @@ Widget listTileProfile({
                 ),
               ),
             ),
-            child: RichText(
-              text: TextSpan(
+            child: Text.rich(
+              TextSpan(
                 children: [
                   TextSpan(
                     text: 'Edit ',

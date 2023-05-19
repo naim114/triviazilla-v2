@@ -33,8 +33,8 @@ class Libraries extends StatelessWidget {
             title: Text('${package.name} ${package.version}'),
             children: [
               ListTile(
-                title: RichText(
-                  text: TextSpan(
+                title: Text.rich(
+                  TextSpan(
                     style: TextStyle(color: getColorByBackground(context)),
                     children: <TextSpan>[
                       const TextSpan(
@@ -46,8 +46,8 @@ class Libraries extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: RichText(
-                  text: TextSpan(
+                title: Text.rich(
+                  TextSpan(
                     style: TextStyle(color: getColorByBackground(context)),
                     children: <TextSpan>[
                       const TextSpan(
@@ -59,8 +59,8 @@ class Libraries extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: RichText(
-                  text: TextSpan(
+                title: Text.rich(
+                  TextSpan(
                     style: TextStyle(color: getColorByBackground(context)),
                     children: <TextSpan>[
                       const TextSpan(
@@ -72,8 +72,8 @@ class Libraries extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: RichText(
-                  text: TextSpan(
+                title: Text.rich(
+                  TextSpan(
                     style: TextStyle(color: getColorByBackground(context)),
                     children: <TextSpan>[
                       const TextSpan(

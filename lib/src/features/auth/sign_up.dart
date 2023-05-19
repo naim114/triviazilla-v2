@@ -199,8 +199,8 @@ class _SignUpState extends State<SignUp> {
                       MaterialPageRoute(builder: (context) => const LogIn()),
                     );
                   },
-                  child: RichText(
-                    text: const TextSpan(
+                  child: const Text.rich(
+                    TextSpan(
                       style: TextStyle(fontWeight: FontWeight.bold),
                       children: [
                         TextSpan(

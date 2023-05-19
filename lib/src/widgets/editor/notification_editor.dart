@@ -145,8 +145,8 @@ class _NotificationEditorState extends State<NotificationEditor> {
                       ),
                     ),
                   ),
-                  title: RichText(
-                    text: TextSpan(
+                  title: Text.rich(
+                    TextSpan(
                       style: const TextStyle(fontSize: 16),
                       children: <TextSpan>[
                         TextSpan(

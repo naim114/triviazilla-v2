@@ -16,8 +16,8 @@ Widget whatsNew({
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 20, left: 20, bottom: 5),
-          child: RichText(
-            text: TextSpan(
+          child: Text.rich(
+            TextSpan(
               children: [
                 TextSpan(
                   text: "What's New?",
