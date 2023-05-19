@@ -37,7 +37,7 @@ class _FrontFrameState extends State<FrontFrame> {
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.extension),
-        title: ("Quiz"),
+        title: ("My Trivia"),
         activeColorPrimary:
             isDarkTheme(context) ? Colors.white : CustomColor.primary,
         inactiveColorPrimary: CupertinoColors.systemGrey,

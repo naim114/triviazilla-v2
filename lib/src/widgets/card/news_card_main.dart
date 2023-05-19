@@ -102,7 +102,7 @@ Widget newsCardMain({
             children: [
               const Icon(
                 Icons.access_time,
-                size: 14,
+                size: 18,
                 color: CupertinoColors.systemGrey,
               ),
               const SizedBox(width: 2),

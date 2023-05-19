@@ -91,7 +91,7 @@ List<Widget> imageSliders({
                               const WidgetSpan(
                                 child: Icon(
                                   Icons.access_time,
-                                  size: 14,
+                                  size: 18,
                                   color: Colors.white,
                                 ),
                               ),

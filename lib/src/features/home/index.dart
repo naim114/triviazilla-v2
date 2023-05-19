@@ -60,7 +60,7 @@ class _HomeState extends State<Home> {
       print("Error Get All Type of News:  ${e.toString()}");
     }
 
-    setState(() {});
+    // setState(() {});
   }
 
   @override

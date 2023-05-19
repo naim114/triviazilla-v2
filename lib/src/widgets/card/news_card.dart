@@ -66,7 +66,7 @@ Widget newsCard({
                       children: [
                         Icon(
                           Icons.access_time,
-                          size: 14,
+                          size: 18,
                           color: getColorByBackground(context),
                         ),
                         const SizedBox(width: 5),

@@ -15,7 +15,6 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../model/user_model.dart';
 import '../../services/helpers.dart';
-import '../../widgets/card/news_card_simple.dart';
 
 class NewsView extends StatefulWidget {
   final BuildContext mainContext;
@@ -437,7 +436,7 @@ class _NewsViewState extends State<NewsView> {
                                       WidgetSpan(
                                         child: Icon(
                                           CupertinoIcons.heart_fill,
-                                          size: 14,
+                                          size: 18,
                                           color: getColorByBackground(context),
                                         ),
                                       ),
@@ -702,117 +701,6 @@ class _NewsViewState extends State<NewsView> {
                         ),
                       ),
                     ),
-                  ),
-                  // Recommendation (Latest/ Star)
-                  FutureBuilder(
-                    future: Future.wait([
-                      NewsService().getAllBy(
-                        fieldName: 'createdAt',
-                        desc: true,
-                        limit: 3,
-                      ),
-                      NewsService().getAllBy(
-                        fieldName: 'starred',
-                        desc: true,
-                        limit: 3,
-                      ),
-                    ]),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Padding(
-                          padding: EdgeInsets.only(top: 15.0),
-                          child: Center(child: CircularProgressIndicator()),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child:
-                              Center(child: Text('Error: ${snapshot.error}')),
-                        );
-                      }
-
-                      final List<NewsModel?> latestNewsList = snapshot.data![0];
-                      final List<NewsModel?> starredNewsList =
-                          snapshot.data![1];
-
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(
-                              left: 20,
-                              top: 20,
-                              bottom: 15,
-                            ),
-                            child: Text(
-                              "MORE NEWS",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: List.generate(
-                              latestNewsList.length,
-                              (index) {
-                                NewsModel? news = latestNewsList[index];
-
-                                return news == null
-                                    ? const Center(
-                                        child: CircularProgressIndicator())
-                                    : Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                        child: newsCardSimple(
-                                          context: context,
-                                          news: news,
-                                          user: widget.user,
-                                        ),
-                                      );
-                              },
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(
-                              left: 20,
-                              top: 20,
-                              bottom: 15,
-                            ),
-                            child: Text(
-                              "EDITOR'S PICK",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: List.generate(
-                              starredNewsList.length,
-                              (index) {
-                                NewsModel? news = starredNewsList[index];
-
-                                return news == null
-                                    ? const Center(
-                                        child: CircularProgressIndicator())
-                                    : Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                        child: newsCardSimple(
-                                          context: context,
-                                          news: news,
-                                          user: widget.user,
-                                        ),
-                                      );
-                              },
-                            ),
-                          ),
-                        ],
-                      );
-                    },
                   ),
                   const SizedBox(height: 15),
                 ],
