@@ -7,6 +7,7 @@ import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 import '../../services/helpers.dart';
+import '../modal/error_alert.dart';
 
 class NewsEditor extends StatefulWidget {
   final QuillController controller;
@@ -143,11 +144,13 @@ class _NewsEditorState extends State<NewsEditor> {
                         return errorAlert(
                           "Title can't be empty",
                           "Title can't be empty. Please enter title under News Details",
+                          context,
                         );
                       } else if (descController.text.isEmpty) {
                         return errorAlert(
                           "Description can't be empty",
                           "Description can't be empty. Please enter description under News Details",
+                          context,
                         );
                       } else {
                         return AlertDialog(
@@ -404,20 +407,4 @@ class _NewsEditorState extends State<NewsEditor> {
             ),
     );
   }
-
-  AlertDialog errorAlert(String title, String desc) => AlertDialog(
-        title: Text(title),
-        content: Text(desc),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text(
-              'Close',
-              style: TextStyle(
-                color: CupertinoColors.systemGrey,
-              ),
-            ),
-          ),
-        ],
-      );
 }

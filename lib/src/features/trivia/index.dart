@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:triviazilla/src/features/trivia/add.dart';
 import 'package:triviazilla/src/services/helpers.dart';
 
 import '../../widgets/typography/page_title_icon.dart';
@@ -73,9 +74,12 @@ class TriviaMenu extends StatelessWidget {
           right: 10,
         ),
         child: FloatingActionButton(
-          onPressed: () {
-            // Add your onPressed code here!
-          },
+          onPressed: () => Navigator.push(
+            mainContext,
+            MaterialPageRoute(
+              builder: (context) => const TriviaAdd(),
+            ),
+          ),
           backgroundColor: CustomColor.primary,
           child: const Icon(Icons.add),
         ),

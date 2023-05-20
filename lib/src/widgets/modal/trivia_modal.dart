@@ -26,9 +26,8 @@ void showTriviaModal({
             topRight: Radius.circular(15.0),
           ),
           child: Container(
-            color: isDarkTheme(context)
-                ? CustomColor.darkerBg
-                : CupertinoColors.lightBackgroundGray,
+            color:
+                isDarkTheme(context) ? CustomColor.darkerBg : Colors.grey[200],
             height: MediaQuery.of(context).size.height * 0.9,
             child: Stack(
               children: [
@@ -101,7 +100,7 @@ void showTriviaModal({
                                     WidgetSpan(
                                         child: Icon(CupertinoIcons.heart_fill)),
                                     WidgetSpan(child: SizedBox(width: 5)),
-                                    TextSpan(text: "Like Trivia"),
+                                    TextSpan(text: "Like"),
                                   ],
                                 ),
                               ),
@@ -115,7 +114,7 @@ void showTriviaModal({
                                   children: const [
                                     WidgetSpan(child: Icon(Icons.bookmark)),
                                     WidgetSpan(child: SizedBox(width: 5)),
-                                    TextSpan(text: "Bookmark Trivia"),
+                                    TextSpan(text: "Bookmark"),
                                   ],
                                 ),
                               ),
@@ -124,11 +123,12 @@ void showTriviaModal({
                         ),
                       ],
                     ),
+                    // Title & Stats
                     SliverToBoxAdapter(
                       child: Container(
                         color: isDarkTheme(context)
                             ? CustomColor.darkBg
-                            : CupertinoColors.lightBackgroundGray,
+                            : Colors.white,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             vertical: 15,
@@ -220,13 +220,12 @@ void showTriviaModal({
                                   ),
                                 ],
                               ),
-                              // Description
-                              // Play Button
                             ],
                           ),
                         ),
                       ),
                     ),
+                    // Author & Description
                     SliverToBoxAdapter(
                       child: SizedBox(
                         child: Column(
@@ -279,9 +278,12 @@ void showTriviaModal({
                                 children: [
                                   const Text(
                                     'Description',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
                                   ),
+                                  const SizedBox(height: 5),
                                   Text(
                                     'What is Vantablack? Vantablack is the brand name for a new class of super-black coatings. The coatings are unique in that they all have hemispherical reflectances below 1% and also retain that level of performance from all viewing angles. The original coating known just as Vantablack® was a super-black coating that holds the independently verified world record as the darkest man-made substance. It was originally developed for satellite-borne blackbody calibration systems, but due to limitations in how it was manufactured its been surpassed by our spray applied Vantablack coatings. Spray applied Vantablack coatings have unrivalled absorption from ultra-violet out beyond the terahertz spectral range. The totally unique properties of Vantablack coatings are being exploited for applications such as deep space imaging, automotive sensing, optical systems, art and aesthetics. Vantablack Coating Range Vantablack S-VIS (UV-THz performance - space qualified) Vantablack S-IR (Optimised from 5-14um - space qualified for blackbody applications) Vantablack VBx2 (Terrestrial applications from UV-THz) Typical Coating Properties Ultra-low reflectance - exceptional performance from all angles UV, Visible and IR absorption - Absorption works from UV (200-350 nm wavelength), through the visible (350-700nm) and into the far infrared (>600 microns) spectrum, with no spectral features. Super hydrophobic - Unlike other black coatings, humidity will not degrade the optical properties Very high thermal shock resistance - Repeatedly plunging a Vantablack S-VIS coated substrate into liquid Nitrogen at -196°C and then transferring to a 200°C hot plate in air does not affect its properties. Resistant to shock and vibration - Independently tested, coatings have been subjected to shock and vibration simulating launch and staging. Low outgassing and mass loss - Independent testing to ECSS shows TML<0.5 Excellent BDRF and TIS performance - Even at shallow angles the levels of blackness outperforms all other commercial super-black coatings',
                                   ),
@@ -303,7 +305,7 @@ void showTriviaModal({
                     decoration: BoxDecoration(
                       color: isDarkTheme(context)
                           ? CustomColor.darkBg
-                          : CupertinoColors.lightBackgroundGray,
+                          : Colors.white,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
