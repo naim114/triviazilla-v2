@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:triviazilla/src/features/account/index.dart';
 import 'package:triviazilla/src/features/home/index.dart';
 import 'package:triviazilla/src/features/notification/index.dart';
+import 'package:triviazilla/src/features/record/index.dart';
 import 'package:triviazilla/src/features/trivia/index.dart';
 import 'package:triviazilla/src/services/helpers.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -36,8 +37,15 @@ class _FrontFrameState extends State<FrontFrame> {
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
+        icon: const Icon(Icons.list_alt),
+        title: ("Record"),
+        activeColorPrimary:
+            isDarkTheme(context) ? Colors.white : CustomColor.primary,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+      ),
+      PersistentBottomNavBarItem(
         icon: const Icon(Icons.lightbulb),
-        title: ("My Trivia"),
+        title: ("Menu"),
         activeColorPrimary:
             isDarkTheme(context) ? Colors.white : CustomColor.primary,
         inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -70,8 +78,9 @@ class _FrontFrameState extends State<FrontFrame> {
         Home(
           mainContext: context,
           user: user,
-          onAvatarTap: () => _controller.jumpToTab(3),
+          onAvatarTap: () => _controller.jumpToTab(4),
         ),
+        Record(),
         TriviaMenu(),
         Notifications(mainContext: context, user: user),
         Account(mainContext: context, user: user),

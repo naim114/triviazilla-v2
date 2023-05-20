@@ -34,7 +34,7 @@ class TriviaMenu extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: Text(
-                    'View all your trivias and records. You can create a trivia by tapping on the floating button.',
+                    'View all your trivias here. You can create a trivia by tapping on the floating button.',
                     style: TextStyle(),
                   ),
                 ),
@@ -43,8 +43,6 @@ class TriviaMenu extends StatelessWidget {
           ),
           //  My Trivia
           triviaRow(context: context, title: "Created Trivia"),
-          // Answered Records
-
           // Liked
           triviaRow(
             context: context,
