@@ -50,6 +50,7 @@ class AuthIndex extends StatelessWidget {
                         children: [
                           // logoMain(context: context, height: 50),
                           Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
                             child: Column(children: [
                               SvgPicture.asset(
                                 'assets/images/illustration.svg',
@@ -59,7 +60,8 @@ class AuthIndex extends StatelessWidget {
                               ),
                               const SizedBox(height: 30),
                               const Text(
-                                'Stay Informed, Stay Ahead.',
+                                'Where Knowledge and Fun Collide',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
