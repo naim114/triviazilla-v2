@@ -138,10 +138,14 @@ class _HomeState extends State<Home> {
               // Categories
               categoriesHome(context: context),
               // My Trivia
-              triviaRow(context: context),
+              triviaRow(
+                context: context,
+                mainContext: widget.mainContext,
+              ),
               // Popular Trivia
               triviaRow(
                 context: context,
+                mainContext: widget.mainContext,
                 title: "Popular Trivia",
                 icon: Icons.stacked_line_chart,
               ),

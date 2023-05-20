@@ -4,6 +4,7 @@ import '../../services/helpers.dart';
 import '../card/trivia_card.dart';
 
 Widget triviaRow({
+  required BuildContext mainContext,
   required BuildContext context,
   String title = "My Trivia",
   IconData icon = CupertinoIcons.person_alt_circle,
@@ -39,7 +40,7 @@ Widget triviaRow({
           child: Row(
             children: [
               const SizedBox(width: 10),
-              triviaCard(context: context),
+              triviaCard(context: context, mainContext: mainContext),
               const SizedBox(width: 10),
             ],
           ),

@@ -81,7 +81,7 @@ class _FrontFrameState extends State<FrontFrame> {
           onAvatarTap: () => _controller.jumpToTab(4),
         ),
         Record(),
-        TriviaMenu(),
+        TriviaMenu(mainContext: context),
         Notifications(mainContext: context, user: user),
         Account(mainContext: context, user: user),
       ],

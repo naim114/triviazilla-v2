@@ -14,6 +14,8 @@ class CustomColor {
   static const neutral3 = Color(0xFFEFF1F3);
   static const danger = Color(0xFFFE4A49);
   static const success = Color(0xFF47C272);
+  static const darkerBg = Color(0xFF242526);
+  static const darkBg = Color(0xFF3A3B3C);
 }
 
 bool isDarkTheme(context) {

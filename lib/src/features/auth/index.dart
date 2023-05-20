@@ -34,108 +34,105 @@ class AuthIndex extends StatelessWidget {
         ],
       ),
       body: StreamBuilder<AppSettingsModel?>(
-          stream: AppSettingsServices().getAppSettingsStream(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting ||
-                !snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              AppSettingsModel? appSettings = snapshot.data;
-              return appSettings == null
-                  ? const Center(child: CircularProgressIndicator())
-                  : Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          // logoMain(context: context, height: 50),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: Column(children: [
-                              SvgPicture.asset(
-                                'assets/images/illustration.svg',
-                                semanticsLabel: 'News at Your Fingertips',
-                                height:
-                                    MediaQuery.of(context).size.height * 0.45,
+        stream: AppSettingsServices().getAppSettingsStream(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              !snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          } else {
+            AppSettingsModel? appSettings = snapshot.data;
+            return appSettings == null
+                ? const Center(child: CircularProgressIndicator())
+                : Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        // logoMain(context: context, height: 50),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Column(children: [
+                            SvgPicture.asset(
+                              'assets/images/illustration.svg',
+                              semanticsLabel: 'News at Your Fingertips',
+                              height: MediaQuery.of(context).size.height * 0.45,
+                            ),
+                            const SizedBox(height: 30),
+                            const Text(
+                              'Where Knowledge and Fun Collide',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
                               ),
-                              const SizedBox(height: 30),
-                              const Text(
-                                'Where Knowledge and Fun Collide',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ]),
-                          ),
-                          Container(
-                            child: Column(
-                              children: [
-                                registerButton(context: context),
-                                const SizedBox(height: 10),
-                                loginButton(context: context),
-                                const SizedBox(height: 15),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  child: Text.rich(
-                                    textAlign: TextAlign.center,
-                                    TextSpan(
-                                      style: const TextStyle(height: 1.5),
-                                      children: [
-                                        TextSpan(
-                                          text: 'By signing up you accept the ',
-                                          style: TextStyle(
-                                              color: getColorByBackground(
-                                                  context)),
-                                        ),
-                                        TextSpan(
-                                          text: 'Term & Conditions',
-                                          style: TextStyle(
+                            ),
+                          ]),
+                        ),
+                        Container(
+                          child: Column(
+                            children: [
+                              registerButton(context: context),
+                              const SizedBox(height: 10),
+                              loginButton(context: context),
+                              const SizedBox(height: 15),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.7,
+                                child: Text.rich(
+                                  textAlign: TextAlign.center,
+                                  TextSpan(
+                                    style: const TextStyle(height: 1.5),
+                                    children: [
+                                      TextSpan(
+                                        text: 'By signing up you accept the ',
+                                        style: TextStyle(
                                             color:
-                                                getColorByBackground(context),
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = () => goToURL(
-                                                  context: context,
-                                                  url: Uri.parse(appSettings
-                                                      .urlTermCondition),
-                                                ),
+                                                getColorByBackground(context)),
+                                      ),
+                                      TextSpan(
+                                        text: 'Term & Conditions',
+                                        style: TextStyle(
+                                          color: getColorByBackground(context),
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        TextSpan(
-                                          text: ' and ',
-                                          style: TextStyle(
-                                              color: getColorByBackground(
-                                                  context)),
-                                        ),
-                                        TextSpan(
-                                          text: 'Privacy Policy.',
-                                          style: TextStyle(
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () => goToURL(
+                                                context: context,
+                                                url: Uri.parse(appSettings
+                                                    .urlTermCondition),
+                                              ),
+                                      ),
+                                      TextSpan(
+                                        text: ' and ',
+                                        style: TextStyle(
                                             color:
-                                                getColorByBackground(context),
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = () => goToURL(
-                                                  context: context,
-                                                  url: Uri.parse(appSettings
-                                                      .urlPrivacyPolicy),
-                                                ),
+                                                getColorByBackground(context)),
+                                      ),
+                                      TextSpan(
+                                        text: 'Privacy Policy.',
+                                        style: TextStyle(
+                                          color: getColorByBackground(context),
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                      ],
-                                    ),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () => goToURL(
+                                                context: context,
+                                                url: Uri.parse(appSettings
+                                                    .urlPrivacyPolicy),
+                                              ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    );
-            }
-          }),
+                        ),
+                      ],
+                    ),
+                  );
+          }
+        },
+      ),
     );
   }
 }

@@ -6,7 +6,9 @@ import '../../widgets/typography/page_title_icon.dart';
 import '../../widgets/carousel/trivia_row.dart';
 
 class TriviaMenu extends StatelessWidget {
-  const TriviaMenu({super.key});
+  final BuildContext mainContext;
+
+  const TriviaMenu({super.key, required this.mainContext});
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +44,22 @@ class TriviaMenu extends StatelessWidget {
             ),
           ),
           //  My Trivia
-          triviaRow(context: context, title: "Created Trivia"),
+          triviaRow(
+            context: context,
+            mainContext: mainContext,
+            title: "Created Trivia",
+          ),
           // Liked
           triviaRow(
             context: context,
+            mainContext: mainContext,
             title: "Liked",
             icon: CupertinoIcons.heart_fill,
           ),
           // Bookmarked
           triviaRow(
             context: context,
+            mainContext: mainContext,
             title: "Bookmarked",
             icon: Icons.bookmark,
           ),
