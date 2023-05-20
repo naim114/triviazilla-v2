@@ -7,9 +7,8 @@ import '../../model/user_model.dart';
 import '../../services/news_services.dart';
 import '../../widgets/image/avatar.dart';
 import '../../widgets/image/logo_favicon.dart';
-import '../trivia/my_trivia.dart';
+import '../../widgets/carousel/trivia_row.dart';
 import 'categories.dart';
-import 'popular.dart';
 
 class Home extends StatefulWidget {
   final UserModel? user;
@@ -32,6 +31,7 @@ class _HomeState extends State<Home> {
       GlobalKey<RefreshIndicatorState>();
 
   List<List<Object>> allList = [
+    [], // all trivia
     [], // categories
     [], // my trivia
     [], // popular
@@ -47,6 +47,7 @@ class _HomeState extends State<Home> {
       setState(() {
         loading = false;
         allList = [
+          [], // all trivia
           [], // categories
           [], // my trivia
           [], // popular
@@ -96,7 +97,7 @@ class _HomeState extends State<Home> {
         onRefresh: _refreshData,
         child: Builder(builder: (context) {
           final List<NewsModel> latestNewsList =
-              List<NewsModel>.from(allList[3]);
+              List<NewsModel>.from(allList[4]);
 
           return ListView(
             children: [
@@ -128,7 +129,7 @@ class _HomeState extends State<Home> {
                         ),
                         contentPadding: const EdgeInsets.all(0),
                         prefixIcon: const Icon(Icons.search),
-                        hintText: 'Search news',
+                        hintText: 'Search trivia by title, categories, ...',
                       ),
                     ),
                   ),
@@ -137,9 +138,13 @@ class _HomeState extends State<Home> {
               // Categories
               categoriesHome(context: context),
               // My Trivia
-              myTrivia(context: context),
+              triviaRow(context: context),
               // Popular Trivia
-              popularTrivia(context: context),
+              triviaRow(
+                context: context,
+                title: "Popular Trivia",
+                icon: Icons.stacked_line_chart,
+              ),
               // Whats New
               latestNewsList.isEmpty
                   ? const SizedBox()

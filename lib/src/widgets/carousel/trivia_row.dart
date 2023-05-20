@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 import '../../services/helpers.dart';
-import '../../widgets/card/trivia_card.dart';
+import '../card/trivia_card.dart';
 
-Widget myTrivia({
+Widget triviaRow({
   required BuildContext context,
+  String title = "My Trivia",
+  IconData icon = CupertinoIcons.person_alt_circle,
 }) =>
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -16,7 +17,7 @@ Widget myTrivia({
             TextSpan(
               children: [
                 TextSpan(
-                  text: "My Trivia",
+                  text: title,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -24,9 +25,9 @@ Widget myTrivia({
                   ),
                 ),
                 const WidgetSpan(child: SizedBox(width: 5)),
-                const WidgetSpan(
+                WidgetSpan(
                     child: Icon(
-                  CupertinoIcons.person_alt_circle,
+                  icon,
                   size: 18,
                 )),
               ],

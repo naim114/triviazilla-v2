@@ -36,7 +36,7 @@ class _FrontFrameState extends State<FrontFrame> {
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.extension),
+        icon: const Icon(Icons.lightbulb),
         title: ("My Trivia"),
         activeColorPrimary:
             isDarkTheme(context) ? Colors.white : CustomColor.primary,
@@ -72,7 +72,7 @@ class _FrontFrameState extends State<FrontFrame> {
           user: user,
           onAvatarTap: () => _controller.jumpToTab(3),
         ),
-        Quiz(),
+        TriviaMenu(),
         Notifications(mainContext: context, user: user),
         Account(mainContext: context, user: user),
       ],

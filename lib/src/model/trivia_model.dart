@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:triviazilla/src/model/question_model.dart';
 import 'package:triviazilla/src/model/user_model.dart';
 
-class QuizModel {
+class TriviaModel {
   final String id;
   final String title;
   final String description;
@@ -21,7 +21,7 @@ class QuizModel {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  QuizModel({
+  TriviaModel({
     required this.id,
     required this.title,
     required this.description,
@@ -38,7 +38,7 @@ class QuizModel {
 
   @override
   String toString() {
-    return 'QuizModel(id: $id, title: $title, description: $description, author: $author, imgPath: $imgPath, imgURL: $imgURL, category: $category, likedBy: $likedBy, bookmarkBy: $bookmarkBy, createdAt: $createdAt, updatedAt: $updatedAt, questions: $questions)';
+    return 'TriviaModel(id: $id, title: $title, description: $description, author: $author, imgPath: $imgPath, imgURL: $imgURL, category: $category, likedBy: $likedBy, bookmarkBy: $bookmarkBy, createdAt: $createdAt, updatedAt: $updatedAt, questions: $questions)';
   }
 
   Map<String, Object?> toJson() {
