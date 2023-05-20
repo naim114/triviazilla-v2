@@ -1,84 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
+import 'package:intl/intl.dart';
 import '../../services/helpers.dart';
-import '../../widgets/typography/page_title_icon.dart';
 
-class Record extends StatelessWidget {
-  const Record({super.key});
+class RecordList extends StatelessWidget {
+  const RecordList({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: CustomColor.neutral2,
+          ),
+        ),
+        title: Text(
+          "Record",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: getColorByBackground(context),
+          ),
+        ),
+      ),
       body: ListView(
         children: [
-          // Title
-          Container(
-            padding: const EdgeInsets.only(
-              top: 25,
-              left: 20,
-              right: 20,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          Slidable(
+            key: const ValueKey(0),
+            endActionPane: ActionPane(
+              motion: const ScrollMotion(),
               children: [
-                pageTitleIcon(
-                  context: context,
-                  title: "Record",
-                  icon: const Icon(
-                    Icons.list,
-                    size: 20,
-                  ),
+                SlidableAction(
+                  onPressed: (context) {},
+                  backgroundColor: CustomColor.secondary,
+                  foregroundColor: Colors.white,
+                  icon: Icons.remove_red_eye,
+                  label: 'View',
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    'View all answer result here. Swipe the tile for action.',
-                    style: TextStyle(),
-                  ),
+                SlidableAction(
+                  onPressed: (context) {},
+                  backgroundColor: CustomColor.danger,
+                  foregroundColor: Colors.white,
+                  icon: Icons.delete,
+                  label: 'Delete',
                 ),
               ],
             ),
-          ),
-          // Record
-          Column(
-            children: [
-              Slidable(
-                key: const ValueKey(0),
-                endActionPane: ActionPane(
-                  motion: const ScrollMotion(),
-                  children: [
-                    SlidableAction(
-                      onPressed: (context) {},
-                      backgroundColor: CustomColor.secondary,
-                      foregroundColor: Colors.white,
-                      icon: Icons.remove_red_eye,
-                      label: 'View',
-                    ),
-                    SlidableAction(
-                      onPressed: (context) {},
-                      backgroundColor: CustomColor.danger,
-                      foregroundColor: Colors.white,
-                      icon: Icons.delete,
-                      label: 'Delete',
-                    ),
-                  ],
-                ),
-                child: ListTile(
-                  shape: const Border(
-                    bottom: BorderSide(
-                      color: CustomColor.neutral2,
-                    ),
-                  ),
-                  title: Text(
-                    "Missisipi Goddamn",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  trailing: Text("10/10"),
+            child: ListTile(
+              onTap: () {
+                print('go');
+              },
+              shape: const Border(
+                bottom: BorderSide(
+                  color: CustomColor.neutral2,
                 ),
               ),
-            ],
+              title: Text(
+                "Missisipi Goddamn",
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              trailing: Text("10/10"),
+              subtitle: Text(DateFormat('dd/MM/yyyy').format(DateTime.now())),
+            ),
           ),
         ],
       ),

@@ -6,6 +6,7 @@ import 'package:triviazilla/src/features/account/security/index.dart';
 import 'package:triviazilla/src/features/admin/index.dart';
 import 'package:triviazilla/src/features/admin/settings/index.dart';
 import 'package:triviazilla/src/features/news/menu.dart';
+import 'package:triviazilla/src/features/record/index.dart';
 import 'package:triviazilla/src/services/helpers.dart';
 import 'package:triviazilla/src/services/user_services.dart';
 import 'package:triviazilla/src/widgets/builder/user_builder.dart';
@@ -127,6 +128,17 @@ class _AccountState extends State<Account> {
                                 : CupertinoIcons.sun_max_fill,
                             title: "Theme",
                             onTap: () => selectThemeMode(context),
+                          ),
+                          // Record
+                          listTileIcon(
+                            context: context,
+                            icon: Icons.list,
+                            title: "Record",
+                            onTap: () => Navigator.of(widget.mainContext).push(
+                              MaterialPageRoute(
+                                builder: (context) => RecordList(),
+                              ),
+                            ),
                           ),
                           // About
                           listTileIcon(
