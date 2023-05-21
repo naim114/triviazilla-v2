@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:triviazilla/src/features/trivia/leaderboard.dart';
 import 'package:triviazilla/src/model/role_model.dart';
 import 'package:triviazilla/src/model/user_model.dart';
 import 'package:triviazilla/src/services/helpers.dart';
@@ -74,10 +75,23 @@ void showTriviaModal({
                             Icons.more_vert,
                             color: Colors.white,
                           ),
+                          onSelected: (value) {
+                            if (value == 'Leaderboard') {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => TriviaLeaderboard(),
+                                ),
+                              );
+                            } else if (value == 'Like') {
+                              //
+                            } else if (value == 'Bookmark') {
+                              //
+                            }
+                          },
                           itemBuilder: (BuildContext context) =>
                               <PopupMenuEntry>[
                             PopupMenuItem(
-                              onTap: () {},
+                              value: 'Leaderboard',
                               child: Text.rich(
                                 TextSpan(
                                   style: TextStyle(
@@ -85,13 +99,13 @@ void showTriviaModal({
                                   children: const [
                                     WidgetSpan(child: Icon(Icons.leaderboard)),
                                     WidgetSpan(child: SizedBox(width: 5)),
-                                    TextSpan(text: "View Leaderboard"),
+                                    TextSpan(text: "Leaderboard"),
                                   ],
                                 ),
                               ),
                             ),
                             PopupMenuItem(
-                              onTap: () {},
+                              value: 'Like',
                               child: Text.rich(
                                 TextSpan(
                                   style: TextStyle(
@@ -106,7 +120,7 @@ void showTriviaModal({
                               ),
                             ),
                             PopupMenuItem(
-                              onTap: () {},
+                              value: 'Bookmark',
                               child: Text.rich(
                                 TextSpan(
                                   style: TextStyle(

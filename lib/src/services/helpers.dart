@@ -115,9 +115,6 @@ String timeAgo(DateTime dateTime) {
   } else if (difference.inMinutes > 0) {
     final minutes = difference.inMinutes;
     return '$minutes minute${minutes > 1 ? "s" : ""} ago';
-  } else if (difference.inSeconds >= 0) {
-    final seconds = difference.inSeconds;
-    return '$seconds second${seconds > 1 ? "s" : ""} ago';
   } else {
     return 'Just now';
   }

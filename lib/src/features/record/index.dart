@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:intl/intl.dart';
 import '../../services/helpers.dart';
 
 class RecordList extends StatelessWidget {
@@ -66,7 +65,7 @@ class RecordList extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               trailing: Text("10/10"),
-              subtitle: Text(DateFormat('dd/MM/yyyy').format(DateTime.now())),
+              subtitle: Text(timeAgo(DateTime.now())),
             ),
           ),
         ],
