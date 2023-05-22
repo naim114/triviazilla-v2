@@ -17,13 +17,28 @@ class TriviaLeaderboard extends StatelessWidget {
             pinned: true,
             snap: false,
             floating: false,
+            leading: null,
+            automaticallyImplyLeading: false,
             expandedHeight: 300.0,
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(0),
+              child: AppBar(
+                elevation: 0,
+                title: Text.rich(
+                  TextSpan(
+                    style: TextStyle(color: getColorByBackground(context)),
+                    children: const [
+                      TextSpan(text: "Leaderboard"),
+                      WidgetSpan(child: SizedBox(width: 10)),
+                      WidgetSpan(child: Icon(Icons.leaderboard)),
+                    ],
+                  ),
+                ),
+                centerTitle: true,
+              ),
+            ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
-              title: const Text(
-                'Leaderboard',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
               background: CachedNetworkImage(
                 imageUrl:
                     'https://cdn.pixabay.com/photo/2019/07/02/10/25/giraffe-4312090_1280.jpg',
@@ -189,6 +204,20 @@ class TriviaLeaderboard extends StatelessWidget {
                   const SizedBox(height: 8),
                 ],
               ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return Container(
+                  color: index.isOdd ? Colors.white : Colors.black12,
+                  height: 100.0,
+                  child: Center(
+                    child: Text('$index', textScaleFactor: 5),
+                  ),
+                );
+              },
+              childCount: 20,
             ),
           ),
         ],
