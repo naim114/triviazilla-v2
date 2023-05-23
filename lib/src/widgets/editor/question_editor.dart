@@ -58,7 +58,7 @@ class _QuestionEditorState extends State<QuestionEditor> {
 
       return false;
     } else if (answers.length < 2) {
-      Fluttertoast.showToast(msg: "Answers can't be just one");
+      Fluttertoast.showToast(msg: "Answers can't only be just one");
 
       return false;
     }
