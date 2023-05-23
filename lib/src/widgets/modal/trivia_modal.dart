@@ -43,7 +43,7 @@ void showTriviaModal({
                         ),
                         child: CachedNetworkImage(
                           imageUrl:
-                              'https://cdn.pixabay.com/photo/2019/07/02/10/25/giraffe-4312090_1280.jpg',
+                              'https://dummyimage.com/600x400/000/fff.png&text=sample+image',
                           fit: BoxFit.cover,
                           height: MediaQuery.of(context).size.height * 0.3,
                           placeholder: (context, url) => Shimmer.fromColors(

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:triviazilla/src/features/trivia/trivia_editor.dart';
+import 'package:triviazilla/src/widgets/editor/trivia_editor.dart';
 
 class TriviaAdd extends StatelessWidget {
   const TriviaAdd({super.key});

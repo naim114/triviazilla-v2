@@ -1,15 +1,14 @@
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:textfield_tags/textfield_tags.dart';
+import 'package:triviazilla/src/widgets/editor/question_editor.dart';
 
 import '../../services/helpers.dart';
-import '../../widgets/editor/image_uploader.dart';
-import '../../widgets/modal/error_alert.dart';
+import 'image_uploader.dart';
+import '../modal/error_alert.dart';
 
 class TriviaEditor extends StatefulWidget {
   const TriviaEditor({
@@ -49,8 +48,9 @@ class _TriviaEditorState extends State<TriviaEditor> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
-
   final TextfieldTagsController _tagController = TextfieldTagsController();
+
+  List<Map<String, dynamic>> question = List.empty(growable: true);
 
   bool post() {
     setState(() => _submitted = true);
@@ -103,13 +103,15 @@ class _TriviaEditorState extends State<TriviaEditor> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading: IconButton(
+        leading: TextButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.close,
-            color: CustomColor.neutral2,
+          child: const Text(
+            "Cancel",
+            style: TextStyle(color: CupertinoColors.systemGrey),
           ),
         ),
+        leadingWidth: 70,
+        centerTitle: true,
         title: Text(
           "Create Trivia",
           style: TextStyle(
@@ -164,7 +166,19 @@ class _TriviaEditorState extends State<TriviaEditor> {
               ],
       ),
       floatingActionButton: ElevatedButton(
-        onPressed: () {},
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => QuestionEditor(
+              onConfirm: (Map<String, dynamic> newQuestion) {
+                print('question: $newQuestion');
+
+                setState(() {
+                  question.add(newQuestion);
+                });
+              },
+            ),
+          ),
+        ),
         child: const Text(
           "Add Question",
           style: TextStyle(color: Colors.white),
@@ -175,47 +189,51 @@ class _TriviaEditorState extends State<TriviaEditor> {
         child: ListView(
           children: [
             // Cover Image
-            ExpansionTile(
-              initiallyExpanded: true,
-              title: const Text(
-                "Thumbnail",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              children: [
-                ListTile(
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ImageUploader(
-                        appBarTitle: "Upload Cover Image",
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.height * 0.25,
-                        onCancel: () => Navigator.of(context).pop(),
-                        onConfirm: (imageFile, uploaderContext) {
-                          setState(() {
-                            _coverImageFile = imageFile;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  title: Text(
-                    _coverImageFile == null
-                        ? "Tap to Upload Cover Image"
-                        : "Tap to Change/Preview Cover Image",
-                    style: const TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                  trailing: const Icon(Icons.arrow_forward_ios_rounded),
-                  shape: const Border(
-                    bottom: BorderSide(
-                      width: 1.25,
-                      color: Color(0xFFcacaca),
-                    ),
+            GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ImageUploader(
+                    appBarTitle: "Upload Cover Image",
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    onCancel: () => Navigator.of(context).pop(),
+                    onConfirm: (imageFile, uploaderContext) {
+                      setState(() {
+                        _coverImageFile = imageFile;
+                      });
+                    },
                   ),
                 ),
-              ],
+              ),
+              child: _coverImageFile != null
+                  ? Image.file(
+                      _coverImageFile!,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      fit: BoxFit.cover,
+                    )
+                  : Container(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      decoration: const BoxDecoration(
+                        color: CupertinoColors.inactiveGray,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.camera_alt,
+                            color: Colors.grey[800],
+                          ),
+                          Text(
+                            "Tap to add cover image",
+                            style: TextStyle(color: Colors.grey[800]),
+                          ),
+                        ],
+                      ),
+                    ),
             ),
             const SizedBox(height: 10),
-            // Title
+            // Details
             ExpansionTile(
               initiallyExpanded: true,
               title: const Text("Trivia Details",
@@ -226,7 +244,7 @@ class _TriviaEditorState extends State<TriviaEditor> {
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(15),
                     labelText: 'Title',
-                    hintText: 'Enter title for this article',
+                    hintText: 'Enter title for this question',
                     focusColor: CupertinoColors.systemGrey,
                     hoverColor: CupertinoColors.systemGrey,
                     errorText: _submitted == true & titleController.text.isEmpty
@@ -239,7 +257,7 @@ class _TriviaEditorState extends State<TriviaEditor> {
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(15),
                     labelText: 'Description',
-                    hintText: 'Enter description for this article',
+                    hintText: 'Enter description for this question',
                     focusColor: CupertinoColors.systemGrey,
                     hoverColor: CupertinoColors.systemGrey,
                     errorText: _submitted == true & descController.text.isEmpty
@@ -263,7 +281,7 @@ class _TriviaEditorState extends State<TriviaEditor> {
                     contentPadding: EdgeInsets.all(15),
                     labelText: 'Category',
                     hintText:
-                        'Enter category for this article (e.g. politics, sports)',
+                        'Enter category for this question (e.g. politics, sports)',
                     focusColor: CupertinoColors.systemGrey,
                     hoverColor: CupertinoColors.systemGrey,
                   ),
@@ -369,48 +387,71 @@ class _TriviaEditorState extends State<TriviaEditor> {
               ),
             ),
             Column(
-              children: [
-                Padding(
+              children: List.generate(
+                question.length,
+                (index) => Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
                   child: Card(
                     elevation: 4,
                     child: ListTile(
-                      leading: CachedNetworkImage(
-                        imageUrl:
-                            'https://cdn.pixabay.com/photo/2019/07/02/10/25/giraffe-4312090_1280.jpg',
-                        fit: BoxFit.cover,
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        placeholder: (context, url) => Shimmer.fromColors(
-                          baseColor: CupertinoColors.systemGrey,
-                          highlightColor: CupertinoColors.systemGrey2,
-                          child: Container(
-                            color: Colors.grey,
-                            height: MediaQuery.of(context).size.height * 0.3,
-                          ),
-                        ),
-                        errorWidget: (context, url, error) => Image.asset(
-                          'assets/images/noimage.png',
-                          fit: BoxFit.cover,
-                          height: MediaQuery.of(context).size.height * 0.3,
-                        ),
-                      ),
+                      leading: question[index]['imgFile'] == null
+                          ? Image.asset(
+                              'assets/images/noimage.png',
+                              fit: BoxFit.cover,
+                              height: 100,
+                              width: 80,
+                            )
+                          : Image.file(
+                              question[index]['imgFile'],
+                              fit: BoxFit.cover,
+                              height: 100,
+                              width: 80,
+                            ),
+                      minLeadingWidth: 80,
                       title: Text(
-                        "What is 1+1?",
+                        question[index]['text'],
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
-                        "4 Answer(s)",
+                        "${question[index]['answers'].length} Answer(s)",
                       ),
-                      trailing: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.edit),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => QuestionEditor(
+                                  question: question[index],
+                                  onConfirm:
+                                      (Map<String, dynamic> newQuestion) {
+                                    print('question: $newQuestion');
+
+                                    setState(() {
+                                      question[index] = newQuestion;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            icon: const Icon(Icons.edit),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                question.removeAt(index);
+                              });
+                            },
+                            icon: const Icon(Icons.delete),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-              ],
+              ),
             ),
           ],
         ),
