@@ -156,7 +156,7 @@ class _NewsEditorState extends State<NewsEditor> {
                         return AlertDialog(
                           title: const Text('Post News?'),
                           content: Text(
-                              "${_thumbnailFile == null ? "No thumbnail included. Include it at Thumbnail section needed. " : ""}${thumbnailDescController.text.isEmpty ? "No thumbnail description included. Include it at Thumbnail section needed. " : ""}${categoryController.text.isEmpty ? "No category included. . Include it at Category/Tag section needed. " : ""}${_tagController.getTags == null ? "No tags included. . Include it at Category/Tag section needed. " : ""}Select OK to confirm."),
+                              "${_thumbnailFile == null ? "No thumbnail included. Include it at Thumbnail section needed. " : ""}${thumbnailDescController.text.isEmpty ? "No thumbnail description included. Include it at Thumbnail section needed. " : ""}${categoryController.text.isEmpty ? "No category included. Include it at Category/Tag section needed. " : ""}${_tagController.getTags == null ? "No tags included. . Include it at Category/Tag section needed. " : ""}Select OK to confirm."),
                           actions: <Widget>[
                             TextButton(
                               onPressed: () => Navigator.pop(context),

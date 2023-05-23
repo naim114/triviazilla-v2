@@ -43,7 +43,6 @@ class _TriviaEditorState extends State<TriviaEditor> {
   File? _coverImageFile;
 
   bool _loading = false;
-  bool _submitted = false;
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
@@ -53,7 +52,6 @@ class _TriviaEditorState extends State<TriviaEditor> {
   List<Map<String, dynamic>> question = List.empty(growable: true);
 
   bool post() {
-    setState(() => _submitted = true);
     Navigator.pop(context);
 
     if (titleController.text.isEmpty) {
@@ -62,6 +60,10 @@ class _TriviaEditorState extends State<TriviaEditor> {
       return false;
     } else if (descController.text.isEmpty) {
       Fluttertoast.showToast(msg: "Description can't be empty");
+
+      return false;
+    } else if (question.isEmpty) {
+      Fluttertoast.showToast(msg: "Questions can't be empty");
 
       return false;
     }
@@ -89,7 +91,6 @@ class _TriviaEditorState extends State<TriviaEditor> {
   void initState() {
     titleController.text = widget.title ?? "";
     descController.text = widget.description ?? "";
-    _submitted = false;
     _coverImageFile = widget.thumbnailFile;
     titleController.text = widget.title ?? "";
     descController.text = widget.description ?? "";
@@ -138,10 +139,17 @@ class _TriviaEditorState extends State<TriviaEditor> {
                           "Description can't be empty. Please enter description under Trivia Details",
                           context,
                         );
+                      } else if (question.isEmpty) {
+                        return errorAlert(
+                          "Questions can't be empty",
+                          "Questions can't be empty. Click on 'Add Question' to add questions.",
+                          context,
+                        );
                       } else {
                         return AlertDialog(
                           title: const Text('Create Trivia?'),
-                          content: const Text("Select OK to confirm."),
+                          content: Text(
+                              "${categoryController.text.isEmpty ? "No category included. Include it at Category/Tag section needed. " : ''}${_tagController.getTags == null ? "No tags included. Include it at Category/Tag section needed. " : ""}Select OK to confirm."),
                           actions: <Widget>[
                             TextButton(
                               onPressed: () => Navigator.pop(context),
@@ -241,28 +249,22 @@ class _TriviaEditorState extends State<TriviaEditor> {
               children: [
                 TextField(
                   controller: titleController,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(15),
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.all(15),
                     labelText: 'Title',
                     hintText: 'Enter title for this question',
                     focusColor: CupertinoColors.systemGrey,
                     hoverColor: CupertinoColors.systemGrey,
-                    errorText: _submitted == true & titleController.text.isEmpty
-                        ? "Title can't be empty"
-                        : null,
                   ),
                 ),
                 TextField(
                   controller: descController,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(15),
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.all(15),
                     labelText: 'Description',
                     hintText: 'Enter description for this question',
                     focusColor: CupertinoColors.systemGrey,
                     hoverColor: CupertinoColors.systemGrey,
-                    errorText: _submitted == true & descController.text.isEmpty
-                        ? "Description can't be empty"
-                        : null,
                   ),
                 ),
               ],
