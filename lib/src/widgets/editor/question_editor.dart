@@ -54,7 +54,7 @@ class _QuestionEditorState extends State<QuestionEditor> {
 
       return false;
     } else if (!ansCheck()) {
-      Fluttertoast.showToast(msg: "All answers can't be false");
+      Fluttertoast.showToast(msg: "All answers can't be incorrect");
 
       return false;
     } else if (answers.length < 2) {
@@ -257,6 +257,7 @@ class _QuestionEditorState extends State<QuestionEditor> {
                                     });
                                   }
                                 },
+                                isCorrect: answers[i]['isCorrect'],
                               ),
                             ),
                           ),

@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:triviazilla/src/features/start/countdown.dart';
 import 'package:triviazilla/src/features/trivia/leaderboard.dart';
 import 'package:triviazilla/src/model/role_model.dart';
 import 'package:triviazilla/src/model/user_model.dart';
@@ -327,7 +329,16 @@ void showTriviaModal({
                         vertical: 10,
                       ),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.topToBottom,
+                              child: StartTriviaCountdown(),
+                            ),
+                          );
+                        },
                         child: const Text(
                           "Start",
                           style: TextStyle(color: Colors.white),

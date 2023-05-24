@@ -6,8 +6,8 @@ import 'package:triviazilla/src/model/news_model.dart';
 import '../../model/user_model.dart';
 import '../../services/news_services.dart';
 import '../../widgets/image/avatar.dart';
-import '../../widgets/image/logo_favicon.dart';
 import '../../widgets/carousel/trivia_row.dart';
+import '../../widgets/image/logo_main.dart';
 import 'categories.dart';
 
 class Home extends StatefulWidget {
@@ -75,7 +75,10 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: logoFavicon(context: context),
+        title: logoMain(
+          context: context,
+          height: MediaQuery.of(context).size.height * 0.06,
+        ),
         leading: GestureDetector(
           onTap: widget.onAvatarTap,
           child: Padding(
