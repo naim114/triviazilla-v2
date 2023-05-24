@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:triviazilla/src/features/start/answer.dart';
+import 'package:triviazilla/src/features/start/result.dart';
 
 class StartTrivia extends StatefulWidget {
   const StartTrivia({super.key});
@@ -21,7 +23,7 @@ class _StartTriviaState extends State<StartTrivia> {
       children: [
         StartTriviaAnswer(
           questionNo: 1,
-          triviaLength: 10,
+          triviaLength: 3,
           onSubmit: (result) {
             if (result) setState(() => score++);
             print("score: $score");
@@ -35,7 +37,7 @@ class _StartTriviaState extends State<StartTrivia> {
         ),
         StartTriviaAnswer(
           questionNo: 2,
-          triviaLength: 10,
+          triviaLength: 3,
           onSubmit: (result) {
             if (result) setState(() => score++);
             print("score: $score");
@@ -49,13 +51,20 @@ class _StartTriviaState extends State<StartTrivia> {
         ),
         StartTriviaAnswer(
           questionNo: 3,
-          triviaLength: 10,
+          triviaLength: 3,
           onSubmit: (result) {
             if (result) setState(() => score++);
             print("score: $score");
 
             print("LAST!!!!!!!!");
-            // TODO push to result page
+            Navigator.pushAndRemoveUntil(
+              context,
+              PageTransition(
+                type: PageTransitionType.topToBottom,
+                child: StartTriviaResult(),
+              ),
+              (route) => route.isFirst,
+            );
           },
         ),
       ],

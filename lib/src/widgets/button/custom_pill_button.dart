@@ -6,6 +6,7 @@ Widget customPillButton({
   required Color fillColor,
   required void Function()? onPressed,
   required Widget child,
+  double? width,
 }) =>
     Container(
       decoration: BoxDecoration(
@@ -16,7 +17,7 @@ Widget customPillButton({
         ),
         color: fillColor,
       ),
-      width: MediaQuery.of(context).size.width * 0.85,
+      width: width ?? MediaQuery.of(context).size.width * 0.85,
       child: TextButton(
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
