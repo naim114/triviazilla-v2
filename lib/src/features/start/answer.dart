@@ -61,9 +61,15 @@ class _StartTriviaAnswerState extends State<StartTriviaAnswer> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.network(
-                        customMsg
+                      CachedNetworkImage(
+                        imageUrl: customMsg
                             .lateGIF[random.nextInt(customMsg.lateGIF.length)],
+                        imageBuilder: (context, imageProvider) =>
+                            const Center(child: CircularProgressIndicator()),
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) =>
+                            const Center(child: CircularProgressIndicator()),
                       ),
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 10),
@@ -233,12 +239,20 @@ class _StartTriviaAnswerState extends State<StartTriviaAnswer> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Image.network(
-                                    result
+                                  CachedNetworkImage(
+                                    imageUrl: result
                                         ? customMsg.trueGIF[random
                                             .nextInt(customMsg.trueGIF.length)]
                                         : customMsg.falseGIF[random.nextInt(
                                             customMsg.falseGIF.length)],
+                                    imageBuilder: (context, imageProvider) =>
+                                        const Center(
+                                            child: CircularProgressIndicator()),
+                                    placeholder: (context, url) => const Center(
+                                        child: CircularProgressIndicator()),
+                                    errorWidget: (context, url, error) =>
+                                        const Center(
+                                            child: CircularProgressIndicator()),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(

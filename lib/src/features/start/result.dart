@@ -23,8 +23,9 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
   @override
   void initState() {
     super.initState();
+    // TODO save result function here
     _controllerTopCenter =
-        ConfettiController(duration: const Duration(seconds: 7));
+        ConfettiController(duration: const Duration(seconds: 3));
     _controllerTopCenter.play();
   }
 
@@ -40,18 +41,6 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
       backgroundColor: CustomColor.secondary,
       body: Stack(
         children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: ConfettiWidget(
-              confettiController: _controllerTopCenter,
-              blastDirectionality: BlastDirectionality.explosive,
-              minBlastForce: 10,
-              maxBlastForce: 15,
-              emissionFrequency: 0.2,
-              numberOfParticles: 20,
-              gravity: 0.5,
-            ),
-          ),
           Align(
             alignment: Alignment.center,
             child: ListView(
@@ -222,6 +211,18 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                   ),
                 ),
               ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: ConfettiWidget(
+              confettiController: _controllerTopCenter,
+              blastDirectionality: BlastDirectionality.explosive,
+              minBlastForce: 10,
+              maxBlastForce: 15,
+              emissionFrequency: 0.2,
+              numberOfParticles: 20,
+              gravity: 0.2,
             ),
           ),
         ],

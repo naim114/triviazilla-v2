@@ -149,7 +149,7 @@ class _ProfileState extends State<Profile> {
                               title: const Text(
                                   'Are you sure you want to remove your avatar?'),
                               content: const Text(
-                                  'Deleted data can\'t be retrieve back. Select OK to log out.'),
+                                  'Deleted data can\'t be retrieve back. Select OK to delete.'),
                               actions: <Widget>[
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),

@@ -1,6 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../services/helpers.dart';
+import '../../widgets/modal/trivia_modal.dart';
+import '../start/result.dart';
 
 class RecordList extends StatelessWidget {
   const RecordList({super.key});
@@ -28,44 +32,85 @@ class RecordList extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          Slidable(
-            key: const ValueKey(0),
-            endActionPane: ActionPane(
-              motion: const ScrollMotion(),
-              children: [
-                SlidableAction(
-                  onPressed: (context) {},
-                  backgroundColor: CustomColor.secondary,
-                  foregroundColor: Colors.white,
-                  icon: Icons.remove_red_eye,
-                  label: 'View',
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              elevation: 4,
+              child: ListTile(
+                title: Text(
+                  "Favorite Rhinosaurus Ranked",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                SlidableAction(
-                  onPressed: (context) {},
-                  backgroundColor: CustomColor.danger,
-                  foregroundColor: Colors.white,
-                  icon: Icons.delete,
-                  label: 'Delete',
-                ),
-              ],
-            ),
-            child: ListTile(
-              onTap: () {
-                print('go');
-              },
-              shape: const Border(
-                bottom: BorderSide(
-                  color: CustomColor.neutral2,
+                subtitle: Text(timeAgo(DateTime.now())),
+                trailing: PopupMenuButton(
+                  icon: const Icon(
+                    Icons.more_vert,
+                    color: CupertinoColors.systemGrey,
+                  ),
+                  onSelected: (value) {
+                    if (value == 'Result') {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.topToBottom,
+                          child: StartTriviaResult(),
+                        ),
+                      );
+                    } else if (value == 'Trivia') {
+                      showTriviaModal(context: context);
+                    } else if (value == 'Delete') {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text(
+                              'Are you sure you want to delete this record?'),
+                          content: const Text(
+                              'Deleted data can\'t be retrieve back. Select OK to delete.'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  color: CupertinoColors.systemGrey,
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                // TODO delete
+                              },
+                              child: const Text(
+                                'OK',
+                                style: TextStyle(color: CustomColor.danger),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
+                  itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                    const PopupMenuItem(
+                      value: 'Result',
+                      child: Text("View Result"),
+                    ),
+                    const PopupMenuItem(
+                      value: 'Trivia',
+                      child: Text("View Trivia"),
+                    ),
+                    const PopupMenuItem(
+                      value: 'Delete',
+                      child: Text(
+                        "Delete Record",
+                        style: TextStyle(color: CustomColor.danger),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              title: Text(
-                "Missisipi Goddamn",
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              trailing: Text("10/10"),
-              subtitle: Text(timeAgo(DateTime.now())),
             ),
           ),
         ],

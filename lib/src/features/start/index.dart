@@ -15,6 +15,12 @@ class _StartTriviaState extends State<StartTrivia> {
   int score = 0;
 
   @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return PageView(
       controller: pageController,
