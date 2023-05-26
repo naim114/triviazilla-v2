@@ -33,6 +33,7 @@ class TriviaEditor extends StatefulWidget {
     String description,
     String? category,
     List<String>? tags,
+    List<Map<String, dynamic>> question,
   ) onPost;
 
   @override

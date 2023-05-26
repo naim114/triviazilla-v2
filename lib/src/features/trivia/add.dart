@@ -9,8 +9,14 @@ class TriviaAdd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TriviaEditor(
-      onPost: (File? coverImageFile, String title, String description,
-          String? category, List<String>? tags) {
+      onPost: (
+        File? coverImageFile,
+        String title,
+        String description,
+        String? category,
+        List<String>? tags,
+        List<Map<String, dynamic>> question,
+      ) {
         // TODO add function here
       },
     );

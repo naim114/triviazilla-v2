@@ -86,7 +86,7 @@ class NewsService {
     );
   }
 
-  // convert QueryDocumentSnapshot to model object
+  // convert map to model object
   Future<NewsModel?> fromMap(Map<String, dynamic> map) async {
     return NewsModel(
       id: map['id'],
@@ -612,7 +612,7 @@ class NewsService {
           'likedBy': jsonEncode(likedBy),
         }).then((value) => print("News Unliked"));
 
-        print("Like News: $result");
+        print("Unlike News: $result");
       }
 
       await UserServices()

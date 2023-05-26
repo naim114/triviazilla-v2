@@ -12,6 +12,7 @@ class TriviaModel {
   final String? imgURL;
 
   final String? category;
+  final List<dynamic>? tag;
   final List<dynamic>? likedBy;
   final List<dynamic>? bookmarkBy;
 
@@ -29,6 +30,7 @@ class TriviaModel {
     this.imgPath,
     this.imgURL,
     this.category,
+    this.tag,
     this.likedBy,
     this.bookmarkBy,
     required this.createdAt,
@@ -38,7 +40,7 @@ class TriviaModel {
 
   @override
   String toString() {
-    return 'TriviaModel(id: $id, title: $title, description: $description, author: $author, imgPath: $imgPath, imgURL: $imgURL, category: $category, likedBy: $likedBy, bookmarkBy: $bookmarkBy, createdAt: $createdAt, updatedAt: $updatedAt, questions: $questions)';
+    return 'TriviaModel(id: $id, title: $title, description: $description, author: $author, imgPath: $imgPath, imgURL: $imgURL, category: $category, tag: $tag, likedBy: $likedBy, bookmarkBy: $bookmarkBy, createdAt: $createdAt, updatedAt: $updatedAt, questions: $questions)';
   }
 
   Map<String, Object?> toJson() {
@@ -50,6 +52,7 @@ class TriviaModel {
       'imgPath': imgPath,
       'imgURL': imgURL,
       'category': category,
+      'tag': tag == null ? null : jsonEncode(tag),
       'likedBy': likedBy == null ? null : jsonEncode(likedBy),
       'bookmarkBy': bookmarkBy == null ? null : jsonEncode(bookmarkBy),
       'createdAt': createdAt,
