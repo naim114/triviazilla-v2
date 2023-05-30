@@ -24,10 +24,15 @@ class QuestionModel {
     };
   }
 
-  QuestionModel.fromJson(Map<String, Object?> json)
-      : this(
-          text: json['text']! as String,
-          secondsLimit: json['secondsLimit'] as double,
-          answers: json['answers']! as List<AnswerModel>,
-        );
+  factory QuestionModel.fromJson(Map<String, Object?> json) {
+    List<AnswerModel> answers = (json['answers']! as List<dynamic>).map((json) {
+      return AnswerModel.fromJson(json as Map<String, dynamic>);
+    }).toList();
+
+    return QuestionModel(
+      text: json['text']! as String,
+      secondsLimit: json['secondsLimit'] as double,
+      answers: answers,
+    );
+  }
 }

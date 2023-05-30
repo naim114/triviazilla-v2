@@ -13,6 +13,8 @@ import 'package:triviazilla/src/services/user_activity_services.dart';
 import 'package:triviazilla/src/services/user_services.dart';
 import 'package:path/path.dart' as path;
 
+import '../model/question_model.dart';
+
 class TriviaServices {
   final CollectionReference _collectionRef =
       FirebaseFirestore.instance.collection('Trivia');
@@ -25,6 +27,13 @@ class TriviaServices {
   // convert DocumentSnapshot to model object
   Future<TriviaModel> fromDocumentSnapshot(
       DocumentSnapshot<Object?> doc) async {
+    print("who let the doc out: ${doc.data().toString()}");
+
+    List<QuestionModel> questions =
+        (doc.get('questions') as List<dynamic>).map((json) {
+      return QuestionModel.fromJson(json as Map<String, dynamic>);
+    }).toList();
+
     return TriviaModel(
       id: doc.get('id'),
       title: doc.get('title'),
@@ -41,13 +50,18 @@ class TriviaServices {
           : jsonDecode(doc.get('bookmarkBy')),
       createdAt: doc.get('createdAt').toDate(),
       updatedAt: doc.get('updatedAt').toDate(),
-      questions: doc.get('questions'),
+      questions: questions,
     );
   }
 
   // convert QueryDocumentSnapshot to model object
   Future<TriviaModel> fromQueryDocumentSnapshot(
       QueryDocumentSnapshot<Object?> doc) async {
+    List<QuestionModel> questions =
+        (doc.get('questions') as List<dynamic>).map((json) {
+      return QuestionModel.fromJson(json as Map<String, dynamic>);
+    }).toList();
+
     return TriviaModel(
       id: doc.get('id'),
       title: doc.get('title'),
@@ -64,12 +78,17 @@ class TriviaServices {
           : jsonDecode(doc.get('bookmarkBy')),
       createdAt: doc.get('createdAt').toDate(),
       updatedAt: doc.get('updatedAt').toDate(),
-      questions: doc.get('questions'),
+      questions: questions,
     );
   }
 
   // convert map to model object
   Future<TriviaModel> fromMap(Map<String, dynamic> map) async {
+    List<QuestionModel> questions =
+        (map['questions'] as List<dynamic>).map((json) {
+      return QuestionModel.fromJson(json as Map<String, dynamic>);
+    }).toList();
+
     return TriviaModel(
       id: map['id'],
       title: map['title'],
@@ -84,7 +103,7 @@ class TriviaServices {
           map['bookmarkBy'] == null ? null : jsonDecode(map['bookmarkBy']),
       createdAt: map['createdAt'].toDate(),
       updatedAt: map['updatedAt'].toDate(),
-      questions: map['questions'],
+      questions: questions,
     );
   }
 
@@ -220,6 +239,8 @@ class TriviaServices {
             'description': description,
             'author': author.id,
             'category': category,
+            'imgPath': null,
+            'imgURL': null,
             'tag': tags == null ? null : jsonEncode(tags),
             'likedBy': null,
             'bookmarkBy': null,
@@ -344,8 +365,6 @@ class TriviaServices {
           'imgURL': downloadUrl,
           'category': category,
           'tag': tags,
-          'likedBy': null,
-          'bookmarkBy': null,
           'createdAt': DateTime.now(),
           'updatedAt': DateTime.now(),
           'questions': question,
@@ -362,8 +381,8 @@ class TriviaServices {
           'author': author,
           'category': category,
           'tag': tags,
-          'likedBy': null,
-          'bookmarkBy': null,
+          'imgPath': null,
+          'imgURL': null,
           'createdAt': DateTime.now(),
           'updatedAt': DateTime.now(),
           'questions': question,

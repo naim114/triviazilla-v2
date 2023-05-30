@@ -19,9 +19,10 @@ class AnswerModel {
     };
   }
 
-  AnswerModel.fromJson(Map<String, Object?> json)
-      : this(
-          text: json['text']! as String,
-          isCorrect: json['isCorrect']! as bool,
-        );
+  factory AnswerModel.fromJson(Map<String, Object?> json) {
+    return AnswerModel(
+      text: json['text']! as String,
+      isCorrect: json['isCorrect']! as bool,
+    );
+  }
 }

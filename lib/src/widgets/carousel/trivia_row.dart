@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:triviazilla/src/model/trivia_model.dart';
 
 import '../../services/helpers.dart';
 import '../card/trivia_card.dart';
@@ -6,6 +7,7 @@ import '../card/trivia_card.dart';
 Widget triviaRow({
   required BuildContext mainContext,
   required BuildContext context,
+  required List<TriviaModel> trivias,
   String title = "My Trivia",
   IconData icon = CupertinoIcons.person_alt_circle,
 }) =>
@@ -40,7 +42,16 @@ Widget triviaRow({
           child: Row(
             children: [
               const SizedBox(width: 10),
-              triviaCard(context: context, mainContext: mainContext),
+              Row(
+                children: List.generate(
+                  trivias.length,
+                  (index) => triviaCard(
+                    context: context,
+                    mainContext: mainContext,
+                    trivia: trivias[index],
+                  ),
+                ),
+              ),
               const SizedBox(width: 10),
             ],
           ),
