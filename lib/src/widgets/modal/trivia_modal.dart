@@ -302,7 +302,8 @@ void showTriviaModal({
                                           ),
                                         ),
                                         TextSpan(
-                                          text: ' 5',
+                                          text:
+                                              ' ${trivia.questions.isEmpty ? 0 : trivia.questions.length}',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 25,
@@ -323,7 +324,8 @@ void showTriviaModal({
                                           ),
                                         ),
                                         TextSpan(
-                                          text: ' 10',
+                                          text:
+                                              ' ${trivia.likedBy == null || trivia.likedBy!.isEmpty ? 0 : trivia.likedBy!.length}',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 25,

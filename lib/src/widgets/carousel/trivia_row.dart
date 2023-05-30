@@ -39,25 +39,34 @@ Widget triviaRow({
             ),
           ),
         ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              const SizedBox(width: 10),
-              Row(
-                children: List.generate(
-                  trivias.length,
-                  (index) => triviaCard(
-                    context: context,
-                    mainContext: mainContext,
-                    trivia: trivias[index],
-                    user: user,
-                  ),
+        trivias.isNotEmpty
+            ? SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    Row(
+                      children: List.generate(
+                        trivias.length,
+                        (index) => triviaCard(
+                          context: context,
+                          mainContext: mainContext,
+                          trivia: trivias[index],
+                          user: user,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                  ],
                 ),
+              )
+            : const Padding(
+                padding: EdgeInsets.symmetric(vertical: 20.0),
+                child: Center(
+                    child: Text(
+                  "Nothing to look here.",
+                  style: TextStyle(color: CupertinoColors.systemGrey),
+                )),
               ),
-              const SizedBox(width: 10),
-            ],
-          ),
-        ),
       ],
     );
