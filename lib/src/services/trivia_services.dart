@@ -27,8 +27,6 @@ class TriviaServices {
   // convert DocumentSnapshot to model object
   Future<TriviaModel> fromDocumentSnapshot(
       DocumentSnapshot<Object?> doc) async {
-    print("who let the doc out: ${doc.data().toString()}");
-
     List<QuestionModel> questions =
         (doc.get('questions') as List<dynamic>).map((json) {
       return QuestionModel.fromJson(json as Map<String, dynamic>);
@@ -472,7 +470,7 @@ class TriviaServices {
   }
 
   // like
-  Future like({
+  Future<bool> like({
     required TriviaModel trivia,
     required UserModel user,
   }) async {
@@ -515,7 +513,7 @@ class TriviaServices {
   }
 
   // unlike
-  Future unlike({
+  Future<bool> unlike({
     required TriviaModel trivia,
     required UserModel user,
   }) async {
@@ -576,7 +574,7 @@ class TriviaServices {
   }
 
   // bookmark
-  Future bookmark({
+  Future<bool> bookmark({
     required TriviaModel trivia,
     required UserModel user,
   }) async {
@@ -619,13 +617,13 @@ class TriviaServices {
   }
 
   // unbookmark
-  Future unbookmark({
+  Future<bool> unbookmark({
     required TriviaModel trivia,
     required UserModel user,
   }) async {
     try {
       final List<dynamic> bookmarkBy =
-          trivia.likedBy ?? List.empty(growable: true);
+          trivia.bookmarkBy ?? List.empty(growable: true);
 
       if (bookmarkBy.contains(user.id)) {
         bookmarkBy.remove(user.id);
@@ -634,7 +632,7 @@ class TriviaServices {
           'bookmarkBy': jsonEncode(bookmarkBy),
         }).then((value) => print("Trivia Unbookmarked"));
 
-        print("Unbookmar Trivia: $result");
+        print("Unbookmark Trivia: $result");
       }
 
       await UserServices()

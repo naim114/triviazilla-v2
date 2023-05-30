@@ -1,18 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:triviazilla/src/features/start/countdown.dart';
 import 'package:triviazilla/src/features/trivia/leaderboard.dart';
 import 'package:triviazilla/src/model/trivia_model.dart';
+import 'package:triviazilla/src/model/user_model.dart';
 import 'package:triviazilla/src/services/helpers.dart';
+import 'package:triviazilla/src/services/trivia_services.dart';
 
 import '../image/avatar.dart';
 
 void showTriviaModal({
   required TriviaModel trivia,
   required BuildContext context,
+  required UserModel user,
 }) =>
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
@@ -95,7 +99,7 @@ void showTriviaModal({
                             Icons.more_vert,
                             color: Colors.white,
                           ),
-                          onSelected: (value) {
+                          onSelected: (value) async {
                             if (value == 'Leaderboard') {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
@@ -103,9 +107,44 @@ void showTriviaModal({
                                 ),
                               );
                             } else if (value == 'Like') {
-                              //
+                              Navigator.pop(context);
+
+                              final result = await TriviaServices()
+                                  .like(trivia: trivia, user: user);
+
+                              if (result) {
+                                Fluttertoast.showToast(msg: "Trivia Liked!");
+                              }
+                            } else if (value == 'Unlike') {
+                              Navigator.pop(context);
+                              final result = await TriviaServices()
+                                  .unlike(trivia: trivia, user: user);
+
+                              if (result) {
+                                Fluttertoast.showToast(msg: "Trivia Unliked!");
+                              }
                             } else if (value == 'Bookmark') {
-                              //
+                              Navigator.pop(context);
+
+                              final result = await TriviaServices()
+                                  .bookmark(trivia: trivia, user: user);
+
+                              if (result) {
+                                Fluttertoast.showToast(
+                                    msg: "Trivia Bookmarked!");
+                              }
+                            } else if (value == 'Unbookmark') {
+                              Navigator.pop(context);
+
+                              print("unbookmark");
+
+                              final result = await TriviaServices()
+                                  .unbookmark(trivia: trivia, user: user);
+
+                              if (result) {
+                                Fluttertoast.showToast(
+                                    msg: "Trivia Unbookmarked!");
+                              }
                             }
                           },
                           itemBuilder: (BuildContext context) =>
@@ -124,35 +163,76 @@ void showTriviaModal({
                                 ),
                               ),
                             ),
-                            PopupMenuItem(
-                              value: 'Like',
-                              child: Text.rich(
-                                TextSpan(
-                                  style: TextStyle(
-                                      color: getColorByBackground(context)),
-                                  children: const [
-                                    WidgetSpan(
-                                        child: Icon(CupertinoIcons.heart_fill)),
-                                    WidgetSpan(child: SizedBox(width: 5)),
-                                    TextSpan(text: "Like"),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            PopupMenuItem(
-                              value: 'Bookmark',
-                              child: Text.rich(
-                                TextSpan(
-                                  style: TextStyle(
-                                      color: getColorByBackground(context)),
-                                  children: const [
-                                    WidgetSpan(child: Icon(Icons.bookmark)),
-                                    WidgetSpan(child: SizedBox(width: 5)),
-                                    TextSpan(text: "Bookmark"),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            TriviaServices().isLike(trivia: trivia, user: user)
+                                ? PopupMenuItem(
+                                    value: 'Unlike',
+                                    child: Text.rich(
+                                      TextSpan(
+                                        style: TextStyle(
+                                            color:
+                                                getColorByBackground(context)),
+                                        children: const [
+                                          WidgetSpan(
+                                              child: Icon(CupertinoIcons
+                                                  .heart_slash_fill)),
+                                          WidgetSpan(child: SizedBox(width: 5)),
+                                          TextSpan(text: "Unike"),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                : PopupMenuItem(
+                                    value: 'Like',
+                                    child: Text.rich(
+                                      TextSpan(
+                                        style: TextStyle(
+                                            color:
+                                                getColorByBackground(context)),
+                                        children: const [
+                                          WidgetSpan(
+                                              child: Icon(
+                                                  CupertinoIcons.heart_fill)),
+                                          WidgetSpan(child: SizedBox(width: 5)),
+                                          TextSpan(text: "Like"),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                            TriviaServices()
+                                    .isBookmark(trivia: trivia, user: user)
+                                ? PopupMenuItem(
+                                    value: 'Unbookmark',
+                                    child: Text.rich(
+                                      TextSpan(
+                                        style: TextStyle(
+                                            color:
+                                                getColorByBackground(context)),
+                                        children: const [
+                                          WidgetSpan(
+                                              child:
+                                                  Icon(Icons.bookmark_remove)),
+                                          WidgetSpan(child: SizedBox(width: 5)),
+                                          TextSpan(text: "Unbookmark"),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                : PopupMenuItem(
+                                    value: 'Bookmark',
+                                    child: Text.rich(
+                                      TextSpan(
+                                        style: TextStyle(
+                                            color:
+                                                getColorByBackground(context)),
+                                        children: const [
+                                          WidgetSpan(
+                                              child: Icon(Icons.bookmark)),
+                                          WidgetSpan(child: SizedBox(width: 5)),
+                                          TextSpan(text: "Bookmark"),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                           ],
                         ),
                       ],

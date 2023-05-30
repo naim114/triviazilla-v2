@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:triviazilla/src/model/trivia_model.dart';
 
+import '../../model/user_model.dart';
 import '../../services/helpers.dart';
 import '../image/avatar.dart';
 import '../modal/trivia_modal.dart';
@@ -12,6 +13,7 @@ Widget triviaCard({
   required BuildContext mainContext,
   required BuildContext context,
   required TriviaModel trivia,
+  required UserModel user,
 }) =>
     Container(
       width: MediaQuery.of(context).size.width * 0.4,
@@ -26,6 +28,7 @@ Widget triviaCard({
         onTap: () => showTriviaModal(
           context: mainContext,
           trivia: trivia,
+          user: user,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

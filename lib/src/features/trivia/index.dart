@@ -52,7 +52,7 @@ class _TriviaMenuState extends State<TriviaMenu> {
       }
 
       if (TriviaServices().isLike(trivia: trivia, user: widget.user)) {
-        bookmarkTrivia.add(trivia);
+        likedTrivia.add(trivia);
       }
     }
 
@@ -127,6 +127,7 @@ class _TriviaMenuState extends State<TriviaMenu> {
                 mainContext: widget.mainContext,
                 title: "Created Trivia",
                 trivias: myTrivias,
+                user: widget.user,
               ),
               // Liked
               triviaRow(
@@ -135,6 +136,7 @@ class _TriviaMenuState extends State<TriviaMenu> {
                 title: "Liked",
                 icon: CupertinoIcons.heart_fill,
                 trivias: likedTrivias,
+                user: widget.user,
               ),
               // Bookmarked
               triviaRow(
@@ -143,6 +145,7 @@ class _TriviaMenuState extends State<TriviaMenu> {
                 title: "Bookmarked",
                 icon: Icons.bookmark,
                 trivias: bookmarkTrivias,
+                user: widget.user,
               ),
               // End
               const SizedBox(height: 50),

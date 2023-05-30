@@ -145,6 +145,7 @@ class _HomeState extends State<Home> {
                 context: context,
                 mainContext: widget.mainContext,
                 trivias: [],
+                user: widget.user!,
               ),
               // Popular Trivia
               triviaRow(
@@ -153,6 +154,7 @@ class _HomeState extends State<Home> {
                 title: "Popular Trivia",
                 icon: Icons.stacked_line_chart,
                 trivias: [],
+                user: widget.user!,
               ),
               // Whats New
               latestNewsList.isEmpty
