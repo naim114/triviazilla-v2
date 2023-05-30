@@ -34,7 +34,7 @@ Widget recordCard({
                 ),
               );
             } else if (value == 'Trivia') {
-              showTriviaModal(context: context);
+              // showTriviaModal(context: context); TODO
             } else if (value == 'Delete') {
               showDialog<String>(
                 context: context,

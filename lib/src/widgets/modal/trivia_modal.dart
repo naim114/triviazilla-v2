@@ -5,13 +5,13 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:triviazilla/src/features/start/countdown.dart';
 import 'package:triviazilla/src/features/trivia/leaderboard.dart';
-import 'package:triviazilla/src/model/role_model.dart';
-import 'package:triviazilla/src/model/user_model.dart';
+import 'package:triviazilla/src/model/trivia_model.dart';
 import 'package:triviazilla/src/services/helpers.dart';
 
 import '../image/avatar.dart';
 
 void showTriviaModal({
+  required TriviaModel trivia,
   required BuildContext context,
 }) =>
     showModalBottomSheet(
@@ -38,31 +38,49 @@ void showTriviaModal({
                   slivers: [
                     // Cover image
                     SliverAppBar(
-                      flexibleSpace: ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(15.0),
-                          topRight: Radius.circular(15.0),
-                        ),
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              'https://dummyimage.com/600x400/000/fff.png&text=sample+image',
-                          fit: BoxFit.cover,
-                          height: MediaQuery.of(context).size.height * 0.3,
-                          placeholder: (context, url) => Shimmer.fromColors(
-                            baseColor: CupertinoColors.systemGrey,
-                            highlightColor: CupertinoColors.systemGrey2,
-                            child: Container(
-                              color: Colors.grey,
-                              height: MediaQuery.of(context).size.height * 0.3,
+                      flexibleSpace: trivia.imgURL == null
+                          ? ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(15.0),
+                                topRight: Radius.circular(15.0),
+                              ),
+                              child: Image.asset(
+                                'assets/images/noimage.png',
+                                fit: BoxFit.cover,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                width: double.infinity,
+                              ),
+                            )
+                          : ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(15.0),
+                                topRight: Radius.circular(15.0),
+                              ),
+                              child: CachedNetworkImage(
+                                imageUrl: trivia.imgURL!,
+                                fit: BoxFit.cover,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                placeholder: (context, url) =>
+                                    Shimmer.fromColors(
+                                  baseColor: CupertinoColors.systemGrey,
+                                  highlightColor: CupertinoColors.systemGrey2,
+                                  child: Container(
+                                    color: Colors.grey,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.3,
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                  'assets/images/noimage.png',
+                                  fit: BoxFit.cover,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.3,
+                                ),
+                              ),
                             ),
-                          ),
-                          errorWidget: (context, url, error) => Image.asset(
-                            'assets/images/noimage.png',
-                            fit: BoxFit.cover,
-                            height: MediaQuery.of(context).size.height * 0.3,
-                          ),
-                        ),
-                      ),
                       expandedHeight: MediaQuery.of(context).size.height * 0.3,
                       leading: IconButton(
                         onPressed: () => Navigator.pop(context),
@@ -158,7 +176,7 @@ void showTriviaModal({
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Text(
-                                  "Is this a Rhinosaurous?",
+                                  trivia.title,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: getColorByBackground(context),
@@ -167,7 +185,7 @@ void showTriviaModal({
                                 ),
                               ),
                               const Divider(color: CupertinoColors.systemGrey),
-                              // Stats Row
+                              // Stats Row TODO
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -245,32 +263,18 @@ void showTriviaModal({
                     SliverToBoxAdapter(
                       child: SizedBox(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ListTile(
                               leading: avatar(
-                                user: UserModel(
-                                  id: 'id',
-                                  name: 'name',
-                                  email: 'email',
-                                  password: 'password',
-                                  role: RoleModel(
-                                    id: 'id',
-                                    name: 'name',
-                                    displayName: 'displayName',
-                                    description: 'description',
-                                    createdAt: DateTime.now(),
-                                    updatedAt: DateTime.now(),
-                                  ),
-                                  createdAt: DateTime.now(),
-                                  updatedAt: DateTime.now(),
-                                ),
+                                user: trivia.author!,
                                 height:
                                     MediaQuery.of(context).size.height * 0.05,
                                 width:
                                     MediaQuery.of(context).size.height * 0.05,
                               ),
                               title: Text(
-                                'user.name',
+                                trivia.author!.name,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: getColorByBackground(context),
@@ -279,7 +283,7 @@ void showTriviaModal({
                                 maxLines: 1,
                               ),
                               subtitle: Text(
-                                'user.email',
+                                trivia.author!.name,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: TextStyle(
@@ -298,10 +302,12 @@ void showTriviaModal({
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
+                                    textAlign: TextAlign.start,
                                   ),
                                   const SizedBox(height: 5),
                                   Text(
-                                    'What is Vantablack? Vantablack is the brand name for a new class of super-black coatings. The coatings are unique in that they all have hemispherical reflectances below 1% and also retain that level of performance from all viewing angles. The original coating known just as Vantablack® was a super-black coating that holds the independently verified world record as the darkest man-made substance. It was originally developed for satellite-borne blackbody calibration systems, but due to limitations in how it was manufactured its been surpassed by our spray applied Vantablack coatings. Spray applied Vantablack coatings have unrivalled absorption from ultra-violet out beyond the terahertz spectral range. The totally unique properties of Vantablack coatings are being exploited for applications such as deep space imaging, automotive sensing, optical systems, art and aesthetics. Vantablack Coating Range Vantablack S-VIS (UV-THz performance - space qualified) Vantablack S-IR (Optimised from 5-14um - space qualified for blackbody applications) Vantablack VBx2 (Terrestrial applications from UV-THz) Typical Coating Properties Ultra-low reflectance - exceptional performance from all angles UV, Visible and IR absorption - Absorption works from UV (200-350 nm wavelength), through the visible (350-700nm) and into the far infrared (>600 microns) spectrum, with no spectral features. Super hydrophobic - Unlike other black coatings, humidity will not degrade the optical properties Very high thermal shock resistance - Repeatedly plunging a Vantablack S-VIS coated substrate into liquid Nitrogen at -196°C and then transferring to a 200°C hot plate in air does not affect its properties. Resistant to shock and vibration - Independently tested, coatings have been subjected to shock and vibration simulating launch and staging. Low outgassing and mass loss - Independent testing to ECSS shows TML<0.5 Excellent BDRF and TIS performance - Even at shallow angles the levels of blackness outperforms all other commercial super-black coatings',
+                                    trivia.description,
+                                    textAlign: TextAlign.start,
                                   ),
                                 ],
                               ),
