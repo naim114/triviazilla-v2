@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:triviazilla/src/widgets/button/answer_button.dart';
 import 'package:triviazilla/src/widgets/button/time_button.dart';
 import 'package:triviazilla/src/widgets/editor/answer_editor.dart';
-import 'package:triviazilla/src/widgets/editor/image_uploader.dart';
 
 import '../appbar/appbar_confirm_cancel.dart';
 
@@ -25,8 +22,6 @@ class QuestionEditor extends StatefulWidget {
 }
 
 class _QuestionEditorState extends State<QuestionEditor> {
-  File? _imgFile;
-
   bool _loading = false;
 
   double secondsLimit = 5;
@@ -69,7 +64,6 @@ class _QuestionEditorState extends State<QuestionEditor> {
       'text': textController.text,
       'answers': answers,
       'secondsLimit': secondsLimit,
-      'imgFile': _imgFile,
     };
 
     widget.onConfirm(question);
@@ -86,7 +80,6 @@ class _QuestionEditorState extends State<QuestionEditor> {
   @override
   void initState() {
     if (widget.question != null) {
-      _imgFile = widget.question!['imgFile'];
       textController.text = widget.question!['text'];
       answers = widget.question!['answers'];
       secondsLimit = widget.question!['secondsLimit'];
@@ -115,51 +108,6 @@ class _QuestionEditorState extends State<QuestionEditor> {
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: ListView(
                 children: [
-                  // Cover Image
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ImageUploader(
-                          appBarTitle: "Upload Cover Image",
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: MediaQuery.of(context).size.height * 0.25,
-                          onCancel: () => Navigator.of(context).pop(),
-                          onConfirm: (imageFile, uploaderContext) {
-                            setState(() {
-                              _imgFile = imageFile;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    child: _imgFile != null
-                        ? Image.file(
-                            _imgFile!,
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            fit: BoxFit.cover,
-                          )
-                        : Container(
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            decoration: const BoxDecoration(
-                              color: CupertinoColors.inactiveGray,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.grey[800],
-                                ),
-                                Text(
-                                  "Tap to add image",
-                                  style: TextStyle(color: Colors.grey[800]),
-                                ),
-                              ],
-                            ),
-                          ),
-                  ),
-                  const SizedBox(height: 10),
                   // Time
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),

@@ -72,9 +72,17 @@ class _TriviaEditorState extends State<TriviaEditor> {
     setState(() => _loading = true);
 
     Future.delayed(const Duration(seconds: 1), () {
-      // widget.onPost(
-      // );
+      widget.onPost(
+        _coverImageFile,
+        titleController.text,
+        descController.text,
+        categoryController.text,
+        _tagController.getTags,
+        question,
+      );
     });
+
+    Navigator.pop(context);
 
     return true;
   }
@@ -397,19 +405,6 @@ class _TriviaEditorState extends State<TriviaEditor> {
                   child: Card(
                     elevation: 4,
                     child: ListTile(
-                      leading: question[index]['imgFile'] == null
-                          ? Image.asset(
-                              'assets/images/noimage.png',
-                              fit: BoxFit.cover,
-                              height: 100,
-                              width: 80,
-                            )
-                          : Image.file(
-                              question[index]['imgFile'],
-                              fit: BoxFit.cover,
-                              height: 100,
-                              width: 80,
-                            ),
                       minLeadingWidth: 80,
                       title: Text(
                         question[index]['text'],

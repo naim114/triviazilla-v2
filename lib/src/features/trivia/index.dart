@@ -3,13 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:triviazilla/src/features/trivia/add.dart';
 import 'package:triviazilla/src/services/helpers.dart';
 
+import '../../model/user_model.dart';
 import '../../widgets/typography/page_title_icon.dart';
 import '../../widgets/carousel/trivia_row.dart';
 
 class TriviaMenu extends StatelessWidget {
   final BuildContext mainContext;
+  final UserModel user;
 
-  const TriviaMenu({super.key, required this.mainContext});
+  const TriviaMenu({
+    super.key,
+    required this.mainContext,
+    required this.user,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +83,7 @@ class TriviaMenu extends StatelessWidget {
           onPressed: () => Navigator.push(
             mainContext,
             MaterialPageRoute(
-              builder: (context) => const TriviaAdd(),
+              builder: (context) => TriviaAdd(user: user),
             ),
           ),
           backgroundColor: CustomColor.primary,

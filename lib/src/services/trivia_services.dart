@@ -130,7 +130,7 @@ class TriviaServices {
   }
 
   // add
-  Future add({
+  Future<bool> add({
     required String title,
     required String description,
     required UserModel author,
@@ -202,11 +202,11 @@ class TriviaServices {
             'id': docRef.id,
             'title': title,
             'description': description,
-            'author': author,
+            'author': author.id,
             'imgPath': 'trivia/cover/${docRef.id}$extension',
             'imgURL': downloadUrl,
             'category': category,
-            'tag': tags,
+            'tag': tags == null ? null : jsonEncode(tags),
             'likedBy': null,
             'bookmarkBy': null,
             'createdAt': DateTime.now(),
@@ -218,9 +218,9 @@ class TriviaServices {
             'id': docRef.id,
             'title': title,
             'description': description,
-            'author': author,
+            'author': author.id,
             'category': category,
-            'tag': tags,
+            'tag': tags == null ? null : jsonEncode(tags),
             'likedBy': null,
             'bookmarkBy': null,
             'createdAt': DateTime.now(),

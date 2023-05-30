@@ -48,7 +48,7 @@ class TriviaModel {
       'id': id,
       'title': title,
       'description': description,
-      'author': author,
+      'author': author!.id,
       'imgPath': imgPath,
       'imgURL': imgURL,
       'category': category,
