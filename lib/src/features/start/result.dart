@@ -55,9 +55,45 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
             alignment: Alignment.center,
             child: ListView(
               children: [
+                // Total Score
+                const Padding(
+                  padding: EdgeInsets.only(
+                    top: 10,
+                    left: 20,
+                    right: 20,
+                  ),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "1000",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 60,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "PTS",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 // Box Score
                 Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                   child: Container(
                     width: double.infinity,
                     decoration: const BoxDecoration(
@@ -170,7 +206,6 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                       child: Column(
                         children: [
                           listTileAnswer(isCorrect: true),
-                          listTileAnswer(isCorrect: true),
                           listTileAnswer(isCorrect: false),
                           ListTile(
                             onTap: () {
@@ -182,7 +217,7 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                               );
                             },
                             title: const Text(
-                              "View more",
+                              "Tap to view all",
                               style: TextStyle(fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),

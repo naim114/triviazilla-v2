@@ -21,7 +21,7 @@ class StartTriviaAnswer extends StatefulWidget {
     required this.question,
   });
 
-  final Function(bool) onSubmit;
+  final Function(bool result, double timeLeft) onSubmit;
   final int questionNo;
   final int triviaLength;
   final QuestionModel question;
@@ -107,7 +107,7 @@ class _StartTriviaAnswerState extends State<StartTriviaAnswer> {
                 ),
               );
             },
-          ).then((value) => widget.onSubmit(false));
+          ).then((value) => widget.onSubmit(false, 0));
         }
       });
     });
@@ -197,78 +197,10 @@ class _StartTriviaAnswerState extends State<StartTriviaAnswer> {
                     text: answer.text,
                     onTap: () {
                       stopCountdown();
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (_) {
-                          Future.delayed(const Duration(seconds: 5), () {
-                            Navigator.of(context).pop(true);
-                          });
-                          final random = Random();
-
-                          return Dialog(
-                            backgroundColor: Colors.transparent,
-                            elevation: 0,
-                            child: Container(
-                              alignment: FractionalOffset.center,
-                              padding: const EdgeInsets.all(20.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CachedNetworkImage(
-                                    imageUrl: answer.isCorrect
-                                        ? customMsg.trueGIF[random
-                                            .nextInt(customMsg.trueGIF.length)]
-                                        : customMsg.falseGIF[random.nextInt(
-                                            customMsg.falseGIF.length)],
-                                    imageBuilder: (context, imageProvider) =>
-                                        const Center(
-                                            child: CircularProgressIndicator()),
-                                    placeholder: (context, url) => const Center(
-                                        child: CircularProgressIndicator()),
-                                    errorWidget: (context, url, error) =>
-                                        const Center(
-                                            child: CircularProgressIndicator()),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    child: Text(
-                                      // "Correct",
-                                      answer.isCorrect
-                                          ? "CORRECT!"
-                                          : "INCORRECT!",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 30,
-                                        color: answer.isCorrect
-                                            ? Colors.green
-                                            : CustomColor.danger,
-                                        fontFamily: "RobotoSlab",
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  Text(
-                                    answer.isCorrect
-                                        ? customMsg.trueWord[random
-                                            .nextInt(customMsg.trueWord.length)]
-                                        : customMsg.falseWord[random.nextInt(
-                                            customMsg.falseWord.length)],
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ).then((value) => widget.onSubmit(answer.isCorrect));
+                      widget.onSubmit(
+                        answer.isCorrect,
+                        countdownValue,
+                      );
                     },
                   ),
                 );

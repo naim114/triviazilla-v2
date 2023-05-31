@@ -122,18 +122,13 @@ String timeAgo(DateTime dateTime) {
 
 class customMsg {
   static const List<String> trueGIF = [
-    'https://media.giphy.com/media/ummeQH0c3jdm2o3Olp/giphy.gif',
-    'https://media.giphy.com/media/3ofT5PzgI9FSn8vPaw/giphy.gif',
-    'https://media.giphy.com/media/x88e1awUi05by/giphy.gif',
-    'https://media.giphy.com/media/UAXK9VGoJTbdcPgmcJ/giphy.gif',
-    'https://media.giphy.com/media/xHMIDAy1qkzNS/giphy.gif',
-    'https://media.giphy.com/media/j6ZReIODqJXh5sPLVq/giphy.gif',
-    'https://media.giphy.com/media/FlrJh58XGTaAo/giphy.gif',
-    'https://media.giphy.com/media/Z6f7vzq3iP6Mw/giphy.gif',
-    'https://media.giphy.com/media/ci0uDcGQtBh0k/giphy.gif',
-    'https://media.giphy.com/media/5fMlYckytHM4g/giphy.gif',
-    'https://media.giphy.com/media/8Odq0zzKM596g/giphy.gif',
+    'assets/gifs/true1.gif',
+    'assets/gifs/true2.gif',
+    'assets/gifs/true3.gif',
+    'assets/gifs/true4.gif',
+    'assets/gifs/true5.gif',
   ];
+
   static const List<String> trueWord = [
     'Correct!',
     'Nice one!',
@@ -146,16 +141,11 @@ class customMsg {
   ];
 
   static const List<String> falseGIF = [
-    'https://media.giphy.com/media/l4pLY0zySvluEvr0c/giphy.gif',
-    'https://media.giphy.com/media/ceeN6U57leAhi/giphy.gif',
-    'https://media.giphy.com/media/l4FGuhL4U2WyjdkaY/giphy.gif',
-    'https://media.giphy.com/media/9GJ34PEVM5JnCkfPPf/giphy.gif',
-    'https://media.giphy.com/media/KCfpWuNnTcLbc3aLvZ/giphy.gif',
-    'https://media.giphy.com/media/fH6jipGcugrKrx45az/giphy.gif',
-    'https://media.giphy.com/media/Vlw1Dzb1pU0qN3hzOu/giphy.gif',
-    'https://media.giphy.com/media/Vlw1Dzb1pU0qN3hzOu/giphy.gif',
-    'https://media.giphy.com/media/oQjsQmQKlFDcQ/giphy.gif',
-    'https://media.giphy.com/media/l1IY5J4Cfw8JLi40M/giphy.gif',
+    'assets/gifs/false1.gif',
+    'assets/gifs/false2.gif',
+    'assets/gifs/false3.gif',
+    'assets/gifs/false4.gif',
+    'assets/gifs/false5.gif',
   ];
   static const List<String> falseWord = [
     'Incorrect',
@@ -169,12 +159,11 @@ class customMsg {
   ];
 
   static const List<String> lateGIF = [
-    'https://media.giphy.com/media/n72ltcBMBhqiQ/giphy.gif',
-    'https://media.giphy.com/media/y0DI4w3LGA12w/giphy.gif',
-    'https://media.giphy.com/media/psaxnXPg4sfOilpRkN/giphy.gif',
-    'https://media.giphy.com/media/3oz8xEgf0wV8UGL5y8/giphy.gif',
-    'https://media.giphy.com/media/O4PNDmchDN81Nr4Xib/giphy.gif',
-    'https://media.giphy.com/media/fUwOs80ja3sTPpjndh/giphy.gif',
+    'assets/gifs/late1.gif',
+    'assets/gifs/late2.gif',
+    'assets/gifs/late3.gif',
+    'assets/gifs/late4.gif',
+    'assets/gifs/late5.gif',
   ];
 
   static const List<String> lateWord = [
