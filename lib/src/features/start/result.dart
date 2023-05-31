@@ -7,11 +7,20 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:triviazilla/src/services/helpers.dart';
 import 'package:triviazilla/src/widgets/list_tile/list_tile_answer.dart';
 
+import '../../model/trivia_model.dart';
 import '../../widgets/button/custom_pill_button.dart';
 import 'countdown.dart';
 
 class StartTriviaResult extends StatefulWidget {
-  const StartTriviaResult({super.key});
+  const StartTriviaResult({
+    super.key,
+    required this.trivia,
+    required this.score,
+    required this.questionLength,
+  });
+  final TriviaModel trivia;
+  final int score;
+  final int questionLength;
 
   @override
   State<StartTriviaResult> createState() => _StartTriviaResultState();
@@ -60,15 +69,15 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "QUIZ NAME",
+                            "TRIVIA NAME",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
                             ),
                           ),
                           Text(
-                            "Is this a rhinosaurus?",
-                            style: TextStyle(
+                            widget.trivia.title,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -82,24 +91,25 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                                   child: CircularPercentIndicator(
                                     radius: 60.0,
                                     lineWidth: 10,
-                                    percent: 0.8,
+                                    percent:
+                                        widget.score / widget.questionLength,
                                     backgroundColor:
                                         CupertinoColors.lightBackgroundGray,
                                     center: Text.rich(
                                       TextSpan(
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white,
                                         ),
                                         children: [
                                           TextSpan(
-                                            text: "8",
+                                            text: widget.score.toString(),
                                             style: const TextStyle(
                                               fontSize: 30,
                                             ),
                                           ),
                                           TextSpan(
-                                            text: "/10",
+                                            text: "/${widget.questionLength}",
                                             style: const TextStyle(
                                               fontSize: 20,
                                             ),
@@ -112,8 +122,8 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    "You answered 8 out of 10 questions",
-                                    style: TextStyle(
+                                    "You answered ${widget.score} out of ${widget.questionLength} questions correct",
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                       fontSize: 18,
@@ -137,7 +147,7 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                     right: 20,
                   ),
                   child: Text(
-                    "Your Answer",
+                    "Review Answer",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: CustomColor.neutral1,
@@ -181,7 +191,7 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                         context,
                         PageTransition(
                           type: PageTransitionType.topToBottom,
-                          child: StartTriviaCountdown(),
+                          child: StartTriviaCountdown(trivia: widget.trivia),
                         ),
                       );
                     },
@@ -195,7 +205,11 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                 ),
                 const SizedBox(height: 10),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    bottom: 20,
+                  ),
                   child: customPillButton(
                     width: MediaQuery.of(context).size.width * 0.9,
                     context: context,

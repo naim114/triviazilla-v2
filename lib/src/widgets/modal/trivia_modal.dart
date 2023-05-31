@@ -103,7 +103,9 @@ void showTriviaModal({
                             if (value == 'Leaderboard') {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => TriviaLeaderboard(trivia: trivia,),
+                                  builder: (context) => TriviaLeaderboard(
+                                    trivia: trivia,
+                                  ),
                                 ),
                               );
                             } else if (value == 'Like') {
@@ -423,7 +425,7 @@ void showTriviaModal({
                             context,
                             PageTransition(
                               type: PageTransitionType.topToBottom,
-                              child: StartTriviaCountdown(),
+                              child: StartTriviaCountdown(trivia: trivia),
                             ),
                           );
                         },

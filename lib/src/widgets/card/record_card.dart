@@ -26,13 +26,13 @@ Widget recordCard({
           ),
           onSelected: (value) {
             if (value == 'Result') {
-              Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.topToBottom,
-                  child: StartTriviaResult(),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   PageTransition(
+              //     type: PageTransitionType.topToBottom,
+              //     child: StartTriviaResult(),
+              //   ),
+              // );
             } else if (value == 'Trivia') {
               // showTriviaModal(context: context); TODO
             } else if (value == 'Delete') {
