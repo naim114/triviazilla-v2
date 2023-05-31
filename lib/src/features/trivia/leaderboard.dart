@@ -48,8 +48,8 @@ class TriviaLeaderboard extends StatelessWidget {
                       // height: MediaQuery.of(context).size.height * 0.3,
                     )
                   : CachedNetworkImage(
-                      imageUrl:
-                          'https://cdn.pixabay.com/photo/2019/07/02/10/25/giraffe-4312090_1280.jpg',
+                      imageUrl: trivia.imgURL!,
+                      // 'https://cdn.pixabay.com/photo/2019/07/02/10/25/giraffe-4312090_1280.jpg',
                       fit: BoxFit.cover,
                       // height: MediaQuery.of(context).size.height * 0.3,
                       placeholder: (context, url) => Shimmer.fromColors(
