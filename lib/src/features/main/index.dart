@@ -69,10 +69,10 @@ class _FrontFrameState extends State<FrontFrame> {
       screens: [
         Home(
           mainContext: context,
-          user: user,
+          user: user!,
           onAvatarTap: () => _controller.jumpToTab(4),
         ),
-        TriviaMenu(mainContext: context, user: user!),
+        TriviaMenu(mainContext: context, user: user),
         Notifications(mainContext: context, user: user),
         Account(mainContext: context, user: user),
       ],

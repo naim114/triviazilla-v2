@@ -11,6 +11,7 @@ Widget triviaRow({
   required List<TriviaModel> trivias,
   required UserModel user,
   String title = "My Trivia",
+  String emptyText = "Nothing to look here.",
   IconData icon = CupertinoIcons.person_alt_circle,
 }) =>
     Column(
@@ -60,12 +61,12 @@ Widget triviaRow({
                   ],
                 ),
               )
-            : const Padding(
-                padding: EdgeInsets.symmetric(vertical: 20.0),
+            : Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Center(
                     child: Text(
-                  "Nothing to look here.",
-                  style: TextStyle(color: CupertinoColors.systemGrey),
+                  emptyText,
+                  style: const TextStyle(color: CupertinoColors.systemGrey),
                 )),
               ),
       ],

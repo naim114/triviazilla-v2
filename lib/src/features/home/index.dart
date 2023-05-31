@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:triviazilla/src/features/home/whats_new.dart';
 import 'package:triviazilla/src/model/news_model.dart';
 
+import '../../model/trivia_model.dart';
 import '../../model/user_model.dart';
 import '../../services/news_services.dart';
+import '../../services/trivia_services.dart';
 import '../../widgets/image/avatar.dart';
 import '../../widgets/carousel/trivia_row.dart';
 import '../../widgets/image/logo_main.dart';
 import 'categories.dart';
 
 class Home extends StatefulWidget {
-  final UserModel? user;
+  final UserModel user;
   final BuildContext mainContext;
   final void Function()? onAvatarTap;
 
@@ -42,16 +44,45 @@ class _HomeState extends State<Home> {
 
   Future<void> _refreshData() async {
     try {
+      // all trivia
+      List<TriviaModel> all = await TriviaServices().getAll();
+      List<TriviaModel> myTrivia = List.empty(growable: true);
+
+      // categories
+      for (var trivia in all) {
+        // my trivia
+        if (trivia.author!.id == widget.user.id) {
+          myTrivia.add(trivia);
+        }
+      }
+
+      // sort by popularity
+      all.sort((a, b) {
+        if (a.likedBy == null && b.likedBy == null) {
+          return 0;
+        } else if (a.likedBy == null) {
+          return 1;
+        } else if (b.likedBy == null) {
+          return -1;
+        } else {
+          return a.likedBy!.length.compareTo(b.likedBy!.length);
+        }
+      });
+
+      List<TriviaModel> popular =
+          all.where((item) => item.likedBy != null).take(5).toList();
+
+      // news
       List<NewsModel> newsList = await NewsService().getPopularNews();
 
       setState(() {
         loading = false;
         allList = [
-          [], // all trivia
+          all, // all trivia
           [], // categories
-          [], // my trivia
-          [], // popular
-          newsList,
+          myTrivia, // my trivia
+          popular, // popular
+          newsList, // news
         ];
       });
 
@@ -88,7 +119,7 @@ class _HomeState extends State<Home> {
               bottom: 10,
             ),
             child: avatar(
-              user: widget.user!,
+              user: widget.user,
               width: MediaQuery.of(context).size.height * 0.05,
               height: MediaQuery.of(context).size.height * 0.05,
             ),
@@ -99,6 +130,10 @@ class _HomeState extends State<Home> {
         key: _refreshIndicatorKey,
         onRefresh: _refreshData,
         child: Builder(builder: (context) {
+          final List<TriviaModel> myTrivia =
+              List<TriviaModel>.from(allList[2]); // my trivia
+          final List<TriviaModel> popular =
+              List<TriviaModel>.from(allList[3]); // popular
           final List<NewsModel> latestNewsList =
               List<NewsModel>.from(allList[4]);
 
@@ -144,8 +179,8 @@ class _HomeState extends State<Home> {
               triviaRow(
                 context: context,
                 mainContext: widget.mainContext,
-                trivias: [],
-                user: widget.user!,
+                trivias: myTrivia,
+                user: widget.user,
               ),
               // Popular Trivia
               triviaRow(
@@ -153,8 +188,8 @@ class _HomeState extends State<Home> {
                 mainContext: widget.mainContext,
                 title: "Popular Trivia",
                 icon: Icons.stacked_line_chart,
-                trivias: [],
-                user: widget.user!,
+                trivias: popular,
+                user: widget.user,
               ),
               // Whats New
               latestNewsList.isEmpty
