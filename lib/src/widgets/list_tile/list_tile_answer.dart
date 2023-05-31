@@ -27,32 +27,16 @@ Widget listTileAnswer({
             color: CustomColor.neutral1,
           ),
         ),
-        subtitle: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text.rich(
+        subtitle: Text.rich(
+          TextSpan(
+            style: TextStyle(color: CustomColor.neutral1),
+            children: [
               TextSpan(
-                style: TextStyle(color: CustomColor.neutral1),
-                children: [
-                  TextSpan(
-                      text: "Your answer: ",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  TextSpan(text: "21"),
-                ],
-              ),
-            ),
-            Text.rich(
-              TextSpan(
-                style: TextStyle(color: CustomColor.neutral1),
-                children: [
-                  TextSpan(
-                      text: "Correct answer: ",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  TextSpan(text: "21"),
-                ],
-              ),
-            ),
-          ],
+                  text: "Your answer: ",
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              TextSpan(text: "21"),
+            ],
+          ),
         ),
       ),
     );

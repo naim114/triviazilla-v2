@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:triviazilla/src/features/record/answer.dart';
 
 import 'package:triviazilla/src/services/helpers.dart';
 import 'package:triviazilla/src/widgets/list_tile/list_tile_answer.dart';
@@ -169,9 +170,24 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                       child: Column(
                         children: [
                           listTileAnswer(isCorrect: true),
-                          listTileAnswer(isCorrect: false),
                           listTileAnswer(isCorrect: true),
                           listTileAnswer(isCorrect: false),
+                          ListTile(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RecordAnswer(),
+                                ),
+                              );
+                            },
+                            title: const Text(
+                              "View more",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            titleAlignment: ListTileTitleAlignment.center,
+                          ),
                         ],
                       ),
                     ),
