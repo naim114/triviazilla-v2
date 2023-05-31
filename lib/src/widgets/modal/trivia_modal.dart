@@ -103,7 +103,7 @@ void showTriviaModal({
                             if (value == 'Leaderboard') {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => TriviaLeaderboard(),
+                                  builder: (context) => TriviaLeaderboard(trivia: trivia,),
                                 ),
                               );
                             } else if (value == 'Like') {
@@ -176,7 +176,7 @@ void showTriviaModal({
                                               child: Icon(CupertinoIcons
                                                   .heart_slash_fill)),
                                           WidgetSpan(child: SizedBox(width: 5)),
-                                          TextSpan(text: "Unike"),
+                                          TextSpan(text: "Unlike"),
                                         ],
                                       ),
                                     ),

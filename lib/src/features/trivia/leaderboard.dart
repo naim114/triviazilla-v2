@@ -3,10 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../model/trivia_model.dart';
 import '../../services/helpers.dart';
 
 class TriviaLeaderboard extends StatelessWidget {
-  const TriviaLeaderboard({super.key});
+  final TriviaModel trivia;
+  const TriviaLeaderboard({super.key, required this.trivia});
 
   @override
   Widget build(BuildContext context) {
@@ -39,25 +41,31 @@ class TriviaLeaderboard extends StatelessWidget {
             ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
-              background: CachedNetworkImage(
-                imageUrl:
-                    'https://cdn.pixabay.com/photo/2019/07/02/10/25/giraffe-4312090_1280.jpg',
-                fit: BoxFit.cover,
-                // height: MediaQuery.of(context).size.height * 0.3,
-                placeholder: (context, url) => Shimmer.fromColors(
-                  baseColor: CupertinoColors.systemGrey,
-                  highlightColor: CupertinoColors.systemGrey2,
-                  child: Container(
-                    color: Colors.grey,
-                    // height: MediaQuery.of(context).size.height * 0.3,
-                  ),
-                ),
-                errorWidget: (context, url, error) => Image.asset(
-                  'assets/images/noimage.png',
-                  fit: BoxFit.cover,
-                  // height: MediaQuery.of(context).size.height * 0.3,
-                ),
-              ),
+              background: trivia.imgURL == null
+                  ? Image.asset(
+                      'assets/images/noimage.png',
+                      fit: BoxFit.cover,
+                      // height: MediaQuery.of(context).size.height * 0.3,
+                    )
+                  : CachedNetworkImage(
+                      imageUrl:
+                          'https://cdn.pixabay.com/photo/2019/07/02/10/25/giraffe-4312090_1280.jpg',
+                      fit: BoxFit.cover,
+                      // height: MediaQuery.of(context).size.height * 0.3,
+                      placeholder: (context, url) => Shimmer.fromColors(
+                        baseColor: CupertinoColors.systemGrey,
+                        highlightColor: CupertinoColors.systemGrey2,
+                        child: Container(
+                          color: Colors.grey,
+                          // height: MediaQuery.of(context).size.height * 0.3,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => Image.asset(
+                        'assets/images/noimage.png',
+                        fit: BoxFit.cover,
+                        // height: MediaQuery.of(context).size.height * 0.3,
+                      ),
+                    ),
             ),
           ),
           SliverToBoxAdapter(
@@ -75,7 +83,7 @@ class TriviaLeaderboard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
-                        "Is this a Rhinosaurous?",
+                        trivia.title,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: getColorByBackground(context),
@@ -121,7 +129,8 @@ class TriviaLeaderboard extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: ' 5',
+                                text:
+                                    ' ${trivia.questions.isEmpty ? 0 : trivia.questions.length}',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 25,
@@ -142,7 +151,8 @@ class TriviaLeaderboard extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: ' 10',
+                                text:
+                                    ' ${trivia.likedBy == null || trivia.likedBy!.isEmpty ? 0 : trivia.likedBy!.length}',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 25,
@@ -158,6 +168,7 @@ class TriviaLeaderboard extends StatelessWidget {
               ),
             ),
           ),
+          // TODO
           SliverToBoxAdapter(
             child: Container(
               color: isDarkTheme(context)
