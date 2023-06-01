@@ -1,24 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:triviazilla/src/model/user_model.dart';
 
 import '../../features/start/result.dart';
+import '../../model/record_trivia_model.dart';
 import '../../services/helpers.dart';
 import '../modal/trivia_modal.dart';
 
 Widget recordCard({
   required BuildContext context,
+  required RecordTriviaModel record,
+  required UserModel user,
 }) =>
     Card(
       elevation: 4,
       child: ListTile(
         title: Text(
-          "Favorite Rhinosaurus Ranked",
-          style: TextStyle(
+          record.trivia.title,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
-        subtitle: Text(timeAgo(DateTime.now())),
+        subtitle: Text(timeAgo(record.createdAt)),
         trailing: PopupMenuButton(
           icon: const Icon(
             Icons.more_vert,
@@ -26,15 +30,23 @@ Widget recordCard({
           ),
           onSelected: (value) {
             if (value == 'Result') {
-              // Navigator.push(
-              //   context,
-              //   PageTransition(
-              //     type: PageTransitionType.topToBottom,
-              //     child: StartTriviaResult(),
-              //   ),
-              // );
+              Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.topToBottom,
+                  child: StartTriviaResult(
+                    record: record,
+                    trivia: record.trivia,
+                    user: user,
+                  ),
+                ),
+              );
             } else if (value == 'Trivia') {
-              // showTriviaModal(context: context); TODO
+              showTriviaModal(
+                context: context,
+                trivia: record.trivia,
+                user: user,
+              );
             } else if (value == 'Delete') {
               showDialog<String>(
                 context: context,

@@ -136,7 +136,9 @@ class _AccountState extends State<Account> {
                             title: "Record",
                             onTap: () => Navigator.of(widget.mainContext).push(
                               MaterialPageRoute(
-                                builder: (context) => RecordList(),
+                                builder: (context) => RecordList(
+                                  user: user,
+                                ),
                               ),
                             ),
                           ),

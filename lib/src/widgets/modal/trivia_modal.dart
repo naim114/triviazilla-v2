@@ -267,76 +267,90 @@ void showTriviaModal({
                                 ),
                               ),
                               const Divider(color: CupertinoColors.systemGrey),
-                              // Stats Row TODO
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text.rich(
-                                    TextSpan(
-                                      children: [
-                                        const WidgetSpan(
-                                          child: Icon(
-                                            CupertinoIcons.play_arrow_solid,
-                                            size: 25,
-                                            color: Colors.blue,
-                                          ),
-                                        ),
+                              // Stats Row
+                              FutureBuilder<int>(
+                                future: TriviaServices()
+                                    .getPlayCount(trivia: trivia),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
+
+                                  return Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text.rich(
                                         TextSpan(
-                                          text: ' 12',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 25,
-                                          ),
+                                          children: [
+                                            const WidgetSpan(
+                                              child: Icon(
+                                                CupertinoIcons.play_arrow_solid,
+                                                size: 25,
+                                                color: Colors.blue,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: ' ${snapshot.data}',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  Text.rich(
-                                    TextSpan(
-                                      children: [
-                                        const WidgetSpan(
-                                          child: Icon(
-                                            CupertinoIcons.question_circle_fill,
-                                            size: 25,
-                                            color: Colors.green,
-                                          ),
-                                        ),
+                                      ),
+                                      const SizedBox(width: 20),
+                                      Text.rich(
                                         TextSpan(
-                                          text:
-                                              ' ${trivia.questions.isEmpty ? 0 : trivia.questions.length}',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 25,
-                                          ),
+                                          children: [
+                                            const WidgetSpan(
+                                              child: Icon(
+                                                CupertinoIcons
+                                                    .question_circle_fill,
+                                                size: 25,
+                                                color: Colors.green,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  ' ${trivia.questions.isEmpty ? 0 : trivia.questions.length}',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  Text.rich(
-                                    TextSpan(
-                                      children: [
-                                        const WidgetSpan(
-                                          child: Icon(
-                                            CupertinoIcons.heart_fill,
-                                            size: 25,
-                                            color: Colors.pink,
-                                          ),
-                                        ),
+                                      ),
+                                      const SizedBox(width: 20),
+                                      Text.rich(
                                         TextSpan(
-                                          text:
-                                              ' ${trivia.likedBy == null || trivia.likedBy!.isEmpty ? 0 : trivia.likedBy!.length}',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 25,
-                                          ),
+                                          children: [
+                                            const WidgetSpan(
+                                              child: Icon(
+                                                CupertinoIcons.heart_fill,
+                                                size: 25,
+                                                color: Colors.pink,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  ' ${trivia.likedBy == null || trivia.likedBy!.isEmpty ? 0 : trivia.likedBy!.length}',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                                      ),
+                                    ],
+                                  );
+                                },
                               ),
                             ],
                           ),

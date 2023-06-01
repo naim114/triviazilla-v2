@@ -89,7 +89,7 @@ class RecordServices {
       List<DocumentSnapshot> docList = querySnapshot.docs;
 
       List<Future<RecordTriviaModel>> futures = docList
-          .map((doc) => TriviaServices().fromDocumentSnapshot(doc))
+          .map((doc) => RecordServices().fromDocumentSnapshot(doc))
           .whereType<Future<RecordTriviaModel>>()
           .toList();
 
@@ -107,7 +107,7 @@ class RecordServices {
   }
 
   // get by user
-  Future<List<RecordTriviaModel>> getByUser(RecordTriviaModel user) async {
+  Future<List<RecordTriviaModel>> getByUser(UserModel user) async {
     List<RecordTriviaModel> allTrivia = await RecordServices().getAll();
     List<RecordTriviaModel> result = List.empty(growable: true);
 
@@ -116,6 +116,26 @@ class RecordServices {
         result.add(trivia);
       }
     }
+
+    if (result.isNotEmpty) {
+      result.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    }
+
+    return result;
+  }
+
+  // get by trivia
+  Future<List<RecordTriviaModel>> getByTrivia(TriviaModel trivia) async {
+    List<RecordTriviaModel> records = await RecordServices().getAll();
+    List<RecordTriviaModel> result = List.empty(growable: true);
+
+    for (var record in records) {
+      if (record.trivia.id == trivia.id) {
+        result.add(record);
+      }
+    }
+
+    result.sort((a, b) => b.score.compareTo(a.score));
 
     return result;
   }
@@ -145,8 +165,6 @@ class RecordServices {
 
         return docRef;
       });
-
-      print("Add record: $result");
 
       // Activity Log
       await UserServices()

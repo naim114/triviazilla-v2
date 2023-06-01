@@ -2,7 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:triviazilla/src/services/record_service.dart';
+import 'package:triviazilla/src/services/trivia_services.dart';
 
+import '../../model/record_trivia_model.dart';
 import '../../model/trivia_model.dart';
 import '../../services/helpers.dart';
 
@@ -93,142 +96,152 @@ class TriviaLeaderboard extends StatelessWidget {
                     ),
                     const Divider(color: CupertinoColors.systemGrey),
                     // Stats Row
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              const WidgetSpan(
-                                child: Icon(
-                                  CupertinoIcons.play_arrow_solid,
-                                  size: 25,
-                                  color: Colors.blue,
-                                ),
-                              ),
+                    FutureBuilder<int>(
+                      future: TriviaServices().getPlayCount(trivia: trivia),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text.rich(
                               TextSpan(
-                                text: ' 12',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
-                                ),
+                                children: [
+                                  const WidgetSpan(
+                                    child: Icon(
+                                      CupertinoIcons.play_arrow_solid,
+                                      size: 25,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${snapshot.data}',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              const WidgetSpan(
-                                child: Icon(
-                                  CupertinoIcons.question_circle_fill,
-                                  size: 25,
-                                  color: Colors.green,
-                                ),
-                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            Text.rich(
                               TextSpan(
-                                text:
-                                    ' ${trivia.questions.isEmpty ? 0 : trivia.questions.length}',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
-                                ),
+                                children: [
+                                  const WidgetSpan(
+                                    child: Icon(
+                                      CupertinoIcons.question_circle_fill,
+                                      size: 25,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        ' ${trivia.questions.isEmpty ? 0 : trivia.questions.length}',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              const WidgetSpan(
-                                child: Icon(
-                                  CupertinoIcons.heart_fill,
-                                  size: 25,
-                                  color: Colors.pink,
-                                ),
-                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            Text.rich(
                               TextSpan(
-                                text:
-                                    ' ${trivia.likedBy == null || trivia.likedBy!.isEmpty ? 0 : trivia.likedBy!.length}',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
-                                ),
+                                children: [
+                                  const WidgetSpan(
+                                    child: Icon(
+                                      CupertinoIcons.heart_fill,
+                                      size: 25,
+                                      color: Colors.pink,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        ' ${trivia.likedBy == null || trivia.likedBy!.isEmpty ? 0 : trivia.likedBy!.length}',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      ],
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ],
                 ),
               ),
             ),
           ),
-          // TODO
           SliverToBoxAdapter(
             child: Container(
               color: isDarkTheme(context)
                   ? CustomColor.darkerBg
                   : Colors.grey[200],
-              child: Column(
-                children: [
-                  const SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 3,
-                      horizontal: 8,
-                    ),
-                    child: Card(
-                      child: ListTile(
-                        leading: Text(
-                          '#8',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: getColorByBackground(context),
-                            fontSize: 18,
-                          ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: FutureBuilder<List<RecordTriviaModel>>(
+                    future: RecordServices().getByTrivia(trivia),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: List.generate(
+                          snapshot.data!.length,
+                          (index) {
+                            RecordTriviaModel record = snapshot.data![index];
+
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 3,
+                                horizontal: 8,
+                              ),
+                              child: Card(
+                                child: ListTile(
+                                  leading: Text(
+                                    '#${index + 1}',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: getColorByBackground(context),
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  title: Text(
+                                    record.answerBy!.name,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: getColorByBackground(context),
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                  ),
+                                  trailing: Text(
+                                    record.score.toString(),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 18,
+                                      color: getColorByBackground(context),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                        title: Text(
-                          'user.name',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: getColorByBackground(context),
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                        trailing: Text(
-                          '200',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 18,
-                            color: getColorByBackground(context),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                ],
+                      );
+                    }),
               ),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return Container(
-                  color: index.isOdd ? Colors.white : Colors.black12,
-                  height: 100.0,
-                  child: Center(
-                    child: Text('$index', textScaleFactor: 5),
-                  ),
-                );
-              },
-              childCount: 20,
             ),
           ),
         ],

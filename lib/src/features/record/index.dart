@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:triviazilla/src/model/user_model.dart';
+import 'package:triviazilla/src/services/record_service.dart';
+import '../../model/record_trivia_model.dart';
 import '../../services/helpers.dart';
 import '../../widgets/card/record_card.dart';
 
 class RecordList extends StatelessWidget {
-  const RecordList({super.key});
+  final UserModel user;
+  const RecordList({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +30,27 @@ class RecordList extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: recordCard(
-              context: context,
-            ),
-          ),
-        ],
-      ),
+      body: FutureBuilder<List<RecordTriviaModel>>(
+          future: RecordServices().getByUser(user),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            return ListView(
+              children: List.generate(
+                snapshot.data!.length,
+                (index) => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: recordCard(
+                    context: context,
+                    record: snapshot.data![index],
+                    user: user,
+                  ),
+                ),
+              ),
+            );
+          }),
     );
   }
 }

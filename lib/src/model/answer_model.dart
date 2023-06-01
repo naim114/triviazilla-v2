@@ -11,7 +11,7 @@ class AnswerModel {
 
   @override
   String toString() {
-    return 'AnswerModel(text: $text, isCorrect: $isCorrect, isChosem: $isChosen)';
+    return 'AnswerModel(text: $text, isCorrect: $isCorrect, isChosen: $isChosen)';
   }
 
   Map<String, dynamic> toMap() {

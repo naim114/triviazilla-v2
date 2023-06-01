@@ -7,8 +7,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:network_info_plus/network_info_plus.dart';
+import 'package:triviazilla/src/model/record_trivia_model.dart';
 import 'package:triviazilla/src/model/trivia_model.dart';
 import 'package:triviazilla/src/model/user_model.dart';
+import 'package:triviazilla/src/services/record_service.dart';
 import 'package:triviazilla/src/services/user_activity_services.dart';
 import 'package:triviazilla/src/services/user_services.dart';
 import 'package:path/path.dart' as path;
@@ -467,6 +469,15 @@ class TriviaServices {
 
       return false;
     }
+  }
+
+  Future<int> getPlayCount({
+    required TriviaModel trivia,
+  }) async {
+    List<RecordTriviaModel> records =
+        await RecordServices().getByTrivia(trivia);
+
+    return records.length;
   }
 
   // like
