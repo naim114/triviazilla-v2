@@ -21,7 +21,10 @@ class StartTriviaAnswer extends StatefulWidget {
     required this.question,
   });
 
-  final Function(bool result, double timeLeft) onSubmit;
+  final Function(
+    bool result,
+    double timeLeft,
+  ) onSubmit;
   final int questionNo;
   final int triviaLength;
   final QuestionModel question;

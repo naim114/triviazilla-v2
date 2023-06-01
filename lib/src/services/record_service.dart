@@ -3,11 +3,11 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:network_info_plus/network_info_plus.dart';
-import 'package:triviazilla/src/model/record_question_model.dart';
 import 'package:triviazilla/src/services/trivia_services.dart';
 import 'package:triviazilla/src/services/user_activity_services.dart';
 import 'package:triviazilla/src/services/user_services.dart';
 
+import '../model/question_model.dart';
 import '../model/record_trivia_model.dart';
 import '../model/trivia_model.dart';
 import '../model/user_model.dart';
@@ -23,9 +23,9 @@ class RecordServices {
   // convert DocumentSnapshot to model object
   Future<RecordTriviaModel> fromDocumentSnapshot(
       DocumentSnapshot<Object?> doc) async {
-    List<RecordQuestionModel> questions =
+    List<QuestionModel> questions =
         (doc.get('questions') as List<dynamic>).map((json) {
-      return RecordQuestionModel.fromJson(json as Map<String, dynamic>);
+      return QuestionModel.fromJson(json as Map<String, dynamic>);
     }).toList();
 
     return RecordTriviaModel(
@@ -41,9 +41,9 @@ class RecordServices {
   // convert QueryDocumentSnapshot to model object
   Future<RecordTriviaModel> fromQueryDocumentSnapshot(
       QueryDocumentSnapshot<Object?> doc) async {
-    List<RecordQuestionModel> questions =
+    List<QuestionModel> questions =
         (doc.get('questions') as List<dynamic>).map((json) {
-      return RecordQuestionModel.fromJson(json as Map<String, dynamic>);
+      return QuestionModel.fromJson(json as Map<String, dynamic>);
     }).toList();
 
     return RecordTriviaModel(
@@ -58,9 +58,9 @@ class RecordServices {
 
   // convert map to model object
   Future<RecordTriviaModel> fromMap(Map<String, dynamic> map) async {
-    List<RecordQuestionModel> questions =
+    List<QuestionModel> questions =
         (map['questions'] as List<dynamic>).map((json) {
-      return RecordQuestionModel.fromJson(json as Map<String, dynamic>);
+      return QuestionModel.fromJson(json as Map<String, dynamic>);
     }).toList();
 
     return RecordTriviaModel(
@@ -117,7 +117,7 @@ class RecordServices {
   Future<bool> add({
     required TriviaModel trivia,
     required UserModel user,
-    required List<RecordQuestionModel> questions,
+    required List<QuestionModel> questions,
   }) async {
     try {
       final result = await _collectionRef.add({

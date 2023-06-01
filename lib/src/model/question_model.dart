@@ -4,16 +4,18 @@ class QuestionModel {
   final String text;
   final List<AnswerModel> answers;
   final double secondsLimit;
+  final double timeLeft;
 
   QuestionModel({
     required this.text,
     required this.answers,
     required this.secondsLimit,
+    required this.timeLeft,
   });
 
   @override
   String toString() {
-    return 'QuestionModel(text: $text, secondsLimit: $secondsLimit, answers: $answers)';
+    return 'QuestionModel(text: $text, secondsLimit: $secondsLimit, answers: $answers, timeLeft: $timeLeft)';
   }
 
   Map<String, Object?> toJson() {
@@ -21,6 +23,7 @@ class QuestionModel {
       'text': text,
       'secondsLimit': secondsLimit,
       'answers': answers,
+      'timeLeft': timeLeft,
     };
   }
 
@@ -33,6 +36,7 @@ class QuestionModel {
       text: json['text']! as String,
       secondsLimit: json['secondsLimit'] as double,
       answers: answers,
+      timeLeft: json['timeLeft'] as double,
     );
   }
 }

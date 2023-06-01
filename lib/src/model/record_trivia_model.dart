@@ -1,4 +1,4 @@
-import 'package:triviazilla/src/model/record_question_model.dart';
+import 'package:triviazilla/src/model/question_model.dart';
 import 'package:triviazilla/src/model/trivia_model.dart';
 import 'package:triviazilla/src/model/user_model.dart';
 
@@ -7,7 +7,7 @@ class RecordTriviaModel {
   final TriviaModel trivia;
   final UserModel? answerBy;
 
-  final List<RecordQuestionModel> questions;
+  final List<QuestionModel> questions;
 
   // date
   final DateTime createdAt;

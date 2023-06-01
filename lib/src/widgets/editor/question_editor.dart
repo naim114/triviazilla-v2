@@ -41,7 +41,7 @@ class _QuestionEditorState extends State<QuestionEditor> {
 
   bool confirm() {
     if (textController.text.isEmpty) {
-      Fluttertoast.showToast(msg: "Question can't be empty");
+      Fluttertoast.showToast(msg: "No question. Please add at least one.");
 
       return false;
     } else if (answers.isEmpty) {
@@ -60,10 +60,13 @@ class _QuestionEditorState extends State<QuestionEditor> {
 
     setState(() => _loading = true);
 
+    double timeLeft = 0;
+
     Map<String, dynamic> question = {
       'text': textController.text,
       'answers': answers,
       'secondsLimit': secondsLimit,
+      'timeLeft': timeLeft,
     };
 
     widget.onConfirm(question);
