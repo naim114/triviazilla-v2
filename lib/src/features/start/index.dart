@@ -108,7 +108,7 @@ class _StartTriviaState extends State<StartTrivia> {
                             textAlign: TextAlign.center,
                           ),
                           Text(
-                            "Score: ${score}PTS",
+                            "Current Score: ${score}PTS",
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
