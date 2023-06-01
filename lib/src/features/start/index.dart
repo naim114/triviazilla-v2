@@ -41,7 +41,7 @@ class _StartTriviaState extends State<StartTrivia> {
           return StartTriviaAnswer(
             questionNo: index + 1,
             triviaLength: widget.trivia.questions.length,
-            onSubmit: (result, timeLeft) {
+            onSubmit: (result, timeLeft, recordAnswers) {
               // Correct grant 10 points
               if (result) setState(() => score = score + 10);
 
@@ -49,7 +49,7 @@ class _StartTriviaState extends State<StartTrivia> {
               setState(() => score =
                   score + ((timeLeft / question.secondsLimit) * 10).round());
 
-              // print("score: $score");
+              print("current score: $score");
 
               showDialog(
                 context: context,

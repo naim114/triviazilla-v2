@@ -24,6 +24,7 @@ class StartTriviaAnswer extends StatefulWidget {
   final Function(
     bool result,
     double timeLeft,
+    List<AnswerModel> recordAnswers,
   ) onSubmit;
   final int questionNo;
   final int triviaLength;
@@ -37,6 +38,7 @@ class _StartTriviaAnswerState extends State<StartTriviaAnswer> {
   late double countdownValue;
   late double initialCountdownValue;
   late Timer countdownTimer;
+  List<AnswerModel> recordAnswers = List.empty(growable: true);
 
   @override
   void initState() {
@@ -45,6 +47,7 @@ class _StartTriviaAnswerState extends State<StartTriviaAnswer> {
     setState(() {
       countdownValue = widget.question.secondsLimit;
       initialCountdownValue = widget.question.secondsLimit;
+      recordAnswers = widget.question.answers;
     });
   }
 
@@ -110,7 +113,7 @@ class _StartTriviaAnswerState extends State<StartTriviaAnswer> {
                 ),
               );
             },
-          ).then((value) => widget.onSubmit(false, 0));
+          ).then((value) => widget.onSubmit(false, 0, recordAnswers));
         }
       });
     });
@@ -200,9 +203,20 @@ class _StartTriviaAnswerState extends State<StartTriviaAnswer> {
                     text: answer.text,
                     onTap: () {
                       stopCountdown();
+
+                      setState(() {
+                        recordAnswers.removeAt(index);
+                        recordAnswers.add(AnswerModel(
+                          text: answer.text,
+                          isCorrect: answer.isCorrect,
+                          isChosen: true,
+                        ));
+                      });
+
                       widget.onSubmit(
                         answer.isCorrect,
                         countdownValue,
+                        recordAnswers,
                       );
                     },
                   ),

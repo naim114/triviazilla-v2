@@ -10,6 +10,7 @@ Future<Map<String, dynamic>?> showAnswerEditorModal({
   Map<String, dynamic> newAnswer = {
     'text': null,
     'isCorrect': null,
+    'isChosen': false,
   };
 
   if (answer != null) {
