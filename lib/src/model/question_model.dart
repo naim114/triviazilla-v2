@@ -18,11 +18,11 @@ class QuestionModel {
     return 'QuestionModel(text: $text, secondsLimit: $secondsLimit, answers: $answers, timeLeft: $timeLeft)';
   }
 
-  Map<String, Object?> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'text': text,
       'secondsLimit': secondsLimit,
-      'answers': answers,
+      'answers': answers.map((a) => a.toMap()).toList(),
       'timeLeft': timeLeft,
     };
   }

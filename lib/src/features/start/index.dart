@@ -5,13 +5,21 @@ import 'package:page_transition/page_transition.dart';
 import 'package:triviazilla/src/features/start/answer.dart';
 import 'package:triviazilla/src/features/start/result.dart';
 import 'package:triviazilla/src/model/question_model.dart';
+import 'package:triviazilla/src/model/user_model.dart';
 import 'package:triviazilla/src/services/helpers.dart';
+import 'package:triviazilla/src/services/record_service.dart';
 
+import '../../model/record_trivia_model.dart';
 import '../../model/trivia_model.dart';
 
 class StartTrivia extends StatefulWidget {
-  const StartTrivia({super.key, required this.trivia});
+  const StartTrivia({
+    super.key,
+    required this.trivia,
+    required this.user,
+  });
   final TriviaModel trivia;
+  final UserModel user;
 
   @override
   State<StartTrivia> createState() => _StartTriviaState();
@@ -20,6 +28,8 @@ class StartTrivia extends StatefulWidget {
 class _StartTriviaState extends State<StartTrivia> {
   final PageController pageController = PageController(initialPage: 0);
   int score = 0;
+  int correctCount = 0;
+  List<QuestionModel> recordQuestion = List.empty(growable: true);
 
   @override
   void dispose() {
@@ -41,15 +51,35 @@ class _StartTriviaState extends State<StartTrivia> {
           return StartTriviaAnswer(
             questionNo: index + 1,
             triviaLength: widget.trivia.questions.length,
-            onSubmit: (result, timeLeft, recordAnswers) {
+            onSubmit: (result, timeLeft, recordAnswers, isLate) {
               // Correct grant 10 points
-              if (result) setState(() => score = score + 10);
+              if (result) {
+                setState(() {
+                  score = score + 10;
+                  correctCount++;
+                });
+                print("CORRECT POINTS: 10");
+              }
 
               // Time points
-              setState(() => score =
-                  score + ((timeLeft / question.secondsLimit) * 10).round());
+              if (isLate) {
+                setState(() => score =
+                    score + ((timeLeft / question.secondsLimit) * 10).round());
+                print(
+                    "TIME POINTS: ${((timeLeft / question.secondsLimit) * 10).round()}");
+              }
 
               print("current score: $score");
+
+              // Add to Record
+              setState(() {
+                recordQuestion.add(QuestionModel(
+                  text: question.text,
+                  answers: recordAnswers,
+                  secondsLimit: question.secondsLimit,
+                  timeLeft: timeLeft,
+                ));
+              });
 
               showDialog(
                 context: context,
@@ -70,20 +100,30 @@ class _StartTriviaState extends State<StartTrivia> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset(
-                            result
-                                ? customMsg.trueGIF[
-                                    random.nextInt(customMsg.trueGIF.length)]
-                                : customMsg.falseGIF[
-                                    random.nextInt(customMsg.falseGIF.length)],
-                            errorBuilder: (context, error, stackTrace) =>
-                                const SizedBox(),
-                          ),
+                          isLate
+                              ? Image.asset(
+                                  customMsg.lateGIF[
+                                      random.nextInt(customMsg.lateGIF.length)],
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      const SizedBox())
+                              : Image.asset(
+                                  result
+                                      ? customMsg.trueGIF[random
+                                          .nextInt(customMsg.trueGIF.length)]
+                                      : customMsg.falseGIF[random
+                                          .nextInt(customMsg.falseGIF.length)],
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      const SizedBox(),
+                                ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Text(
                               // "Correct",
-                              result ? "CORRECT!" : "INCORRECT!",
+                              isLate
+                                  ? "TIMES UP!!"
+                                  : result
+                                      ? "CORRECT!"
+                                      : "INCORRECT!",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 30,
@@ -95,11 +135,14 @@ class _StartTriviaState extends State<StartTrivia> {
                             ),
                           ),
                           Text(
-                            result
-                                ? customMsg.trueWord[
-                                    random.nextInt(customMsg.trueWord.length)]
-                                : customMsg.falseWord[
-                                    random.nextInt(customMsg.falseWord.length)],
+                            isLate
+                                ? customMsg.lateWord[
+                                    random.nextInt(customMsg.lateWord.length)]
+                                : result
+                                    ? customMsg.trueWord[random
+                                        .nextInt(customMsg.trueWord.length)]
+                                    : customMsg.falseWord[random
+                                        .nextInt(customMsg.falseWord.length)],
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -121,24 +164,34 @@ class _StartTriviaState extends State<StartTrivia> {
                     ),
                   );
                 },
-              ).then((_) {
+              ).then((_) async {
                 if (index + 1 == widget.trivia.questions.length) {
                   print("Last index!");
-                  print(
-                      "FINAL SCORE: $score / ${widget.trivia.questions.length}");
+                  print("FINAL SCORE: $score");
 
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.topToBottom,
-                      child: StartTriviaResult(
-                        trivia: widget.trivia,
-                        questionLength: widget.trivia.questions.length,
-                        score: score,
-                      ),
-                    ),
-                    (route) => route.isFirst,
+                  // TODO add record method here
+                  RecordTriviaModel? record = await RecordServices().add(
+                    trivia: widget.trivia,
+                    user: widget.user,
+                    questions: recordQuestion,
+                    correctCount: correctCount,
+                    score: score,
                   );
+
+                  if (record != null && context.mounted) {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.topToBottom,
+                        child: StartTriviaResult(
+                          trivia: widget.trivia,
+                          record: record,
+                          user: widget.user,
+                        ),
+                      ),
+                      (route) => route.isFirst,
+                    );
+                  }
                 } else {
                   print("On to the next page");
                   pageController.nextPage(

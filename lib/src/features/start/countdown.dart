@@ -6,9 +6,17 @@ import 'package:triviazilla/src/features/start/index.dart';
 import 'package:triviazilla/src/model/trivia_model.dart';
 import 'package:triviazilla/src/widgets/image/logo_main.dart';
 
+import '../../model/user_model.dart';
+
 class StartTriviaCountdown extends StatefulWidget {
-  const StartTriviaCountdown({super.key, required this.trivia});
+  const StartTriviaCountdown({
+    super.key,
+    required this.trivia,
+    required this.user,
+  });
+  final UserModel user;
   final TriviaModel trivia;
+
   @override
   State<StartTriviaCountdown> createState() => _StartTriviaCountdownState();
 }
@@ -32,7 +40,10 @@ class _StartTriviaCountdownState extends State<StartTriviaCountdown> {
             context,
             PageTransition(
               type: PageTransitionType.fade,
-              child: StartTrivia(trivia: widget.trivia),
+              child: StartTrivia(
+                trivia: widget.trivia,
+                user: widget.user,
+              ),
             ),
             (route) => route.isFirst,
           );

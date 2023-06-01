@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:math';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -25,6 +23,7 @@ class StartTriviaAnswer extends StatefulWidget {
     bool result,
     double timeLeft,
     List<AnswerModel> recordAnswers,
+    bool isLate,
   ) onSubmit;
   final int questionNo;
   final int triviaLength;
@@ -57,63 +56,8 @@ class _StartTriviaAnswerState extends State<StartTriviaAnswer> {
         countdownValue--;
         if (countdownValue <= 0) {
           timer.cancel();
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (_) {
-              Future.delayed(const Duration(seconds: 5), () {
-                Navigator.of(context).pop(true);
-              });
-              final random = Random();
-              return Dialog(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                child: Container(
-                  alignment: FractionalOffset.center,
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CachedNetworkImage(
-                        imageUrl: customMsg
-                            .lateGIF[random.nextInt(customMsg.lateGIF.length)],
-                        imageBuilder: (context, imageProvider) =>
-                            const Center(child: CircularProgressIndicator()),
-                        placeholder: (context, url) =>
-                            const Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) =>
-                            const Center(child: CircularProgressIndicator()),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Text(
-                          "TIMES UP! INCORRECT!",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                            color: CustomColor.danger,
-                            fontFamily: "RobotoSlab",
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Text(
-                        customMsg.lateWord[
-                            random.nextInt(customMsg.lateWord.length)],
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ).then((value) => widget.onSubmit(false, 0, recordAnswers));
+
+          widget.onSubmit(false, 0, recordAnswers, true);
         }
       });
     });
@@ -217,6 +161,7 @@ class _StartTriviaAnswerState extends State<StartTriviaAnswer> {
                         answer.isCorrect,
                         countdownValue,
                         recordAnswers,
+                        false,
                       );
                     },
                   ),

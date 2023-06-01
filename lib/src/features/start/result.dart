@@ -8,7 +8,9 @@ import 'package:triviazilla/src/features/record/answer.dart';
 import 'package:triviazilla/src/services/helpers.dart';
 import 'package:triviazilla/src/widgets/list_tile/list_tile_answer.dart';
 
+import '../../model/record_trivia_model.dart';
 import '../../model/trivia_model.dart';
+import '../../model/user_model.dart';
 import '../../widgets/button/custom_pill_button.dart';
 import 'countdown.dart';
 
@@ -16,12 +18,12 @@ class StartTriviaResult extends StatefulWidget {
   const StartTriviaResult({
     super.key,
     required this.trivia,
-    required this.score,
-    required this.questionLength,
+    required this.record,
+    required this.user,
   });
   final TriviaModel trivia;
-  final int score;
-  final int questionLength;
+  final RecordTriviaModel record;
+  final UserModel user;
 
   @override
   State<StartTriviaResult> createState() => _StartTriviaResultState();
@@ -33,7 +35,6 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
   @override
   void initState() {
     super.initState();
-    // TODO save result function here
     _controllerTopCenter =
         ConfettiController(duration: const Duration(seconds: 3));
     _controllerTopCenter.play();
@@ -56,8 +57,8 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
             child: ListView(
               children: [
                 // Total Score
-                const Padding(
-                  padding: EdgeInsets.only(
+                Padding(
+                  padding: const EdgeInsets.only(
                     top: 10,
                     left: 20,
                     right: 20,
@@ -65,18 +66,26 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                   child: Center(
                     child: Column(
                       children: [
+                        const Text(
+                          "You scored..",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
                         Text.rich(
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: "1000",
-                                style: TextStyle(
+                                text: widget.record.score.toString(),
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                   fontSize: 60,
                                 ),
                               ),
-                              TextSpan(
+                              const TextSpan(
                                 text: "PTS",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -128,8 +137,8 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                                   child: CircularPercentIndicator(
                                     radius: 60.0,
                                     lineWidth: 10,
-                                    percent:
-                                        widget.score / widget.questionLength,
+                                    percent: widget.record.correctCount /
+                                        widget.record.questions.length,
                                     backgroundColor:
                                         CupertinoColors.lightBackgroundGray,
                                     center: Text.rich(
@@ -140,13 +149,15 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                                         ),
                                         children: [
                                           TextSpan(
-                                            text: widget.score.toString(),
+                                            text: widget.record.correctCount
+                                                .toString(),
                                             style: const TextStyle(
                                               fontSize: 30,
                                             ),
                                           ),
                                           TextSpan(
-                                            text: "/${widget.questionLength}",
+                                            text:
+                                                "/${widget.record.questions.length}",
                                             style: const TextStyle(
                                               fontSize: 20,
                                             ),
@@ -159,7 +170,7 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    "You answered ${widget.score} out of ${widget.questionLength} questions correct",
+                                    "You answered ${widget.record.correctCount} out of ${widget.record.questions.length} questions correct",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
@@ -205,14 +216,19 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
                         children: [
-                          listTileAnswer(isCorrect: true),
-                          listTileAnswer(isCorrect: false),
+                          listTileAnswer(question: widget.record.questions[0]),
+                          widget.record.questions.length <= 1
+                              ? const SizedBox()
+                              : listTileAnswer(
+                                  question: widget.record.questions[1]),
                           ListTile(
                             onTap: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => RecordAnswer(),
+                                  builder: (context) => RecordAnswer(
+                                    questions: widget.record.questions,
+                                  ),
                                 ),
                               );
                             },
@@ -242,7 +258,10 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                         context,
                         PageTransition(
                           type: PageTransitionType.topToBottom,
-                          child: StartTriviaCountdown(trivia: widget.trivia),
+                          child: StartTriviaCountdown(
+                            trivia: widget.trivia,
+                            user: widget.user,
+                          ),
                         ),
                       );
                     },

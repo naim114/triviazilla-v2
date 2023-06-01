@@ -14,7 +14,7 @@ class AnswerModel {
     return 'AnswerModel(text: $text, isCorrect: $isCorrect, isChosem: $isChosen)';
   }
 
-  Map<String, Object?> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'text': text,
       'isCorrect': isCorrect,

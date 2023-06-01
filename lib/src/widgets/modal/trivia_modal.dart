@@ -425,7 +425,10 @@ void showTriviaModal({
                             context,
                             PageTransition(
                               type: PageTransitionType.topToBottom,
-                              child: StartTriviaCountdown(trivia: trivia),
+                              child: StartTriviaCountdown(
+                                trivia: trivia,
+                                user: user,
+                              ),
                             ),
                           );
                         },

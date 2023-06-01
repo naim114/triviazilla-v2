@@ -35,6 +35,8 @@ class RecordServices {
       questions: questions,
       answerBy: await UserServices().get(doc.get('answerBy')),
       trivia: await TriviaServices().get(doc.get('trivia')),
+      correctCount: doc.get('correctCount'),
+      score: doc.get('score'),
     );
   }
 
@@ -53,6 +55,8 @@ class RecordServices {
       questions: questions,
       answerBy: await UserServices().get(doc.get('answerBy')),
       trivia: await TriviaServices().get(doc.get('trivia')),
+      correctCount: doc.get('correctCount'),
+      score: doc.get('score'),
     );
   }
 
@@ -70,6 +74,8 @@ class RecordServices {
       questions: questions,
       answerBy: await UserServices().get(map['answerBy']),
       trivia: await TriviaServices().get(map['trivia']),
+      correctCount: map['correctCount'],
+      score: map['score'],
     );
   }
 
@@ -114,13 +120,15 @@ class RecordServices {
     return result;
   }
 
-  Future<bool> add({
+  Future<RecordTriviaModel?> add({
     required TriviaModel trivia,
     required UserModel user,
     required List<QuestionModel> questions,
+    required int score,
+    required int correctCount,
   }) async {
     try {
-      final result = await _collectionRef.add({
+      DocumentReference result = await _collectionRef.add({
         'createdAt': DateTime.now(),
         'updatedAt': DateTime.now(),
       }).then((docRef) {
@@ -128,13 +136,17 @@ class RecordServices {
           'id': docRef.id,
           'trivia': trivia.id,
           'answerBy': user.id,
-          'questions': questions,
+          'questions': questions.map((q) => q.toMap()).toList(),
+          'score': score,
+          'correctCount': correctCount,
+          'createdAt': DateTime.now(),
+          'updatedAt': DateTime.now(),
         }).then((value) => print("Record Added"));
+
+        return docRef;
       });
 
       print("Add record: $result");
-
-      // activity log
 
       // Activity Log
       await UserServices()
@@ -159,11 +171,18 @@ class RecordServices {
         }
       });
 
-      return true;
+      RecordTriviaModel newTrivia =
+          await result.get().then((DocumentSnapshot doc) {
+        return RecordServices().fromDocumentSnapshot(doc);
+      });
+
+      print("Added Record: $newTrivia");
+
+      return newTrivia;
     } catch (e) {
       print(e.toString());
 
-      return false;
+      return null;
     }
   }
 

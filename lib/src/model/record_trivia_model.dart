@@ -6,6 +6,8 @@ class RecordTriviaModel {
   final String id;
   final TriviaModel trivia;
   final UserModel? answerBy;
+  final int score;
+  final int correctCount;
 
   final List<QuestionModel> questions;
 
@@ -20,11 +22,13 @@ class RecordTriviaModel {
     required this.questions,
     required this.createdAt,
     required this.updatedAt,
+    required this.score,
+    required this.correctCount,
   });
 
   @override
   String toString() {
-    return 'RecordTriviaModel(id: $id, trivia: $trivia, answerBy: $answerBy, questions: $questions, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'RecordTriviaModel(id: $id, trivia: $trivia, answerBy: $answerBy, questions: $questions, createdAt: $createdAt, updatedAt: $updatedAt, score: $score, correctCount: $correctCount)';
   }
 
   Map<String, Object?> toJson() {
@@ -35,6 +39,8 @@ class RecordTriviaModel {
       'questions': questions,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
+      'score': score,
+      'correctCount': correctCount,
     };
   }
 }
