@@ -217,7 +217,47 @@ void showTriviaModal({
                                 Fluttertoast.showToast(msg: "Loading...");
                               }
                             } else if (value == 'Delete') {
-                              // TODO
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text(
+                                      'Are you sure you want to delete this trivia?'),
+                                  content: const Text(
+                                      'Deleted data can\'t be retrieve back. Select OK to delete.'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text(
+                                        'Cancel',
+                                        style: TextStyle(
+                                          color: CupertinoColors.systemGrey,
+                                        ),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                        Fluttertoast.showToast(
+                                            msg: "Deleting trivia..");
+
+                                        final result = await TriviaServices()
+                                            .delete(trivia: trivia);
+
+                                        if (result) {
+                                          Fluttertoast.showToast(
+                                              msg: "Trivia deleted!!");
+                                        }
+                                      },
+                                      child: const Text(
+                                        'OK',
+                                        style: TextStyle(
+                                            color: CustomColor.danger),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
                             }
                           },
                           itemBuilder: (BuildContext context) =>
