@@ -70,7 +70,7 @@ class _FrontFrameState extends State<FrontFrame> {
         Home(
           mainContext: context,
           user: user!,
-          onAvatarTap: () => _controller.jumpToTab(4),
+          onAvatarTap: () => _controller.jumpToTab(3),
         ),
         TriviaMenu(mainContext: context, user: user),
         Notifications(mainContext: context, user: user),
