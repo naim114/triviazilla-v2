@@ -433,6 +433,19 @@ class TriviaServices {
         print("Previous file deleted");
       }
 
+      // delete trivia record
+      List<RecordTriviaModel> records =
+          await RecordServices().getByTrivia(trivia);
+
+      for (var i = 0; i < records.length; i++) {
+        final deleteRecord = await RecordServices().delete(
+          record: records[i],
+          log: false,
+        );
+
+        print("Delete Record $i: $deleteRecord");
+      }
+
       final delete = _collectionRef.doc(trivia.id).delete();
 
       print("Delete News: $delete");
@@ -458,6 +471,7 @@ class TriviaServices {
           }
         }
       });
+
       return true;
     } catch (e) {
       print(e.toString());

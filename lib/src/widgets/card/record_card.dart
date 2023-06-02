@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:triviazilla/src/model/user_model.dart';
 
 import '../../features/start/result.dart';
 import '../../model/record_trivia_model.dart';
 import '../../services/helpers.dart';
+import '../../services/record_service.dart';
 import '../modal/trivia_modal.dart';
 
 Widget recordCard({
@@ -66,8 +68,17 @@ Widget recordCard({
                       ),
                     ),
                     TextButton(
-                      onPressed: () {
-                        // TODO delete
+                      onPressed: () async {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        Fluttertoast.showToast(msg: "Deleting record..");
+
+                        final result =
+                            await RecordServices().delete(record: record);
+
+                        if (result) {
+                          Fluttertoast.showToast(msg: "Record deleted!!");
+                        }
                       },
                       child: const Text(
                         'OK',

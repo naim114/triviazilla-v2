@@ -206,29 +206,32 @@ class RecordServices {
 
   Future<bool> delete({
     required RecordTriviaModel record,
+    bool log = true,
   }) async {
     try {
       final delete = _collectionRef.doc(record.id).delete();
 
       print("Delete Record: $delete");
 
-      await UserServices()
-          .get(_auth.currentUser!.uid)
-          .then((currentUser) async {
-        print("Get current user");
-        if (currentUser != null) {
-          await UserActivityServices()
-              .add(
-                user: currentUser,
-                description:
-                    "Delete Record (Trivia: ${record.trivia.title}, User: ${record.answerBy!.email})",
-                activityType: "record_delete",
-                networkInfo: _networkInfo,
-                deviceInfoPlugin: _deviceInfoPlugin,
-              )
-              .then((value) => print("Activity Added"));
-        }
-      });
+      if (log) {
+        await UserServices()
+            .get(_auth.currentUser!.uid)
+            .then((currentUser) async {
+          print("Get current user");
+          if (currentUser != null) {
+            await UserActivityServices()
+                .add(
+                  user: currentUser,
+                  description:
+                      "Delete Record (Trivia: ${record.trivia.title}, User: ${record.answerBy!.email})",
+                  activityType: "record_delete",
+                  networkInfo: _networkInfo,
+                  deviceInfoPlugin: _deviceInfoPlugin,
+                )
+                .then((value) => print("Activity Added"));
+          }
+        });
+      }
 
       return true;
     } catch (e) {

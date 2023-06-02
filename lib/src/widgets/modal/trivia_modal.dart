@@ -176,6 +176,7 @@ void showTriviaModal({
                               }
 
                               if (context.mounted) {
+                                Navigator.pop(context);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -216,7 +217,7 @@ void showTriviaModal({
                                 Fluttertoast.showToast(msg: "Loading...");
                               }
                             } else if (value == 'Delete') {
-                              //
+                              // TODO
                             }
                           },
                           itemBuilder: (BuildContext context) =>
