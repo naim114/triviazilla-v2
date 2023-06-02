@@ -19,6 +19,7 @@ class TriviaEditor extends StatefulWidget {
     this.description,
     this.category,
     this.tags,
+    this.question,
   });
 
   final File? thumbnailFile;
@@ -26,6 +27,7 @@ class TriviaEditor extends StatefulWidget {
   final String? description;
   final String? category;
   final List<String>? tags;
+  final List<Map<String, dynamic>>? question;
 
   final Function(
     File? coverImageFile,
@@ -104,6 +106,12 @@ class _TriviaEditorState extends State<TriviaEditor> {
     titleController.text = widget.title ?? "";
     descController.text = widget.description ?? "";
     categoryController.text = widget.category ?? "";
+    setState(() {
+      if (widget.question != null) {
+        question = widget.question!;
+      }
+    });
+
     super.initState();
   }
 
@@ -123,7 +131,7 @@ class _TriviaEditorState extends State<TriviaEditor> {
         leadingWidth: 70,
         centerTitle: true,
         title: Text(
-          "Create Trivia",
+          widget.title == null ? "Create Trivia" : "Edit Trivia",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: getColorByBackground(context),
@@ -156,7 +164,7 @@ class _TriviaEditorState extends State<TriviaEditor> {
                         );
                       } else {
                         return AlertDialog(
-                          title: const Text('Create Trivia?'),
+                          title: const Text('Submit Trivia?'),
                           content: Text(
                               "${categoryController.text.isEmpty ? "No category included. Include it at Category/Tag section needed. " : ''}${_tagController.getTags == null ? "No tags included. Include it at Category/Tag section needed. " : ""}Select OK to confirm."),
                           actions: <Widget>[
@@ -178,7 +186,7 @@ class _TriviaEditorState extends State<TriviaEditor> {
                       }
                     },
                   ),
-                  child: const Text("Create"),
+                  child: const Text("Submit"),
                 )
               ],
       ),
@@ -210,6 +218,7 @@ class _TriviaEditorState extends State<TriviaEditor> {
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ImageUploader(
+                    imageFile: _coverImageFile,
                     appBarTitle: "Upload Cover Image",
                     width: MediaQuery.of(context).size.width * 0.8,
                     height: MediaQuery.of(context).size.height * 0.25,

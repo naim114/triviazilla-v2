@@ -284,7 +284,7 @@ class TriviaServices {
   }
 
   // edit
-  Future edit({
+  Future<bool> edit({
     required TriviaModel trivia,
     required String title,
     required String description,
@@ -357,15 +357,13 @@ class TriviaServices {
         print("URL: $downloadUrl");
 
         // UPDATE ON FIRESTORE
-        dynamic result = _collectionRef.doc(trivia.id).set({
+        dynamic result = _collectionRef.doc(trivia.id).update({
           'title': title,
           'description': description,
-          'author': author,
           'imgPath': 'trivia/cover/${trivia.id}$extension',
           'imgURL': downloadUrl,
           'category': category,
-          'tag': tags,
-          'createdAt': DateTime.now(),
+          'tag': tags == null ? null : jsonEncode(tags),
           'updatedAt': DateTime.now(),
           'questions': question,
         }).then((value) => print("Trivia Edited"));
@@ -375,15 +373,13 @@ class TriviaServices {
         // w/o cover
 
         // UPDATE ON FIRESTORE
-        dynamic result = _collectionRef.doc(trivia.id).set({
+        dynamic result = _collectionRef.doc(trivia.id).update({
           'title': title,
           'description': description,
-          'author': author,
           'category': category,
-          'tag': tags,
           'imgPath': null,
           'imgURL': null,
-          'createdAt': DateTime.now(),
+          'tag': tags == null ? null : jsonEncode(tags),
           'updatedAt': DateTime.now(),
           'questions': question,
         }).then((value) => print("Trivia Edited"));

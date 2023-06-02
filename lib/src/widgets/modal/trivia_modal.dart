@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ import 'package:triviazilla/src/model/trivia_model.dart';
 import 'package:triviazilla/src/model/user_model.dart';
 import 'package:triviazilla/src/services/helpers.dart';
 import 'package:triviazilla/src/services/trivia_services.dart';
+import 'package:triviazilla/src/widgets/editor/trivia_editor.dart';
 
 import '../image/avatar.dart';
 
@@ -147,10 +150,107 @@ void showTriviaModal({
                                 Fluttertoast.showToast(
                                     msg: "Trivia Unbookmarked!");
                               }
+                            } else if (value == 'Edit') {
+                              File? downloadedFile;
+
+                              if (trivia.imgURL != null) {
+                                downloadedFile =
+                                    await downloadFile(trivia.imgURL!);
+                              }
+
+                              List<String>? tags;
+
+                              if (trivia.tag != null ||
+                                  trivia.tag!.isNotEmpty) {
+                                tags = trivia.tag!
+                                    .map((e) => e.toString())
+                                    .toList();
+                              }
+
+                              List<Map<String, dynamic>>? question;
+
+                              if (trivia.questions.isNotEmpty) {
+                                question = trivia.questions
+                                    .map((e) => e.toMap())
+                                    .toList();
+                              }
+
+                              if (context.mounted) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => TriviaEditor(
+                                      category: trivia.category,
+                                      description: trivia.description,
+                                      title: trivia.title,
+                                      thumbnailFile: downloadedFile,
+                                      tags: tags,
+                                      question: question,
+                                      onPost: (coverImageFile,
+                                          title,
+                                          description,
+                                          category,
+                                          tags,
+                                          question) async {
+                                        final result =
+                                            await TriviaServices().edit(
+                                          title: title,
+                                          description: description,
+                                          author: user,
+                                          question: question,
+                                          coverImageFile: coverImageFile,
+                                          category: category,
+                                          tags: tags,
+                                          trivia: trivia,
+                                        );
+
+                                        if (result) {
+                                          Fluttertoast.showToast(
+                                              msg: "Trivia edited!");
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                Fluttertoast.showToast(msg: "Loading...");
+                              }
+                            } else if (value == 'Delete') {
+                              //
                             }
                           },
                           itemBuilder: (BuildContext context) =>
                               <PopupMenuEntry>[
+                            if (trivia.author!.id == user.id)
+                              PopupMenuItem(
+                                value: 'Edit',
+                                child: Text.rich(
+                                  TextSpan(
+                                    style: TextStyle(
+                                        color: getColorByBackground(context)),
+                                    children: const [
+                                      WidgetSpan(child: Icon(Icons.edit)),
+                                      WidgetSpan(child: SizedBox(width: 5)),
+                                      TextSpan(text: "Edit"),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            if (trivia.author!.id == user.id)
+                              PopupMenuItem(
+                                value: 'Delete',
+                                child: Text.rich(
+                                  TextSpan(
+                                    style: TextStyle(
+                                        color: getColorByBackground(context)),
+                                    children: const [
+                                      WidgetSpan(child: Icon(Icons.delete)),
+                                      WidgetSpan(child: SizedBox(width: 5)),
+                                      TextSpan(text: "Delete"),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             PopupMenuItem(
                               value: 'Leaderboard',
                               child: Text.rich(
