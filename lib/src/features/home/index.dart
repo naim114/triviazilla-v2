@@ -149,7 +149,17 @@ class _HomeState extends State<Home> {
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.045,
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () async {
+                      await TriviaServices().search(
+                        context: widget.mainContext,
+                        user: widget.user,
+                      );
+
+                      if (context.mounted) {
+                        Navigator.of(widget.mainContext, rootNavigator: true)
+                            .pop();
+                      }
+                    },
                     child: TextField(
                       readOnly: false,
                       autofocus: false,

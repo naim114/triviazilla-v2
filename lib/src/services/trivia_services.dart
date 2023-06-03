@@ -5,8 +5,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:network_info_plus/network_info_plus.dart';
+import 'package:search_page/search_page.dart';
 import 'package:triviazilla/src/model/record_trivia_model.dart';
 import 'package:triviazilla/src/model/trivia_model.dart';
 import 'package:triviazilla/src/model/user_model.dart';
@@ -16,6 +20,8 @@ import 'package:triviazilla/src/services/user_services.dart';
 import 'package:path/path.dart' as path;
 
 import '../model/question_model.dart';
+import '../widgets/card/trivia_card_simple.dart';
+import 'helpers.dart';
 
 class TriviaServices {
   final CollectionReference _collectionRef =
@@ -696,5 +702,85 @@ class TriviaServices {
     }
 
     return false;
+  }
+
+  Future search({
+    required BuildContext context,
+    required UserModel user,
+    String? query,
+  }) async {
+    List<TriviaModel?> trivias = await TriviaServices().getAll();
+
+    if (context.mounted) {
+      return showSearch(
+        context: context,
+        query: query,
+        delegate: SearchPage(
+          barTheme: Theme.of(context).brightness == Brightness.dark
+              ? ThemeData(
+                  inputDecorationTheme: const InputDecorationTheme(
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
+                  textTheme: Theme.of(context).textTheme.apply(
+                        bodyColor: Colors.white,
+                        displayColor: Colors.white,
+                      ),
+                  scaffoldBackgroundColor: CustomColor.neutral1,
+                  appBarTheme: const AppBarTheme(
+                    backgroundColor: CustomColor.neutral1,
+                  ),
+                )
+              : ThemeData(
+                  inputDecorationTheme: const InputDecorationTheme(
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
+                  textTheme: Theme.of(context).textTheme.apply(
+                        bodyColor: CustomColor.neutral1,
+                        displayColor: CustomColor.neutral1,
+                      ),
+                  scaffoldBackgroundColor: Colors.white,
+                  appBarTheme: const AppBarTheme(
+                    backgroundColor: Colors.white,
+                    iconTheme: IconThemeData(color: CupertinoColors.systemGrey),
+                  ),
+                ),
+          onQueryUpdate: print,
+          items: trivias,
+          searchLabel: 'Search trivia',
+          suggestion: const Center(
+            child: Text('Search trivia by title, categories, ...'),
+          ),
+          failure: const Center(
+            child: Text('No news found :('),
+          ),
+          filter: (trivia) {
+            return [
+              trivia!.title,
+              DateFormat('dd/MM/yyyy').format(trivia.createdAt),
+              trivia.author!.name,
+              trivia.author!.email,
+              trivia.category,
+              trivia.description,
+              ...?trivia.tag == null
+                  ? null
+                  : trivia.tag!.map((e) => e.toString()).toList(),
+            ];
+          },
+          builder: (trivia) => Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 5,
+            ),
+            child: triviaCardSimple(
+              context: context,
+              trivia: trivia,
+              user: user,
+            ),
+          ),
+        ),
+      );
+    }
   }
 }
