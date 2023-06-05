@@ -213,7 +213,6 @@ class _ProfileState extends State<Profile> {
                           )
                         : CachedNetworkImage(
                             imageUrl: widget.user.avatarURL!,
-                            //  'https://sunnycrew.jp/wp-content/themes/dp-colors/img/post_thumbnail/noimage.png',
                             fit: BoxFit.cover,
                             imageBuilder: (context, imageProvider) => Container(
                               height: MediaQuery.of(context).size.height * 0.17,

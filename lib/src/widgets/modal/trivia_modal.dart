@@ -262,7 +262,9 @@ void showTriviaModal({
                           },
                           itemBuilder: (BuildContext context) =>
                               <PopupMenuEntry>[
-                            if (trivia.author!.id == user.id)
+                            if (trivia.author!.id == user.id ||
+                                (user.role != null &&
+                                    user.role!.name != "user"))
                               PopupMenuItem(
                                 value: 'Edit',
                                 child: Text.rich(
@@ -277,7 +279,9 @@ void showTriviaModal({
                                   ),
                                 ),
                               ),
-                            if (trivia.author!.id == user.id)
+                            if (trivia.author!.id == user.id ||
+                                (user.role != null &&
+                                    user.role!.name != "user"))
                               PopupMenuItem(
                                 value: 'Delete',
                                 child: Text.rich(
