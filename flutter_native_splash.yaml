@@ -1,5 +1,5 @@
 flutter_native_splash:
-  image: assets/images/logo.png
+  image: assets/images/logo-nobg.png
   color: "#FFFFFF"
   color_dark: "#FFFFFF"
   android: true
@@ -7,7 +7,7 @@ flutter_native_splash:
   web: true
 
   android_12:
-    image: assets/images/logo.png
+    image: assets/images/logo-nobg.png
     icon_background_color: "#FFFFFF"
-    image_dark: assets/images/logo.png
+    image_dark: assets/images/logo-nobg.png
     icon_background_color_dark: "#FFFFFF"
