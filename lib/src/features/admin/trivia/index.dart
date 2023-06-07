@@ -23,7 +23,7 @@ class AdminPanelTrivia extends StatefulWidget {
 }
 
 class _AdminPanelTrivia extends State<AdminPanelTrivia> {
-  List<dynamic> filteredData = [];
+  List<TriviaModel> filteredData = List.empty(growable: true);
 
   final searchController = TextEditingController();
 
@@ -37,6 +37,8 @@ class _AdminPanelTrivia extends State<AdminPanelTrivia> {
   }
 
   void _onSearchTextChanged(String text) {
+    print(
+        "youre not serious people ${widget.trivias.where((trivia) => trivia.title.toLowerCase().contains(text.toLowerCase())).map((e) => e.title).toList()}");
     setState(() {
       filteredData = text.isEmpty
           ? widget.trivias

@@ -34,7 +34,6 @@ class _HomeState extends State<Home> {
 
   List<List<Object>> allList = [
     [], // all trivia
-    [], // categories
     [], // my trivia
     [], // popular
     [], // news
@@ -79,7 +78,6 @@ class _HomeState extends State<Home> {
         loading = false;
         allList = [
           all, // all trivia
-          [], // categories
           myTrivia, // my trivia
           popular, // popular
           newsList, // news
@@ -130,12 +128,26 @@ class _HomeState extends State<Home> {
         key: _refreshIndicatorKey,
         onRefresh: _refreshData,
         child: Builder(builder: (context) {
+          final List<TriviaModel> all =
+              List<TriviaModel>.from(allList[0]); // all
           final List<TriviaModel> myTrivia =
-              List<TriviaModel>.from(allList[2]); // my trivia
+              List<TriviaModel>.from(allList[1]); // my trivia
           final List<TriviaModel> popular =
-              List<TriviaModel>.from(allList[3]); // popular
+              List<TriviaModel>.from(allList[2]); // popular
           final List<NewsModel> latestNewsList =
-              List<NewsModel>.from(allList[4]);
+              List<NewsModel>.from(allList[3]);
+
+          Map<String, List<TriviaModel>> categories = {};
+
+          for (TriviaModel trivia in all) {
+            if (trivia.category != null) {
+              if (categories.containsKey(trivia.category!.toLowerCase())) {
+                categories[trivia.category!.toLowerCase()]!.add(trivia);
+              } else {
+                categories[trivia.category!.toLowerCase()] = [trivia];
+              }
+            }
+          }
 
           return ListView(
             children: [
@@ -184,7 +196,13 @@ class _HomeState extends State<Home> {
                 ),
               ),
               // Categories
-              categoriesHome(context: context),
+              categories.isEmpty
+                  ? const SizedBox()
+                  : categoriesHome(
+                      context: context,
+                      categories: categories,
+                      user: widget.user,
+                    ),
               // My Trivia
               triviaRow(
                 context: context,
