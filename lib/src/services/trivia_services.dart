@@ -753,7 +753,7 @@ class TriviaServices {
             child: Text('Search trivia by title, categories, ...'),
           ),
           failure: const Center(
-            child: Text('No news found :('),
+            child: Text('No trivia found :('),
           ),
           filter: (trivia) {
             return [

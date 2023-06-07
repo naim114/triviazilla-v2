@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:triviazilla/src/model/app_settings_model.dart';
 import 'package:triviazilla/src/model/user_model.dart';
@@ -107,15 +108,15 @@ class _MyAppState extends State<MyApp> {
                     displayColor: Colors.white,
                   ),
             ),
-            scaffoldBackgroundColor: CustomColor.neutral1,
+            scaffoldBackgroundColor: CustomColor.darkerBg,
             appBarTheme: const AppBarTheme(
-                backgroundColor: CustomColor.neutral1,
+                backgroundColor: CustomColor.darkerBg,
                 // titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
                 iconTheme: IconThemeData(
                   color: CustomColor.neutral2,
                 )),
             inputDecorationTheme: const InputDecorationTheme(
-              fillColor: CustomColor.neutral1,
+              fillColor: CustomColor.darkerBg,
               filled: true,
             ),
           ),

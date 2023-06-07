@@ -234,7 +234,10 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                             },
                             title: const Text(
                               "Tap to view all",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: CupertinoColors.darkBackgroundGray,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                             titleAlignment: ListTileTitleAlignment.center,

@@ -166,11 +166,6 @@ class _HomeState extends State<Home> {
                         context: widget.mainContext,
                         user: widget.user,
                       );
-
-                      if (context.mounted) {
-                        Navigator.of(widget.mainContext, rootNavigator: true)
-                            .pop();
-                      }
                     },
                     child: TextField(
                       readOnly: false,
@@ -202,6 +197,7 @@ class _HomeState extends State<Home> {
                       context: context,
                       categories: categories,
                       user: widget.user,
+                      mainContext: widget.mainContext,
                     ),
               // My Trivia
               triviaRow(

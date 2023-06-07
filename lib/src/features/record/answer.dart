@@ -47,7 +47,6 @@ class RecordAnswer extends StatelessWidget {
               question.text,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                color: CustomColor.neutral1,
               ),
             ),
             children: [

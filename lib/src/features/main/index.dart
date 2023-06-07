@@ -33,28 +33,36 @@ class _FrontFrameState extends State<FrontFrame> {
         title: ("Home"),
         activeColorPrimary:
             isDarkTheme(context) ? Colors.white : CustomColor.primary,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        inactiveColorPrimary: isDarkTheme(context)
+            ? CustomColor.darkBg
+            : CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.lightbulb),
         title: ("Menu"),
         activeColorPrimary:
             isDarkTheme(context) ? Colors.white : CustomColor.primary,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        inactiveColorPrimary: isDarkTheme(context)
+            ? CustomColor.darkBg
+            : CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.bell_fill),
         title: ("Notification"),
         activeColorPrimary:
             isDarkTheme(context) ? Colors.white : CustomColor.primary,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        inactiveColorPrimary: isDarkTheme(context)
+            ? CustomColor.darkBg
+            : CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.person_fill),
         title: ("Account"),
         activeColorPrimary:
             isDarkTheme(context) ? Colors.white : CustomColor.primary,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        inactiveColorPrimary: isDarkTheme(context)
+            ? CustomColor.darkBg
+            : CupertinoColors.systemGrey,
       ),
     ];
   }
@@ -89,7 +97,7 @@ class _FrontFrameState extends State<FrontFrame> {
       decoration: NavBarDecoration(
         borderRadius: BorderRadius.circular(10.0),
         colorBehindNavBar:
-            isDarkTheme(context) ? CustomColor.neutral1 : Colors.white,
+            isDarkTheme(context) ? CustomColor.darkerBg : Colors.white,
         boxShadow: isDarkTheme(context)
             ? null
             : [

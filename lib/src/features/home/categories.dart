@@ -6,6 +6,7 @@ import '../../widgets/card/category_card.dart';
 
 Widget categoriesHome({
   required BuildContext context,
+  required BuildContext mainContext,
   required Map<String, List<TriviaModel>> categories,
   required UserModel user,
 }) =>
@@ -29,19 +30,19 @@ Widget categoriesHome({
               const SizedBox(width: 10),
               Row(
                 children: categories.entries.map((e) {
+                  if (e.key == "") {
+                    return const SizedBox();
+                  }
+
                   return categoryCard(
-                    context: context,
+                    context: mainContext,
                     text: e.key.toUpperCase(),
                     onTap: () async {
                       await TriviaServices().search(
-                        context: context,
+                        context: mainContext,
                         user: user,
                         query: e.key,
                       );
-
-                      if (context.mounted) {
-                        Navigator.of(context, rootNavigator: true).pop();
-                      }
                     },
                   );
                 }).toList(),
