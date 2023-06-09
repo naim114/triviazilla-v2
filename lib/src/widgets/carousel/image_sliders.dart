@@ -31,13 +31,13 @@ List<Widget> imageSliders({
                   news!.imgURL == null
                       ? Image.asset(
                           'assets/images/noimage.png',
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                           height: 500,
                           width: 1000,
                         )
                       : CachedNetworkImage(
                           imageUrl: news.imgURL!,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                           width: 1000.0,
                           placeholder: (context, url) => Shimmer.fromColors(
                             baseColor: CupertinoColors.systemGrey,
@@ -50,7 +50,7 @@ List<Widget> imageSliders({
                           ),
                           errorWidget: (context, url, error) => Image.asset(
                             'assets/images/noimage.png',
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                             height: 500,
                             width: 1000,
                           ),

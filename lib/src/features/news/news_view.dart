@@ -507,7 +507,7 @@ class _NewsViewState extends State<NewsView> {
                     dashColor: getColorByBackground(context),
                   ),
                   // Tag
-                  news.tag == null
+                  news.tag == null || news.tag!.isEmpty
                       ? const SizedBox()
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
