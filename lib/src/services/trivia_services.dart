@@ -750,7 +750,7 @@ class TriviaServices {
           items: trivias,
           searchLabel: 'Search trivia',
           suggestion: const Center(
-            child: Text('Search trivia by title, categories, ...'),
+            child: Text('Search trivia by title, categories, author, ...'),
           ),
           failure: const Center(
             child: Text('No trivia found :('),

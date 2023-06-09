@@ -184,7 +184,7 @@ class _HomeState extends State<Home> {
                         ),
                         contentPadding: const EdgeInsets.all(0),
                         prefixIcon: const Icon(Icons.search),
-                        hintText: 'Search trivia by title, categories, ...',
+                        hintText: 'Search trivia by title, categories, author, ...',
                       ),
                     ),
                   ),
