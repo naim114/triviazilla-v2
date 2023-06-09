@@ -14,3 +14,6 @@ Get ready to unleash your inner trivia master and become the creator of knowledg
 
 ### Contributing
 Contributions are welcome! If you notice any bugs or would like to suggest a new feature, please submit an issue on GitHub. If you would like to contribute code, please fork the repository and create a pull request.
+
+### Demo
+- [2.0.1](https://firebasestorage.googleapis.com/v0/b/triviazilla-97a8f.appspot.com/o/demo%2Fapk%2F2.0.1.apk?alt=media&token=b8430a13-adc3-4d05-a9a2-3d14d8708611)
