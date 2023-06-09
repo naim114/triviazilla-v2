@@ -1,22 +1,19 @@
 # Triviazilla
-<img src="https://github.com/naim114/triviazilla/blob/master/demo/logo_main.png" href="https://github.com/naim114/triviazilla" width="400" >
+<img src="https://firebasestorage.googleapis.com/v0/b/triviazilla-97a8f.appspot.com/o/settings%2Fapplication%2Flogo_main.png?alt=media&token=9b2b0fc5-8341-478f-aa4b-9bfe64fc0453" href="https://github.com/naim114/triviazilla" width="400" >
 
-Triviazilla is a simple application that allows users to read, and post news. The app is built using Flutter and Firebase.
+Get ready to unleash your inner trivia master and become the creator of knowledge with Triviazilla! This ferociously fun app lets you step into the shoes of a trivia wizard, crafting mind-boggling questions that will stump even the sharpest minds. From crafting brain teasers to curating fascinating facts, you hold the power to challenge and entertain players from around the world. With Triviazilla, the spotlight is on you as you unleash your creativity and watch your trivia creations come to life. So, join the ranks of the trivia gods and let the world marvel at your trivia-making prowess. Get ready to conquer the trivia realm with Triviazilla, where the power of knowledge is in your hands!
 
 ### Features
-- Log in/Sign up with Google (NEW)
-- Browse the latest/popular news stories
-- Dive in all of the news with explore page (NEW)
-- Search for specific news articles using title/author/category/tag. (NEW)
-- Like feature to get your favorite news on top
-- Bookmark feature so you can read it later (NEW)
-- Comment your thoughts and opinion after you read the article (NEW)
+- Explore a vast collection of trivias across various topics and categories
+- Create your own trivias and customize them with multiple-choice questions
+- Compare results with friends, family and worldwide
+- Interactive quiz experience with timer, scoring, and leaderboard
+- Real-time feedback and results to track your progress
+- User-friendly interface with intuitive navigation and responsive design
+- Robust search functionality to find trivias of interest
 
 ### Contributing
 Contributions are welcome! If you notice any bugs or would like to suggest a new feature, please submit an issue on GitHub. If you would like to contribute code, please fork the repository and create a pull request.
 
 ### Demo
-Download: [Demo APK](https://firebasestorage.googleapis.com/v0/b/news-app-v2-e2716.appspot.com/o/demo%2F2.0.5.apk?alt=media&token=c96c9da5-67bd-4b07-8aa4-d6c61dcf7e1d)
-
-### Preview
-<img src="https://github.com/naim114/triviazilla/blob/master/demo/landing.png" width="250" > <img src="https://github.com/naim114/triviazilla/blob/master/demo/landing_modal.png" width="250" > <img src="https://github.com/naim114/triviazilla/blob/master/demo/login.png" width="250" > <img src="https://github.com/naim114/triviazilla/blob/master/demo/signup.png" width="250" > <img src="https://github.com/naim114/triviazilla/blob/master/demo/home.gif" width="250" > <img src="https://github.com/naim114/triviazilla/blob/master/demo/explore.gif" width="250" > <img src="https://github.com/naim114/triviazilla/blob/master/demo/article.gif" width="250" > <img src="https://github.com/naim114/triviazilla/blob/master/demo/noti.gif" width="250" > <img src="https://github.com/naim114/triviazilla/blob/master/demo/profile.png" width="250" > 
+- [2.0.1](https://firebasestorage.googleapis.com/v0/b/triviazilla-97a8f.appspot.com/o/demo%2Fapk%2F2.0.1.apk?alt=media&token=b8430a13-adc3-4d05-a9a2-3d14d8708611)
