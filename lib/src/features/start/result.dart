@@ -290,7 +290,7 @@ class _StartTriviaResultState extends State<StartTriviaResult> {
                     fillColor: CupertinoColors.darkBackgroundGray,
                     onPressed: () => Navigator.pop(context),
                     child: const Text(
-                      'Back to Home',
+                      'Close',
                       style: TextStyle(
                         color: Colors.white,
                       ),

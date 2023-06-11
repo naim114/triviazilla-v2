@@ -108,12 +108,12 @@ class RecordServices {
 
   // get by user
   Future<List<RecordTriviaModel>> getByUser(UserModel user) async {
-    List<RecordTriviaModel> allTrivia = await RecordServices().getAll();
+    List<RecordTriviaModel> allRecord = await RecordServices().getAll();
     List<RecordTriviaModel> result = List.empty(growable: true);
 
-    for (var trivia in allTrivia) {
-      if (user.id == trivia.answerBy!.id) {
-        result.add(trivia);
+    for (var record in allRecord) {
+      if (record.answerBy != null && user.id == record.answerBy!.id) {
+        result.add(record);
       }
     }
 
