@@ -19,3 +19,4 @@ Contributions are welcome! If you notice any bugs or would like to suggest a new
 - [2.0.1](https://firebasestorage.googleapis.com/v0/b/triviazilla-97a8f.appspot.com/o/demo%2Fapk%2F2.0.1.apk?alt=media&token=b8430a13-adc3-4d05-a9a2-3d14d8708611)
 - [2.0.1+2](https://firebasestorage.googleapis.com/v0/b/triviazilla-97a8f.appspot.com/o/demo%2Fapk%2F2.0.1%2B2.apk?alt=media&token=c84d6c59-a0d3-4a46-bb85-3188a4609c0a)
 - [2.0.2](https://firebasestorage.googleapis.com/v0/b/triviazilla-97a8f.appspot.com/o/demo%2Fapk%2F2.0.2.apk?alt=media&token=5d926eac-48ab-4ba9-9f5b-2e4b1b180908)
+- [2.0.4](https://firebasestorage.googleapis.com/v0/b/triviazilla-97a8f.appspot.com/o/demo%2Fapk%2F2.0.4.apk?alt=media&token=455a0510-a3fa-4d1f-a610-38dfcaacf767)
