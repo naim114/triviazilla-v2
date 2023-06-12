@@ -135,7 +135,17 @@ class NewsService {
         (await NewsService().getAll()).whereType<NewsModel>().toList();
 
     var res = fetchedAllNews.toList()
-      ..sort((a, b) => b.likedBy!.length.compareTo(a.likedBy!.length))
+      ..sort((a, b) {
+        if (a.likedBy != null && b.likedBy != null) {
+          return b.likedBy!.length.compareTo(a.likedBy!.length);
+        } else if (a.likedBy != null) {
+          return -1; // a is not null, but b is null
+        } else if (b.likedBy != null) {
+          return 1; // b is not null, but a is null
+        } else {
+          return 0; // both a and b are null
+        }
+      })
       ..take(limit).toList();
 
     return res;

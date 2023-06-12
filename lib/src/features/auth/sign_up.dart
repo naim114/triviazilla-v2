@@ -22,7 +22,10 @@ class _SignUpState extends State<SignUp> {
   final confirmPasswordController = TextEditingController();
 
   bool _submitted = false;
-  Widget _buttonChild = const Text('Register Now');
+  Widget _buttonChild = const Text(
+    'Register Now',
+    style: TextStyle(color: Colors.white),
+  );
 
   @override
   void initState() {
@@ -164,11 +167,15 @@ class _SignUpState extends State<SignUp> {
                             print("Result: $result");
 
                             if (result == null) {
-                              setState(() =>
-                                  _buttonChild = const Text("Register Now"));
+                              setState(() => _buttonChild = const Text(
+                                    "Register Now",
+                                    style: TextStyle(color: Colors.white),
+                                  ));
                             } else {
-                              setState(() =>
-                                  _buttonChild = const Text("Register Now"));
+                              setState(() => _buttonChild = const Text(
+                                    "Register Now",
+                                    style: TextStyle(color: Colors.white),
+                                  ));
 
                               final signOut = AuthService().signOut(result);
                               print("Sign Out: ${signOut.toString()}");
@@ -185,8 +192,10 @@ class _SignUpState extends State<SignUp> {
                             Fluttertoast.showToast(msg: e.toString());
                           }
                         } else {
-                          setState(
-                              () => _buttonChild = const Text("Register Now"));
+                          setState(() => _buttonChild = const Text(
+                                "Register Now",
+                                style: TextStyle(color: Colors.white),
+                              ));
                         }
                       },
                     ),

@@ -20,7 +20,10 @@ class _LogInState extends State<LogIn> {
   final emailController = TextEditingController();
 
   bool _submitted = false;
-  Widget _buttonChild = const Text('Log In');
+  Widget _buttonChild = const Text(
+    'Log In',
+    style: TextStyle(color: Colors.white),
+  );
 
   @override
   void initState() {
@@ -67,16 +70,6 @@ class _LogInState extends State<LogIn> {
                 ),
               ),
             ),
-            // const Padding(
-            //   padding: EdgeInsets.only(bottom: 30.0),
-            //   child: Text(
-            //     "Log In",
-            //     style: TextStyle(
-            //       fontSize: 24,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //   ),
-            // ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: CustomTextField(
@@ -122,14 +115,26 @@ class _LogInState extends State<LogIn> {
                   if (result != null && result == false) {
                     Fluttertoast.showToast(
                         msg: "Could not sign in with credentials");
-                    setState(() => _buttonChild = const Text("Log In"));
+                    setState(() => _buttonChild = const Text(
+                          'Log In',
+                          style: TextStyle(color: Colors.white),
+                        ));
                   } else {
                     if (context.mounted) {
                       Navigator.pop(context);
                     }
-                    Fluttertoast.showToast(msg: "Welcome :)");
+                    // Fluttertoast.showToast(msg: "Welcome :)");
+                    setState(() => _buttonChild = const Text(
+                          'Log In',
+                          style: TextStyle(color: Colors.white),
+                        ));
                   }
                 }
+
+                setState(() => _buttonChild = const Text(
+                      'Log In',
+                      style: TextStyle(color: Colors.white),
+                    ));
               },
             ),
             TextButton(

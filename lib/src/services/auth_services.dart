@@ -145,6 +145,8 @@ class AuthService {
               return false;
             }
 
+            Fluttertoast.showToast(msg: "Welcome :)");
+
             // activity log
             return UserActivityServices().add(
               user: user,
@@ -160,7 +162,7 @@ class AuthService {
       return true;
     } catch (e) {
       print(e.toString());
-      Fluttertoast.showToast(msg: e.toString());
+      // Fluttertoast.showToast(msg: e.toString());
 
       return false;
     }

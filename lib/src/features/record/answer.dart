@@ -64,24 +64,19 @@ class RecordAnswer extends StatelessWidget {
               ),
               correctAnswers.isEmpty
                   ? const SizedBox()
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: List.generate(
-                        correctAnswers.length,
-                        (index) => ListTile(
-                          title: const Text(
-                            "Correct Answer :",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(correctAnswers[index].text),
-                            ],
-                          ),
+                  : ListTile(
+                      title: const Text(
+                        "Correct Answer :",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: List.generate(
+                          correctAnswers.length,
+                          (i) => Text(correctAnswers[i].text),
                         ),
                       ),
                     ),

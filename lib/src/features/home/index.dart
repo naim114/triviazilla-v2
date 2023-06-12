@@ -42,53 +42,53 @@ class _HomeState extends State<Home> {
   bool loading = true;
 
   Future<void> _refreshData() async {
-    try {
-      // all trivia
-      List<TriviaModel> all = await TriviaServices().getAll();
-      List<TriviaModel> myTrivia = List.empty(growable: true);
+    // try {
+    // all trivia
+    List<TriviaModel> all = await TriviaServices().getAll();
+    List<TriviaModel> myTrivia = List.empty(growable: true);
 
-      // categories
-      for (var trivia in all) {
-        // my trivia
-        if (trivia.author!.id == widget.user.id) {
-          myTrivia.add(trivia);
-        }
+    // categories
+    for (var trivia in all) {
+      // my trivia
+      if (trivia.author!.id == widget.user.id) {
+        myTrivia.add(trivia);
       }
-
-      // sort by popularity
-      all.sort((a, b) {
-        if (a.likedBy == null && b.likedBy == null) {
-          return 0;
-        } else if (a.likedBy == null) {
-          return 1;
-        } else if (b.likedBy == null) {
-          return -1;
-        } else {
-          return a.likedBy!.length.compareTo(b.likedBy!.length);
-        }
-      });
-
-      List<TriviaModel> popular =
-          all.where((item) => item.likedBy != null).take(5).toList();
-
-      // news
-      List<NewsModel> newsList = await NewsService().getPopularNews();
-
-      setState(() {
-        loading = false;
-        allList = [
-          all, // all trivia
-          myTrivia, // my trivia
-          popular, // popular
-          newsList, // news
-        ];
-      });
-
-      // Trigger a refresh of the RefreshIndicator widget
-      _refreshIndicatorKey.currentState?.show();
-    } catch (e) {
-      print("Error Get All Type of News:  ${e.toString()}");
     }
+
+    // sort by popularity
+    all.sort((a, b) {
+      if (a.likedBy == null && b.likedBy == null) {
+        return 0;
+      } else if (a.likedBy == null) {
+        return 1;
+      } else if (b.likedBy == null) {
+        return -1;
+      } else {
+        return a.likedBy!.length.compareTo(b.likedBy!.length);
+      }
+    });
+
+    List<TriviaModel> popular =
+        all.where((item) => item.likedBy != null).take(5).toList();
+
+    // news
+    List<NewsModel> newsList = await NewsService().getPopularNews();
+
+    setState(() {
+      loading = false;
+      allList = [
+        all, // all trivia
+        myTrivia, // my trivia
+        popular, // popular
+        newsList, // news
+      ];
+    });
+
+    // Trigger a refresh of the RefreshIndicator widget
+    _refreshIndicatorKey.currentState?.show();
+    // } catch (e) {
+    //   print("Error Get All Type of News:  ${e.toString()}");
+    // }
 
     // setState(() {});
   }
@@ -184,7 +184,8 @@ class _HomeState extends State<Home> {
                         ),
                         contentPadding: const EdgeInsets.all(0),
                         prefixIcon: const Icon(Icons.search),
-                        hintText: 'Search trivia by title, categories, author, ...',
+                        hintText:
+                            'Search trivia by title, categories, author, ...',
                       ),
                     ),
                   ),

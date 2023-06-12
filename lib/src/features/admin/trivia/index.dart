@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:triviazilla/src/features/admin/news/add.dart';
 import 'package:triviazilla/src/model/trivia_model.dart';
 import 'package:intl/intl.dart';
 import 'package:triviazilla/src/widgets/modal/trivia_modal.dart';
@@ -77,24 +76,6 @@ class _AdminPanelTrivia extends State<AdminPanelTrivia> {
             color: getColorByBackground(context),
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => AddNews(
-                    currentUser: widget.currentUser,
-                  ),
-                ),
-              );
-              widget.notifyRefresh(true);
-            },
-            icon: Icon(
-              Icons.playlist_add_rounded,
-              color: getColorByBackground(context),
-            ),
-          )
-        ],
       ),
       body: ListView(
         children: [

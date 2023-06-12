@@ -62,7 +62,7 @@ class _StartTriviaState extends State<StartTrivia> {
               }
 
               // Time points
-              if (isLate) {
+              if (!isLate) {
                 setState(() => score =
                     score + ((timeLeft / question.secondsLimit) * 10).round());
                 print(
@@ -169,7 +169,6 @@ class _StartTriviaState extends State<StartTrivia> {
                   print("Last index!");
                   print("FINAL SCORE: $score");
 
-                  // TODO add record method here
                   RecordTriviaModel? record = await RecordServices().add(
                     trivia: widget.trivia,
                     user: widget.user,
