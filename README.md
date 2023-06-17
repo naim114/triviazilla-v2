@@ -11,6 +11,7 @@ Get ready to unleash your inner trivia master and become the creator of knowledg
 - Real-time feedback and results to track your progress
 - User-friendly interface with intuitive navigation and responsive design
 - Robust search functionality to find trivias of interest
+- Read news posted about announcement, promotion and many more information
 
 ### Contributing
 Contributions are welcome! If you notice any bugs or would like to suggest a new feature, please submit an issue on GitHub. If you would like to contribute code, please fork the repository and create a pull request.
