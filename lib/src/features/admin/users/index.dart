@@ -58,8 +58,6 @@ class _AdminPanelUsersState extends State<AdminPanelUsers> {
 
   @override
   Widget build(BuildContext context) {
-    filteredData = widget.userList;
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -172,12 +170,34 @@ class _AdminPanelUsersState extends State<AdminPanelUsers> {
                           _currentSortColumn = columnIndex;
                           if (_isAscending == true) {
                             _isAscending = false;
-                            widget.userList.sort((userA, userB) =>
-                                userA.disableAt!.compareTo(userB.disableAt!));
+                            widget.userList.sort((userA, userB) {
+                              if (userA.disableAt == null &&
+                                  userB.disableAt == null) {
+                                return 0;
+                              } else if (userA.disableAt == null) {
+                                return -1;
+                              } else if (userB.disableAt == null) {
+                                return 1;
+                              } else {
+                                return userA.disableAt!
+                                    .compareTo(userB.disableAt!);
+                              }
+                            });
                           } else {
                             _isAscending = true;
-                            widget.userList.sort((userA, userB) =>
-                                userB.disableAt!.compareTo(userA.disableAt!));
+                            widget.userList.sort((userA, userB) {
+                              if (userA.disableAt == null &&
+                                  userB.disableAt == null) {
+                                return 0;
+                              } else if (userA.disableAt == null) {
+                                return 1;
+                              } else if (userB.disableAt == null) {
+                                return -1;
+                              } else {
+                                return userB.disableAt!
+                                    .compareTo(userA.disableAt!);
+                              }
+                            });
                           }
                         });
                       },
@@ -212,22 +232,27 @@ class _AdminPanelUsersState extends State<AdminPanelUsers> {
                               IconButton(
                                 icon: const Icon(Icons.edit),
                                 onPressed: () {
-                                  Navigator.of(context).push(
+                                  Navigator.of(context)
+                                      .push(
                                     MaterialPageRoute(
                                       builder: (context) => EditUser(
                                         user: user,
                                         currentUser: widget.currentUser,
                                       ),
                                     ),
-                                  );
-                                  widget.notifyRefresh(true);
+                                  )
+                                      .then((result) {
+                                    if (result != null) {
+                                      widget.notifyRefresh(true);
+                                    }
+                                  });
                                 },
                               ),
                               user.disableAt == null
                                   // Disable
                                   ? IconButton(
                                       icon: const Icon(Icons.person_remove),
-                                      onPressed: () => showDialog<String>(
+                                      onPressed: () => showDialog(
                                         context: context,
                                         builder: (BuildContext context) =>
                                             AlertDialog(

@@ -46,14 +46,12 @@ class _NotificationBuilderState extends State<NotificationBuilder> {
     } catch (e) {
       print("Get All:  ${e.toString()}");
     }
-
-    setState(() {});
   }
 
   @override
   void initState() {
-    super.initState();
     _refreshData();
+    super.initState();
   }
 
   @override

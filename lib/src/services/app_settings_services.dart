@@ -134,7 +134,7 @@ class AppSettingsServices {
       _collectionRef.doc('application').update({
         'logoMainPath': 'settings/application/logo_main$extension',
         'logoMainURL': downloadUrl,
-        'updated_at': DateTime.now(),
+        'updatedAt': DateTime.now(),
       }).then((value) => print("Logo Main Path Updated on Firestore"));
 
       await UserServices()
@@ -233,7 +233,7 @@ class AppSettingsServices {
       _collectionRef.doc('application').update({
         'logoFaviconPath': 'settings/application/logo_favicon$extension',
         'logoFaviconURL': downloadUrl,
-        'updated_at': DateTime.now(),
+        'updatedAt': DateTime.now(),
       }).then((value) => print("Logo Favicon Path Updated on Firestore"));
 
       await UserServices()

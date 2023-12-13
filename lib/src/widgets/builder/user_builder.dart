@@ -46,14 +46,12 @@ class _UsersBuilderState extends State<UsersBuilder> {
     } catch (e) {
       print("Get All:  ${e.toString()}");
     }
-
-    setState(() {});
   }
 
   @override
   void initState() {
-    super.initState();
     _refreshData();
+    super.initState();
   }
 
   @override
@@ -65,14 +63,17 @@ class _UsersBuilderState extends State<UsersBuilder> {
             onRefresh: _refreshData,
             child: Builder(
               builder: (context) {
-                dataList
-                    .removeWhere((user) => user.role!.name == 'super_admin');
+                if (widget.currentUser.role!.name != 'super_admin') {
+                  dataList
+                      .removeWhere((user) => user.role!.name == 'super_admin');
+                }
 
                 if (widget.pushTo == 'AdminPanelUsers') {
                   return AdminPanelUsers(
                     userList: dataList,
                     currentUser: widget.currentUser,
                     notifyRefresh: (refresh) {
+                      print("refresh: $refresh");
                       _refreshData();
                     },
                   );

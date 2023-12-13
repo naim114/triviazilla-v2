@@ -59,8 +59,6 @@ class _AdminPanelNotificationState extends State<AdminPanelNotification> {
 
   @override
   Widget build(BuildContext context) {
-    filteredData = widget.notiList;
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
