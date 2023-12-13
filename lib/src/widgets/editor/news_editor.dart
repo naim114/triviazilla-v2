@@ -389,8 +389,10 @@ class _NewsEditorState extends State<NewsEditor> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: QuillToolbar.basic(
-                    controller: widget.controller,
+                  child: QuillToolbar.simple(
+                    configurations: QuillSimpleToolbarConfigurations(
+                      controller: widget.controller,
+                    ),
                   ),
                 ),
                 Padding(
@@ -399,8 +401,10 @@ class _NewsEditorState extends State<NewsEditor> {
                     vertical: 5,
                   ),
                   child: QuillEditor.basic(
-                    controller: widget.controller,
-                    readOnly: false,
+                    configurations: QuillEditorConfigurations(
+                      controller: widget.controller,
+                      readOnly: false,
+                    ),
                   ),
                 ),
               ],

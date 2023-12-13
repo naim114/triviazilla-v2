@@ -167,27 +167,27 @@ class RecordServices {
       });
 
       // Activity Log
-      await UserServices()
-          .get(_auth.currentUser!.uid)
-          .then((currentUser) async {
-        print("Get current user");
-        if (currentUser != null) {
-          UserModel? user = await UserServices().get(currentUser.id);
+      // await UserServices()
+      //     .get(_auth.currentUser!.uid)
+      //     .then((currentUser) async {
+      //   print("Get current user");
+      //   if (currentUser != null) {
+      //     UserModel? user = await UserServices().get(currentUser.id);
 
-          if (user != null) {
-            await UserActivityServices()
-                .add(
-                  user: currentUser,
-                  description:
-                      "Add Record (Trivia: ${trivia.title}, User: ${user.email})",
-                  activityType: "record_add",
-                  networkInfo: _networkInfo,
-                  deviceInfoPlugin: _deviceInfoPlugin,
-                )
-                .then((value) => print("Activity Added"));
-          }
-        }
-      });
+      //     if (user != null) {
+      //       await UserActivityServices()
+      //           .add(
+      //             user: currentUser,
+      //             description:
+      //                 "Add Record (Trivia: ${trivia.title}, User: ${user.email})",
+      //             activityType: "record_add",
+      //             networkInfo: _networkInfo,
+      //             deviceInfoPlugin: _deviceInfoPlugin,
+      //           )
+      //           .then((value) => print("Activity Added"));
+      //     }
+      //   }
+      // });
 
       RecordTriviaModel newTrivia =
           await result.get().then((DocumentSnapshot doc) {

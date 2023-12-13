@@ -45,7 +45,9 @@ class _ProfileState extends State<Profile> {
             .format(widget.user.birthday ?? DateTime.now())
         : "";
 
-    countryDropdownValue = widget.user.country.number;
+    if (widget.user.country != null) {
+      countryDropdownValue = widget.user.country!.number;
+    }
 
     super.initState();
   }

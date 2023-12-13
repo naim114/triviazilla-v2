@@ -9,7 +9,7 @@ class UserModel {
   final DateTime? birthday;
   final String? phone;
   final String? address;
-  final Country country;
+  final Country? country;
   final String? avatarPath;
   final String? avatarURL;
   final RoleModel? role;
@@ -29,7 +29,7 @@ class UserModel {
     this.birthday,
     this.phone,
     this.address,
-    this.country = Countries.mys,
+    this.country,
     required this.email,
     required this.password,
     this.avatarPath,
@@ -43,7 +43,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, email: $email, name: $name, birthday: $birthday, phone: $phone, address: $address, bio: $bio country: ${country.isoShortName}, avatarPath: $avatarPath, avatarURL: $avatarURL, role: $role, createdAt: $createdAt, updatedAt: $updatedAt, disableAt: $disableAt, password: $password)';
+    return 'UserModel(id: $id, email: $email, name: $name, birthday: $birthday, phone: $phone, address: $address, bio: $bio country: ${country?.isoShortName}, avatarPath: $avatarPath, avatarURL: $avatarURL, role: $role, createdAt: $createdAt, updatedAt: $updatedAt, disableAt: $disableAt, password: $password)';
   }
 
   UserModel.fromJson(Map<String, Object?> json)
@@ -74,7 +74,7 @@ class UserModel {
       'phone': phone,
       'address': address,
       'bio': bio,
-      'country': country.number,
+      'country': country == null ? '458' : country?.number,
       'avatarPath': avatarPath,
       'avatarURL': avatarURL,
       'role': role?.id,

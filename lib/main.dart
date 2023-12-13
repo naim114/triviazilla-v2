@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:triviazilla/src/model/app_settings_model.dart';
@@ -109,6 +108,16 @@ class _MyAppState extends State<MyApp> {
                     displayColor: Colors.white,
                   ),
             ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                  (Set<MaterialState> states) {
+                    // Return the color you want based on the button's state.
+                    return CustomColor.primary;
+                  },
+                ),
+              ),
+            ),
             scaffoldBackgroundColor: CustomColor.darkerBg,
             appBarTheme: const AppBarTheme(
                 backgroundColor: CustomColor.darkerBg,
@@ -134,6 +143,16 @@ class _MyAppState extends State<MyApp> {
                   ),
             ),
             scaffoldBackgroundColor: Colors.white,
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                  (Set<MaterialState> states) {
+                    // Return the color you want based on the button's state.
+                    return CustomColor.primary;
+                  },
+                ),
+              ),
+            ),
             appBarTheme: const AppBarTheme(
                 backgroundColor: Colors.white,
                 // titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
