@@ -77,6 +77,8 @@ dependencies:
 dev_dependencies:
   flutter_oss_licenses: ^2.0.1
   flutter_launcher_icons: "^0.13.1"
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
 

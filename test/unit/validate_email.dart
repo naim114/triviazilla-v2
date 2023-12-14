@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:triviazilla/src/services/helpers.dart';
 
 void main() {
-  group('validateEmail', () {
+  group('validate email function', () {
     test('should return true for a valid email', () {
       debugPrint("should return true for a valid email");
       debugPrint("sample: test@example.com");

@@ -83,17 +83,18 @@ class _MyAppState extends State<MyApp> {
       ],
       child: ThemeModeHandler(
         manager: MyThemeModeManager(),
-        placeholderWidget: MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: LoadingAnimationWidget.flickr(
-                leftDotColor: CustomColor.primary,
-                rightDotColor: CustomColor.secondary,
-                size: 50,
-              ),
-            ),
-          ),
-        ),
+        // Commented for integration testing
+        // placeholderWidget: MaterialApp(
+        //   home: Scaffold(
+        //     body: Center(
+        //       child: LoadingAnimationWidget.flickr(
+        //         leftDotColor: CustomColor.primary,
+        //         rightDotColor: CustomColor.secondary,
+        //         size: 50,
+        //       ),
+        //     ),
+        //   ),
+        // ),
         builder: (ThemeMode themeMode) => MaterialApp(
           themeMode: themeMode,
           // DARK THEME

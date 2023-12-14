@@ -25,6 +25,7 @@ class AuthIndex extends StatelessWidget {
         noBackButton: true,
         actions: [
           IconButton(
+            key: const Key('theme_button'),
             icon: isDarkTheme(context)
                 ? const Icon(CupertinoIcons.moon_fill)
                 : const Icon(CupertinoIcons.sun_max_fill),
